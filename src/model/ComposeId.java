@@ -1,13 +1,13 @@
-package dao;
+package model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- * ProofreadId entity. @author MyEclipse Persistence Tools
+ * ComposeId entity. @author MyEclipse Persistence Tools
  */
 @Embeddable
-public class ProofreadId implements java.io.Serializable {
+public class ComposeId implements java.io.Serializable {
 
 	// Fields
 
@@ -20,11 +20,11 @@ public class ProofreadId implements java.io.Serializable {
 	// Constructors
 
 	/** default constructor */
-	public ProofreadId() {
+	public ComposeId() {
 	}
 
 	/** full constructor */
-	public ProofreadId(Integer id, Integer staffId, Integer scriptId,
+	public ComposeId(Integer id, Integer staffId, Integer scriptId,
 			Integer scriptAuthorId, Integer scriptMagazineId) {
 		this.id = id;
 		this.staffId = staffId;
@@ -85,9 +85,9 @@ public class ProofreadId implements java.io.Serializable {
 			return true;
 		if ((other == null))
 			return false;
-		if (!(other instanceof ProofreadId))
+		if (!(other instanceof ComposeId))
 			return false;
-		ProofreadId castOther = (ProofreadId) other;
+		ComposeId castOther = (ComposeId) other;
 
 		return ((this.getId() == castOther.getId()) || (this.getId() != null
 				&& castOther.getId() != null && this.getId().equals(

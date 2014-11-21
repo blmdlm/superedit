@@ -1,31 +1,29 @@
-package dao;
+package model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- * ArrangeId entity. @author MyEclipse Persistence Tools
+ * MessageboardId entity. @author MyEclipse Persistence Tools
  */
 @Embeddable
-public class ArrangeId implements java.io.Serializable {
+public class MessageboardId implements java.io.Serializable {
 
 	// Fields
 
 	private Integer id;
 	private Integer authorId;
-	private Integer staffId;
 
 	// Constructors
 
 	/** default constructor */
-	public ArrangeId() {
+	public MessageboardId() {
 	}
 
 	/** full constructor */
-	public ArrangeId(Integer id, Integer authorId, Integer staffId) {
+	public MessageboardId(Integer id, Integer authorId) {
 		this.id = id;
 		this.authorId = authorId;
-		this.staffId = staffId;
 	}
 
 	// Property accessors
@@ -48,23 +46,14 @@ public class ArrangeId implements java.io.Serializable {
 		this.authorId = authorId;
 	}
 
-	@Column(name = "Staff_id", nullable = false)
-	public Integer getStaffId() {
-		return this.staffId;
-	}
-
-	public void setStaffId(Integer staffId) {
-		this.staffId = staffId;
-	}
-
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
 		if ((other == null))
 			return false;
-		if (!(other instanceof ArrangeId))
+		if (!(other instanceof MessageboardId))
 			return false;
-		ArrangeId castOther = (ArrangeId) other;
+		MessageboardId castOther = (MessageboardId) other;
 
 		return ((this.getId() == castOther.getId()) || (this.getId() != null
 				&& castOther.getId() != null && this.getId().equals(
@@ -72,10 +61,7 @@ public class ArrangeId implements java.io.Serializable {
 				&& ((this.getAuthorId() == castOther.getAuthorId()) || (this
 						.getAuthorId() != null
 						&& castOther.getAuthorId() != null && this
-						.getAuthorId().equals(castOther.getAuthorId())))
-				&& ((this.getStaffId() == castOther.getStaffId()) || (this
-						.getStaffId() != null && castOther.getStaffId() != null && this
-						.getStaffId().equals(castOther.getStaffId())));
+						.getAuthorId().equals(castOther.getAuthorId())));
 	}
 
 	public int hashCode() {
@@ -84,8 +70,6 @@ public class ArrangeId implements java.io.Serializable {
 		result = 37 * result + (getId() == null ? 0 : this.getId().hashCode());
 		result = 37 * result
 				+ (getAuthorId() == null ? 0 : this.getAuthorId().hashCode());
-		result = 37 * result
-				+ (getStaffId() == null ? 0 : this.getStaffId().hashCode());
 		return result;
 	}
 

@@ -2,6 +2,9 @@ package dao;
 
 import java.util.List;
 import java.util.Set;
+
+import model.Script;
+
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +19,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see dao.Script
+ * @see model.Script
  * @author MyEclipse Persistence Tools
  */
 public class ScriptDAO extends HibernateDaoSupport {
@@ -54,7 +57,7 @@ public class ScriptDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Script findById(dao.ScriptId id) {
+	public Script findById(model.ScriptId id) {
 		log.debug("getting Script instance with id: " + id);
 		try {
 			Script instance = (Script) getHibernateTemplate().get("dao.Script",

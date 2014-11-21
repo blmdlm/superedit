@@ -1,6 +1,9 @@
 package dao;
 
 import java.util.List;
+
+import model.Message;
+
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +18,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see dao.Message
+ * @see model.Message
  * @author MyEclipse Persistence Tools
  */
 public class MessageDAO extends HibernateDaoSupport {

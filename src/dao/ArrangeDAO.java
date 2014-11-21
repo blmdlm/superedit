@@ -2,6 +2,9 @@ package dao;
 
 import java.util.Date;
 import java.util.List;
+
+import model.Arrange;
+
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +19,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see dao.Arrange
+ * @see model.Arrange
  * @author MyEclipse Persistence Tools
  */
 public class ArrangeDAO extends HibernateDaoSupport {
@@ -51,7 +54,7 @@ public class ArrangeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Arrange findById(dao.ArrangeId id) {
+	public Arrange findById(model.ArrangeId id) {
 		log.debug("getting Arrange instance with id: " + id);
 		try {
 			Arrange instance = (Arrange) getHibernateTemplate().get(

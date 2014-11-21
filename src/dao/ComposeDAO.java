@@ -2,6 +2,9 @@ package dao;
 
 import java.util.Date;
 import java.util.List;
+
+import model.Compose;
+
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +19,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see dao.Compose
+ * @see model.Compose
  * @author MyEclipse Persistence Tools
  */
 public class ComposeDAO extends HibernateDaoSupport {
@@ -51,7 +54,7 @@ public class ComposeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Compose findById(dao.ComposeId id) {
+	public Compose findById(model.ComposeId id) {
 		log.debug("getting Compose instance with id: " + id);
 		try {
 			Compose instance = (Compose) getHibernateTemplate().get(

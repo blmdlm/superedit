@@ -1,4 +1,4 @@
-package dao;
+package model;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;

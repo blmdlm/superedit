@@ -2,6 +2,9 @@ package dao;
 
 import java.util.List;
 import java.util.Set;
+
+import model.Magazine;
+
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +19,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see dao.Magazine
+ * @see model.Magazine
  * @author MyEclipse Persistence Tools
  */
 public class MagazineDAO extends HibernateDaoSupport {

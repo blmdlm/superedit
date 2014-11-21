@@ -1,6 +1,9 @@
 package dao;
 
 import java.util.List;
+
+import model.Messageboard;
+
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +18,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * transactions. Each of these methods provides additional information for how
  * to configure it for the desired type of transaction control.
  * 
- * @see dao.Messageboard
+ * @see model.Messageboard
  * @author MyEclipse Persistence Tools
  */
 public class MessageboardDAO extends HibernateDaoSupport {
@@ -51,7 +54,7 @@ public class MessageboardDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Messageboard findById(dao.MessageboardId id) {
+	public Messageboard findById(model.MessageboardId id) {
 		log.debug("getting Messageboard instance with id: " + id);
 		try {
 			Messageboard instance = (Messageboard) getHibernateTemplate().get(

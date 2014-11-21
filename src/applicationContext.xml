@@ -29,16 +29,16 @@
 		</property>
 		<property name="annotatedClasses">
 			<list>
-				<value>dao.Script</value>
-				<value>dao.Messageboard</value>
-				<value>dao.Message</value>
-				<value>dao.Compose</value>
-				<value>dao.Audit</value>
-				<value>dao.Arrange</value>
-				<value>dao.Magazine</value>
-				<value>dao.Author</value>
-				<value>dao.Staff</value>
-				<value>dao.Proofread</value></list>
+				<value>model.Script</value>
+				<value>model.Messageboard</value>
+				<value>model.Message</value>
+				<value>model.Compose</value>
+				<value>model.Audit</value>
+				<value>model.Arrange</value>
+				<value>model.Magazine</value>
+				<value>model.Author</value>
+				<value>model.Staff</value>
+				<value>model.Proofread</value></list>
 		</property></bean>
 	<bean id="ScriptDAO" class="dao.ScriptDAO">
 		<property name="sessionFactory">

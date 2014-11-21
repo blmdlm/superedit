@@ -2,6 +2,9 @@ package dao;
 
 import java.util.Date;
 import java.util.List;
+
+import model.Audit;
+
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +19,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * provides additional information for how to configure it for the desired type
  * of transaction control.
  * 
- * @see dao.Audit
+ * @see model.Audit
  * @author MyEclipse Persistence Tools
  */
 public class AuditDAO extends HibernateDaoSupport {
@@ -52,7 +55,7 @@ public class AuditDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Audit findById(dao.AuditId id) {
+	public Audit findById(model.AuditId id) {
 		log.debug("getting Audit instance with id: " + id);
 		try {
 			Audit instance = (Audit) getHibernateTemplate()

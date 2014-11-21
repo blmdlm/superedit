@@ -2,6 +2,9 @@ package dao;
 
 import java.util.Date;
 import java.util.List;
+
+import model.Proofread;
+
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +19,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see dao.Proofread
+ * @see model.Proofread
  * @author MyEclipse Persistence Tools
  */
 public class ProofreadDAO extends HibernateDaoSupport {
@@ -53,7 +56,7 @@ public class ProofreadDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Proofread findById(dao.ProofreadId id) {
+	public Proofread findById(model.ProofreadId id) {
 		log.debug("getting Proofread instance with id: " + id);
 		try {
 			Proofread instance = (Proofread) getHibernateTemplate().get(

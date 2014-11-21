@@ -1,6 +1,6 @@
 package test.dao;
 
-import dao.Staff;
+import model.Staff;
 import dao.StaffDAO;
 
 public class staffDAOTest {
