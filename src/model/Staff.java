@@ -41,7 +41,23 @@ public class Staff implements java.io.Serializable {
 	/** default constructor */
 	public Staff() {
 	}
-
+	
+	/**自定义的构造器 */
+	public Staff(String email, String password, Integer parentid,
+			Integer character, Integer authority, String name, Integer gender,
+			String phonenum, String address){
+		super();
+		this.email = email;
+		this.password = password;
+		this.parentid = parentid;
+		this.character = character;
+		this.authority = authority;
+		this.name = name;
+		this.gender = gender;
+		this.phonenum = phonenum;
+		this.address = address;
+	}
+	
 	/** full constructor */
 	public Staff(String email, String password, Integer parentid,
 			Integer character, Integer authority, String name, Integer gender,
