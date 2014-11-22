@@ -10,9 +10,10 @@ import dao.StaffDAO;
 public class HelloController {
 	@Autowired
 	 StaffDAO staffDAO;
-	@RequestMapping({"/hello","/"})
+	@RequestMapping({"/hello"})
 	public String hello(String username,Model model){	
 		model.addAttribute("username",username);
+		System.out.println("进入了");
 		return "hello";
 	}
 }
