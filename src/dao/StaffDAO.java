@@ -28,7 +28,7 @@ public class StaffDAO extends HibernateDaoSupport {
 	public static final String EMAIL = "email";
 	public static final String PASSWORD = "password";
 	public static final String PARENTID = "parentid";
-	public static final String CHARACTER = "character";
+	public static final String ROLE = "role";
 	public static final String AUTHORITY = "authority";
 	public static final String NAME = "name";
 	public static final String GENDER = "gender";
@@ -112,8 +112,8 @@ public class StaffDAO extends HibernateDaoSupport {
 		return findByProperty(PARENTID, parentid);
 	}
 
-	public List<Staff> findByCharacter(Object character) {
-		return findByProperty(CHARACTER, character);
+	public List<Staff> findByRole(Object role) {
+		return findByProperty(ROLE, role);
 	}
 
 	public List<Staff> findByAuthority(Object authority) {

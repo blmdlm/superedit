@@ -1,5 +1,8 @@
 package service;
 
+
+import java.util.List;
+
 import model.Staff;
 
 /**
@@ -41,4 +44,26 @@ public interface StaffService {
 	 * @param staff
 	 */
 	void delete(Staff staff);
+	/**
+	 * 判断职员是否存在
+	 * @param staff
+	 * @return
+	 */
+	boolean isExist(Staff staff);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

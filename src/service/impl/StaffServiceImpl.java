@@ -1,8 +1,12 @@
 package service.impl;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import controller.ProprieterController;
 import dao.StaffDAO;
 import model.Staff;
 import service.StaffService;
@@ -17,6 +21,7 @@ import service.StaffService;
  */
 @Service
 public class StaffServiceImpl implements StaffService {
+	private static Logger logger = Logger.getLogger(StaffServiceImpl.class);
 	@Autowired
 	private StaffDAO staffDAO;
 
@@ -42,6 +47,19 @@ public class StaffServiceImpl implements StaffService {
 	public void delete(Staff staff) {
 		staffDAO.delete(staff);
 
+	}
+
+	@Override
+	public boolean isExist(Staff staff) {
+		List<Staff> staffs= staffDAO.findByEmail(staff.getEmail());
+		logger.info(staffs.size());
+		logger.info(staff.toString());
+		if (staffs.size()!=0) {
+			
+			
+			return true;
+		}
+		return false;
 	}
 
 }

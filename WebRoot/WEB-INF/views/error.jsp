@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>创建账户</title>
+    <title>My JSP 'error.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -21,23 +21,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 
   </head>
-  
-  <body>
-     <form action="proprieter/add" method="POST">
-
-  	<p>邮箱: <input type="text" name="email" /></p>
-
-  	<p>职务: <select name="role">
-  <option value ="1" selected="true">总编</option>
-  <option value ="2">财务人员</option>
-  <option value="3">留言管理人员</option>
- 
-</select></p>
   	
-  	<p>密码: <input type="text" name="password" /></p>
-
-  	<input type="submit" value="创建" />
-
-	</form>
+  <body>
+     ${exception.message}
   </body>
 </html>

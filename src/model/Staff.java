@@ -21,11 +21,12 @@ public class Staff implements java.io.Serializable {
 
 	// Fields
 
+
 	private Integer id;
 	private String email;
 	private String password;
 	private Integer parentid;
-	private Integer character;
+	private Integer role;
 	private Integer authority;
 	private String name;
 	private Integer gender;
@@ -43,7 +44,7 @@ public class Staff implements java.io.Serializable {
 	}
 	
 	/**自定义的构造器 */
-	public Staff(String email, String password, Integer parentid,
+	/*public Staff(String email, String password, Integer parentid,
 			Integer character, Integer authority, String name, Integer gender,
 			String phonenum, String address){
 		super();
@@ -56,17 +57,17 @@ public class Staff implements java.io.Serializable {
 		this.gender = gender;
 		this.phonenum = phonenum;
 		this.address = address;
-	}
+	}*/
 	
 	/** full constructor */
 	public Staff(String email, String password, Integer parentid,
-			Integer character, Integer authority, String name, Integer gender,
+			Integer role, Integer authority, String name, Integer gender,
 			String phonenum, String address, Set<Proofread> proofreads,
 			Set<Audit> audits, Set<Arrange> arranges, Set<Compose> composes) {
 		this.email = email;
 		this.password = password;
 		this.parentid = parentid;
-		this.character = character;
+		this.role = role;
 		this.authority = authority;
 		this.name = name;
 		this.gender = gender;
@@ -117,19 +118,21 @@ public class Staff implements java.io.Serializable {
 		this.parentid = parentid;
 	}
 
-	@Column(name = "character")
-	public Integer getCharacter() {
-		return this.character;
+	@Column(name = "role")
+	public Integer getRole() {
+		return role;
 	}
 
-	public void setCharacter(Integer character) {
-		this.character = character;
+	public void setRole(Integer role) {
+		this.role = role;
 	}
 
 	@Column(name = "authority")
 	public Integer getAuthority() {
 		return this.authority;
 	}
+
+	
 
 	public void setAuthority(Integer authority) {
 		this.authority = authority;
