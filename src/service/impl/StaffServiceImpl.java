@@ -52,14 +52,20 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public boolean isExist(Staff staff) {
 		List<Staff> staffs= staffDAO.findByEmail(staff.getEmail());
-		logger.info(staffs.size());
-		logger.info(staff.toString());
 		if (staffs.size()!=0) {
 			
 			
 			return true;
 		}
 		return false;
+	}
+
+
+
+	@Override
+	public List<Staff> findByParentid(Integer parentid) {
+		List<Staff> staffs=staffDAO.findByParentid(parentid);
+		return staffs;
 	}
 
 }

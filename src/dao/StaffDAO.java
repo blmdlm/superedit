@@ -1,8 +1,6 @@
 package dao;
 
 import java.util.List;
-import java.util.Set;
-
 import model.Staff;
 
 import org.hibernate.LockMode;
@@ -65,7 +63,7 @@ public class StaffDAO extends HibernateDaoSupport {
 		log.debug("getting Staff instance with id: " + id);
 		try {
 			Staff instance = (Staff) getHibernateTemplate()
-					.get("dao.Staff", id);
+					.get("model.Staff", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

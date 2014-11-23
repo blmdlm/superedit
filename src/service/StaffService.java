@@ -52,9 +52,14 @@ public interface StaffService {
 	boolean isExist(Staff staff);
 	
 	
+
 	
-	
-	
+	/**
+	 * 通过parentid找到职员
+	 * @param parentid
+	 * @return
+	 */
+	List<Staff> findByParentid(Integer parentid);
 	
 	
 	

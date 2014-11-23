@@ -23,10 +23,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    欢迎您，亲爱的社长<br>
+    欢迎您，亲爱的社长-----Mr.${h_user.name}<br>
    <hr>
-   <a href="proprieter/add">创建角色</a>
+   <a href="proprieter/usermanager">用户管理</a>
    <br>
+      <a href="proprieter/usercenter">个人中心</a>
+   <br>
+   
    <img src="res/img/girl01.jpg" alt="图片加载失败"/>
   </body>
 </html>
