@@ -1,9 +1,9 @@
 package dao;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
-import model.Arrange;
+import model.Publisher;
 
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
@@ -13,27 +13,27 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * A data access object (DAO) providing persistence and search support for
- * Arrange entities. Transaction control of the save(), update() and delete()
+ * Publisher entities. Transaction control of the save(), update() and delete()
  * operations can directly support Spring container-managed transactions or they
  * can be augmented to handle user-managed Spring transactions. Each of these
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see model.Arrange
+ * @see model.Publisher
  * @author MyEclipse Persistence Tools
  */
-public class ArrangeDAO extends HibernateDaoSupport {
-	private static final Logger log = LoggerFactory.getLogger(ArrangeDAO.class);
+public class PublisherDAO extends HibernateDaoSupport {
+	private static final Logger log = LoggerFactory
+			.getLogger(PublisherDAO.class);
 	// property constants
-	public static final String ARRANGE_TITLE = "arrangeTitle";
-	public static final String ARRANGE_CONTENT = "arrangeContent";
+	public static final String NAME = "name";
 
 	protected void initDao() {
 		// do nothing
 	}
 
-	public void save(Arrange transientInstance) {
-		log.debug("saving Arrange instance");
+	public void save(Publisher transientInstance) {
+		log.debug("saving Publisher instance");
 		try {
 			getHibernateTemplate().save(transientInstance);
 			log.debug("save successful");
@@ -43,8 +43,8 @@ public class ArrangeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void delete(Arrange persistentInstance) {
-		log.debug("deleting Arrange instance");
+	public void delete(Publisher persistentInstance) {
+		log.debug("deleting Publisher instance");
 		try {
 			getHibernateTemplate().delete(persistentInstance);
 			log.debug("delete successful");
@@ -54,11 +54,11 @@ public class ArrangeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Arrange findById(model.ArrangeId id) {
-		log.debug("getting Arrange instance with id: " + id);
+	public Publisher findById(java.lang.Integer id) {
+		log.debug("getting Publisher instance with id: " + id);
 		try {
-			Arrange instance = (Arrange) getHibernateTemplate().get(
-					"dao.Arrange", id);
+			Publisher instance = (Publisher) getHibernateTemplate().get(
+					"dao.Publisher", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -66,10 +66,10 @@ public class ArrangeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List<Arrange> findByExample(Arrange instance) {
-		log.debug("finding Arrange instance by example");
+	public List<Publisher> findByExample(Publisher instance) {
+		log.debug("finding Publisher instance by example");
 		try {
-			List<Arrange> results = (List<Arrange>) getHibernateTemplate()
+			List<Publisher> results = (List<Publisher>) getHibernateTemplate()
 					.findByExample(instance);
 			log.debug("find by example successful, result size: "
 					+ results.size());
@@ -81,10 +81,10 @@ public class ArrangeDAO extends HibernateDaoSupport {
 	}
 
 	public List findByProperty(String propertyName, Object value) {
-		log.debug("finding Arrange instance with property: " + propertyName
+		log.debug("finding Publisher instance with property: " + propertyName
 				+ ", value: " + value);
 		try {
-			String queryString = "from Arrange as model where model."
+			String queryString = "from Publisher as model where model."
 					+ propertyName + "= ?";
 			return getHibernateTemplate().find(queryString, value);
 		} catch (RuntimeException re) {
@@ -93,18 +93,14 @@ public class ArrangeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List<Arrange> findByArrangeTitle(Object arrangeTitle) {
-		return findByProperty(ARRANGE_TITLE, arrangeTitle);
-	}
-
-	public List<Arrange> findByArrangeContent(Object arrangeContent) {
-		return findByProperty(ARRANGE_CONTENT, arrangeContent);
+	public List<Publisher> findByName(Object name) {
+		return findByProperty(NAME, name);
 	}
 
 	public List findAll() {
-		log.debug("finding all Arrange instances");
+		log.debug("finding all Publisher instances");
 		try {
-			String queryString = "from Arrange";
+			String queryString = "from Publisher";
 			return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find all failed", re);
@@ -112,10 +108,10 @@ public class ArrangeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Arrange merge(Arrange detachedInstance) {
-		log.debug("merging Arrange instance");
+	public Publisher merge(Publisher detachedInstance) {
+		log.debug("merging Publisher instance");
 		try {
-			Arrange result = (Arrange) getHibernateTemplate().merge(
+			Publisher result = (Publisher) getHibernateTemplate().merge(
 					detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -125,8 +121,8 @@ public class ArrangeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void attachDirty(Arrange instance) {
-		log.debug("attaching dirty Arrange instance");
+	public void attachDirty(Publisher instance) {
+		log.debug("attaching dirty Publisher instance");
 		try {
 			getHibernateTemplate().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -136,8 +132,8 @@ public class ArrangeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void attachClean(Arrange instance) {
-		log.debug("attaching clean Arrange instance");
+	public void attachClean(Publisher instance) {
+		log.debug("attaching clean Publisher instance");
 		try {
 			getHibernateTemplate().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -147,7 +143,7 @@ public class ArrangeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public static ArrangeDAO getFromApplicationContext(ApplicationContext ctx) {
-		return (ArrangeDAO) ctx.getBean("ArrangeDAO");
+	public static PublisherDAO getFromApplicationContext(ApplicationContext ctx) {
+		return (PublisherDAO) ctx.getBean("PublisherDAO");
 	}
 }

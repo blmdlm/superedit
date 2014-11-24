@@ -26,9 +26,10 @@ public class ProofreadDAO extends HibernateDaoSupport {
 	private static final Logger log = LoggerFactory
 			.getLogger(ProofreadDAO.class);
 	// property constants
-	public static final String PROOF_ADDR = "proofAddr";
+	public static final String PROOF_PATH = "proofPath";
 	public static final String PROOF_RANK = "proofRank";
 	public static final String PROOF_STATE = "proofState";
+	public static final String STAFF_ID = "staffId";
 
 	protected void initDao() {
 		// do nothing
@@ -56,7 +57,7 @@ public class ProofreadDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Proofread findById(model.ProofreadId id) {
+	public Proofread findById(java.lang.Integer id) {
 		log.debug("getting Proofread instance with id: " + id);
 		try {
 			Proofread instance = (Proofread) getHibernateTemplate().get(
@@ -95,8 +96,8 @@ public class ProofreadDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List<Proofread> findByProofAddr(Object proofAddr) {
-		return findByProperty(PROOF_ADDR, proofAddr);
+	public List<Proofread> findByProofPath(Object proofPath) {
+		return findByProperty(PROOF_PATH, proofPath);
 	}
 
 	public List<Proofread> findByProofRank(Object proofRank) {
@@ -105,6 +106,10 @@ public class ProofreadDAO extends HibernateDaoSupport {
 
 	public List<Proofread> findByProofState(Object proofState) {
 		return findByProperty(PROOF_STATE, proofState);
+	}
+
+	public List<Proofread> findByStaffId(Object staffId) {
+		return findByProperty(STAFF_ID, staffId);
 	}
 
 	public List findAll() {

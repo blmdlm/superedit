@@ -25,7 +25,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class AuditDAO extends HibernateDaoSupport {
 	private static final Logger log = LoggerFactory.getLogger(AuditDAO.class);
 	// property constants
-	public static final String AUDIT_ADDR = "auditAddr";
+	public static final String STAFF_ID = "staffId";
+	public static final String AUDIT_PATH = "auditPath";
 	public static final String AUDIT_RANK = "auditRank";
 	public static final String AUDIT_STATE = "auditState";
 
@@ -55,7 +56,7 @@ public class AuditDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Audit findById(model.AuditId id) {
+	public Audit findById(java.lang.Integer id) {
 		log.debug("getting Audit instance with id: " + id);
 		try {
 			Audit instance = (Audit) getHibernateTemplate()
@@ -94,8 +95,12 @@ public class AuditDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List<Audit> findByAuditAddr(Object auditAddr) {
-		return findByProperty(AUDIT_ADDR, auditAddr);
+	public List<Audit> findByStaffId(Object staffId) {
+		return findByProperty(STAFF_ID, staffId);
+	}
+
+	public List<Audit> findByAuditPath(Object auditPath) {
+		return findByProperty(AUDIT_PATH, auditPath);
 	}
 
 	public List<Audit> findByAuditRank(Object auditRank) {

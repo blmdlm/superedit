@@ -1,15 +1,13 @@
 package model;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,62 +19,41 @@ public class Staff implements java.io.Serializable {
 
 	// Fields
 
-
 	private Integer id;
+	private Publisher publisher;
 	private String email;
 	private String password;
 	private Integer parentid;
 	private Integer role;
-	private Integer authority;
+	private Integer level;
 	private String name;
 	private Integer gender;
-	private String phonenum;
-	private String address;
-	private Set<Proofread> proofreads = new HashSet<Proofread>(0);
-	private Set<Audit> audits = new HashSet<Audit>(0);
-	private Set<Arrange> arranges = new HashSet<Arrange>(0);
-	private Set<Compose> composes = new HashSet<Compose>(0);
+	private String phone;
 
 	// Constructors
 
 	/** default constructor */
 	public Staff() {
 	}
-	
-	/**自定义的构造器 */
-	/*public Staff(String email, String password, Integer parentid,
-			Integer character, Integer authority, String name, Integer gender,
-			String phonenum, String address){
-		super();
-		this.email = email;
-		this.password = password;
-		this.parentid = parentid;
-		this.character = character;
-		this.authority = authority;
-		this.name = name;
-		this.gender = gender;
-		this.phonenum = phonenum;
-		this.address = address;
-	}*/
-	
+
+	/** minimal constructor */
+	public Staff(Publisher publisher) {
+		this.publisher = publisher;
+	}
+
 	/** full constructor */
-	public Staff(String email, String password, Integer parentid,
-			Integer role, Integer authority, String name, Integer gender,
-			String phonenum, String address, Set<Proofread> proofreads,
-			Set<Audit> audits, Set<Arrange> arranges, Set<Compose> composes) {
+	public Staff(Publisher publisher, String email, String password,
+			Integer parentid, Integer role, Integer level, String name,
+			Integer gender, String phone) {
+		this.publisher = publisher;
 		this.email = email;
 		this.password = password;
 		this.parentid = parentid;
 		this.role = role;
-		this.authority = authority;
+		this.level = level;
 		this.name = name;
 		this.gender = gender;
-		this.phonenum = phonenum;
-		this.address = address;
-		this.proofreads = proofreads;
-		this.audits = audits;
-		this.arranges = arranges;
-		this.composes = composes;
+		this.phone = phone;
 	}
 
 	// Property accessors
@@ -89,6 +66,16 @@ public class Staff implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Publisher_id", nullable = false)
+	public Publisher getPublisher() {
+		return this.publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 
 	@Column(name = "email", length = 45)
@@ -120,22 +107,20 @@ public class Staff implements java.io.Serializable {
 
 	@Column(name = "role")
 	public Integer getRole() {
-		return role;
+		return this.role;
 	}
 
 	public void setRole(Integer role) {
 		this.role = role;
 	}
 
-	@Column(name = "authority")
-	public Integer getAuthority() {
-		return this.authority;
+	@Column(name = "level")
+	public Integer getLevel() {
+		return this.level;
 	}
 
-	
-
-	public void setAuthority(Integer authority) {
-		this.authority = authority;
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 
 	@Column(name = "name", length = 45)
@@ -156,58 +141,13 @@ public class Staff implements java.io.Serializable {
 		this.gender = gender;
 	}
 
-	@Column(name = "phonenum", length = 45)
-	public String getPhonenum() {
-		return this.phonenum;
+	@Column(name = "phone", length = 45)
+	public String getPhone() {
+		return this.phone;
 	}
 
-	public void setPhonenum(String phonenum) {
-		this.phonenum = phonenum;
-	}
-
-	@Column(name = "address", length = 45)
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "staff")
-	public Set<Proofread> getProofreads() {
-		return this.proofreads;
-	}
-
-	public void setProofreads(Set<Proofread> proofreads) {
-		this.proofreads = proofreads;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "staff")
-	public Set<Audit> getAudits() {
-		return this.audits;
-	}
-
-	public void setAudits(Set<Audit> audits) {
-		this.audits = audits;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "staff")
-	public Set<Arrange> getArranges() {
-		return this.arranges;
-	}
-
-	public void setArranges(Set<Arrange> arranges) {
-		this.arranges = arranges;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "staff")
-	public Set<Compose> getComposes() {
-		return this.composes;
-	}
-
-	public void setComposes(Set<Compose> composes) {
-		this.composes = composes;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 }

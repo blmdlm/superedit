@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 
 import model.Messageboard;
@@ -25,8 +26,9 @@ public class MessageboardDAO extends HibernateDaoSupport {
 	private static final Logger log = LoggerFactory
 			.getLogger(MessageboardDAO.class);
 	// property constants
-	public static final String QUERY = "query";
-	public static final String REPLY = "reply";
+	public static final String SEND_ID = "sendId";
+	public static final String CONTENT = "content";
+	public static final String PARENTID = "parentid";
 
 	protected void initDao() {
 		// do nothing
@@ -54,7 +56,7 @@ public class MessageboardDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Messageboard findById(model.MessageboardId id) {
+	public Messageboard findById(java.lang.Integer id) {
 		log.debug("getting Messageboard instance with id: " + id);
 		try {
 			Messageboard instance = (Messageboard) getHibernateTemplate().get(
@@ -93,12 +95,16 @@ public class MessageboardDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List<Messageboard> findByQuery(Object query) {
-		return findByProperty(QUERY, query);
+	public List<Messageboard> findBySendId(Object sendId) {
+		return findByProperty(SEND_ID, sendId);
 	}
 
-	public List<Messageboard> findByReply(Object reply) {
-		return findByProperty(REPLY, reply);
+	public List<Messageboard> findByContent(Object content) {
+		return findByProperty(CONTENT, content);
+	}
+
+	public List<Messageboard> findByParentid(Object parentid) {
+		return findByProperty(PARENTID, parentid);
 	}
 
 	public List findAll() {

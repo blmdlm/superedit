@@ -25,8 +25,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class ComposeDAO extends HibernateDaoSupport {
 	private static final Logger log = LoggerFactory.getLogger(ComposeDAO.class);
 	// property constants
-	public static final String COMPOSE_ADDR = "composeAddr";
+	public static final String COMPOSE_PATH = "composePath";
 	public static final String COMPOSE_STATE = "composeState";
+	public static final String STAFF_ID = "staffId";
 
 	protected void initDao() {
 		// do nothing
@@ -54,7 +55,7 @@ public class ComposeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Compose findById(model.ComposeId id) {
+	public Compose findById(java.lang.Integer id) {
 		log.debug("getting Compose instance with id: " + id);
 		try {
 			Compose instance = (Compose) getHibernateTemplate().get(
@@ -93,12 +94,16 @@ public class ComposeDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List<Compose> findByComposeAddr(Object composeAddr) {
-		return findByProperty(COMPOSE_ADDR, composeAddr);
+	public List<Compose> findByComposePath(Object composePath) {
+		return findByProperty(COMPOSE_PATH, composePath);
 	}
 
 	public List<Compose> findByComposeState(Object composeState) {
 		return findByProperty(COMPOSE_STATE, composeState);
+	}
+
+	public List<Compose> findByStaffId(Object staffId) {
+		return findByProperty(STAFF_ID, staffId);
 	}
 
 	public List findAll() {

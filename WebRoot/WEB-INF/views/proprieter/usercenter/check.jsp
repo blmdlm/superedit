@@ -31,8 +31,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	姓名:${h_user.name}<br>
    	邮件:${h_user.email}<br>
    	性别:${h_user.gender}<br>
-   	手机:${h_user.phonenum}<br>
-   	出版社:${h_user.address}<br>
+   	手机:${h_user.phone}<br>
+
    	密码:${h_user.password}<br>
 	<a href="proprieter/usercenter/update">修改资料</a>   
    </center>

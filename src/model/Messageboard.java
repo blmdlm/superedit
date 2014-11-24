@@ -1,14 +1,14 @@
 package model;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+import java.util.Date;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Messageboard entity. @author MyEclipse Persistence Tools
@@ -19,10 +19,11 @@ public class Messageboard implements java.io.Serializable {
 
 	// Fields
 
-	private MessageboardId id;
-	private Author author;
-	private String query;
-	private String reply;
+	private Integer id;
+	private Integer sendId;
+	private String content;
+	private Date time;
+	private Integer parentid;
 
 	// Constructors
 
@@ -30,60 +31,62 @@ public class Messageboard implements java.io.Serializable {
 	public Messageboard() {
 	}
 
-	/** minimal constructor */
-	public Messageboard(MessageboardId id, Author author) {
-		this.id = id;
-		this.author = author;
-	}
-
 	/** full constructor */
-	public Messageboard(MessageboardId id, Author author, String query,
-			String reply) {
-		this.id = id;
-		this.author = author;
-		this.query = query;
-		this.reply = reply;
+	public Messageboard(Integer sendId, String content, Date time,
+			Integer parentid) {
+		this.sendId = sendId;
+		this.content = content;
+		this.time = time;
+		this.parentid = parentid;
 	}
 
 	// Property accessors
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "id", column = @Column(name = "id", nullable = false)),
-			@AttributeOverride(name = "authorId", column = @Column(name = "Author_id", nullable = false)) })
-	public MessageboardId getId() {
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(MessageboardId id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Author_id", nullable = false, insertable = false, updatable = false)
-	public Author getAuthor() {
-		return this.author;
+	@Column(name = "send_id")
+	public Integer getSendId() {
+		return this.sendId;
 	}
 
-	public void setAuthor(Author author) {
-		this.author = author;
+	public void setSendId(Integer sendId) {
+		this.sendId = sendId;
 	}
 
-	@Column(name = "query", length = 65535)
-	public String getQuery() {
-		return this.query;
+	@Column(name = "content", length = 65535)
+	public String getContent() {
+		return this.content;
 	}
 
-	public void setQuery(String query) {
-		this.query = query;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	@Column(name = "reply", length = 65535)
-	public String getReply() {
-		return this.reply;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "time", length = 10)
+	public Date getTime() {
+		return this.time;
 	}
 
-	public void setReply(String reply) {
-		this.reply = reply;
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	@Column(name = "parentid")
+	public Integer getParentid() {
+		return this.parentid;
+	}
+
+	public void setParentid(Integer parentid) {
+		this.parentid = parentid;
 	}
 
 }

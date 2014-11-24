@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,6 +22,7 @@ public class Magazine implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
+	private Publisher publisher;
 	private String name;
 	private Set<Script> scripts = new HashSet<Script>(0);
 
@@ -30,13 +33,16 @@ public class Magazine implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Magazine(Integer id) {
+	public Magazine(Integer id, Publisher publisher) {
 		this.id = id;
+		this.publisher = publisher;
 	}
 
 	/** full constructor */
-	public Magazine(Integer id, String name, Set<Script> scripts) {
+	public Magazine(Integer id, Publisher publisher, String name,
+			Set<Script> scripts) {
 		this.id = id;
+		this.publisher = publisher;
 		this.name = name;
 		this.scripts = scripts;
 	}
@@ -50,6 +56,16 @@ public class Magazine implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Publisher_id", nullable = false)
+	public Publisher getPublisher() {
+		return this.publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 
 	@Column(name = "name", length = 45)

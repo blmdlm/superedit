@@ -1,14 +1,13 @@
 package model;
 
 import java.util.Date;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,13 +22,13 @@ public class Proofread implements java.io.Serializable {
 
 	// Fields
 
-	private ProofreadId id;
-	private Staff staff;
+	private Integer id;
 	private Script script;
-	private String proofAddr;
+	private String proofPath;
 	private Date proofDate;
 	private Integer proofRank;
 	private String proofState;
+	private Integer staffId;
 
 	// Constructors
 
@@ -38,56 +37,35 @@ public class Proofread implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Proofread(ProofreadId id, Staff staff, Script script) {
-		this.id = id;
-		this.staff = staff;
+	public Proofread(Script script) {
 		this.script = script;
 	}
 
 	/** full constructor */
-	public Proofread(ProofreadId id, Staff staff, Script script,
-			String proofAddr, Date proofDate, Integer proofRank,
-			String proofState) {
-		this.id = id;
-		this.staff = staff;
+	public Proofread(Script script, String proofPath, Date proofDate,
+			Integer proofRank, String proofState, Integer staffId) {
 		this.script = script;
-		this.proofAddr = proofAddr;
+		this.proofPath = proofPath;
 		this.proofDate = proofDate;
 		this.proofRank = proofRank;
 		this.proofState = proofState;
+		this.staffId = staffId;
 	}
 
 	// Property accessors
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "id", column = @Column(name = "id", nullable = false)),
-			@AttributeOverride(name = "staffId", column = @Column(name = "Staff_id", nullable = false)),
-			@AttributeOverride(name = "scriptId", column = @Column(name = "Script_id", nullable = false)),
-			@AttributeOverride(name = "scriptAuthorId", column = @Column(name = "Script_Author_id", nullable = false)),
-			@AttributeOverride(name = "scriptMagazineId", column = @Column(name = "Script_Magazine_id", nullable = false)) })
-	public ProofreadId getId() {
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(ProofreadId id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Staff_id", nullable = false, insertable = false, updatable = false)
-	public Staff getStaff() {
-		return this.staff;
-	}
-
-	public void setStaff(Staff staff) {
-		this.staff = staff;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "Script_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false),
-			@JoinColumn(name = "Script_Author_id", referencedColumnName = "Author_id", nullable = false, insertable = false, updatable = false),
-			@JoinColumn(name = "Script_Magazine_id", referencedColumnName = "Magazine_id", nullable = false, insertable = false, updatable = false) })
+	@JoinColumn(name = "Script_id", nullable = false)
 	public Script getScript() {
 		return this.script;
 	}
@@ -96,13 +74,13 @@ public class Proofread implements java.io.Serializable {
 		this.script = script;
 	}
 
-	@Column(name = "proof_addr")
-	public String getProofAddr() {
-		return this.proofAddr;
+	@Column(name = "proof_path")
+	public String getProofPath() {
+		return this.proofPath;
 	}
 
-	public void setProofAddr(String proofAddr) {
-		this.proofAddr = proofAddr;
+	public void setProofPath(String proofPath) {
+		this.proofPath = proofPath;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -131,6 +109,15 @@ public class Proofread implements java.io.Serializable {
 
 	public void setProofState(String proofState) {
 		this.proofState = proofState;
+	}
+
+	@Column(name = "Staff_id")
+	public Integer getStaffId() {
+		return this.staffId;
+	}
+
+	public void setStaffId(Integer staffId) {
+		this.staffId = staffId;
 	}
 
 }

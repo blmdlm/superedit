@@ -1,14 +1,13 @@
 package model;
 
 import java.util.Date;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,12 +22,12 @@ public class Compose implements java.io.Serializable {
 
 	// Fields
 
-	private ComposeId id;
-	private Staff staff;
+	private Integer id;
 	private Script script;
-	private String composeAddr;
+	private String composePath;
 	private Date composeDate;
 	private Integer composeState;
+	private Integer staffId;
 
 	// Constructors
 
@@ -37,54 +36,34 @@ public class Compose implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Compose(ComposeId id, Staff staff, Script script) {
-		this.id = id;
-		this.staff = staff;
+	public Compose(Script script) {
 		this.script = script;
 	}
 
 	/** full constructor */
-	public Compose(ComposeId id, Staff staff, Script script,
-			String composeAddr, Date composeDate, Integer composeState) {
-		this.id = id;
-		this.staff = staff;
+	public Compose(Script script, String composePath, Date composeDate,
+			Integer composeState, Integer staffId) {
 		this.script = script;
-		this.composeAddr = composeAddr;
+		this.composePath = composePath;
 		this.composeDate = composeDate;
 		this.composeState = composeState;
+		this.staffId = staffId;
 	}
 
 	// Property accessors
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "id", column = @Column(name = "id", nullable = false)),
-			@AttributeOverride(name = "staffId", column = @Column(name = "Staff_id", nullable = false)),
-			@AttributeOverride(name = "scriptId", column = @Column(name = "Script_id", nullable = false)),
-			@AttributeOverride(name = "scriptAuthorId", column = @Column(name = "Script_Author_id", nullable = false)),
-			@AttributeOverride(name = "scriptMagazineId", column = @Column(name = "Script_Magazine_id", nullable = false)) })
-	public ComposeId getId() {
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(ComposeId id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Staff_id", nullable = false, insertable = false, updatable = false)
-	public Staff getStaff() {
-		return this.staff;
-	}
-
-	public void setStaff(Staff staff) {
-		this.staff = staff;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "Script_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false),
-			@JoinColumn(name = "Script_Author_id", referencedColumnName = "Author_id", nullable = false, insertable = false, updatable = false),
-			@JoinColumn(name = "Script_Magazine_id", referencedColumnName = "Magazine_id", nullable = false, insertable = false, updatable = false) })
+	@JoinColumn(name = "Script_id", nullable = false)
 	public Script getScript() {
 		return this.script;
 	}
@@ -93,13 +72,13 @@ public class Compose implements java.io.Serializable {
 		this.script = script;
 	}
 
-	@Column(name = "Compose_Addr")
-	public String getComposeAddr() {
-		return this.composeAddr;
+	@Column(name = "Compose_path")
+	public String getComposePath() {
+		return this.composePath;
 	}
 
-	public void setComposeAddr(String composeAddr) {
-		this.composeAddr = composeAddr;
+	public void setComposePath(String composePath) {
+		this.composePath = composePath;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -119,6 +98,15 @@ public class Compose implements java.io.Serializable {
 
 	public void setComposeState(Integer composeState) {
 		this.composeState = composeState;
+	}
+
+	@Column(name = "Staff_id")
+	public Integer getStaffId() {
+		return this.staffId;
+	}
+
+	public void setStaffId(Integer staffId) {
+		this.staffId = staffId;
 	}
 
 }

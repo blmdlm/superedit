@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+
 import model.Staff;
 
 import org.hibernate.LockMode;
@@ -27,11 +28,10 @@ public class StaffDAO extends HibernateDaoSupport {
 	public static final String PASSWORD = "password";
 	public static final String PARENTID = "parentid";
 	public static final String ROLE = "role";
-	public static final String AUTHORITY = "authority";
+	public static final String LEVEL = "level";
 	public static final String NAME = "name";
 	public static final String GENDER = "gender";
-	public static final String PHONENUM = "phonenum";
-	public static final String ADDRESS = "address";
+	public static final String PHONE = "phone";
 
 	protected void initDao() {
 		// do nothing
@@ -114,8 +114,8 @@ public class StaffDAO extends HibernateDaoSupport {
 		return findByProperty(ROLE, role);
 	}
 
-	public List<Staff> findByAuthority(Object authority) {
-		return findByProperty(AUTHORITY, authority);
+	public List<Staff> findByLevel(Object level) {
+		return findByProperty(LEVEL, level);
 	}
 
 	public List<Staff> findByName(Object name) {
@@ -126,12 +126,8 @@ public class StaffDAO extends HibernateDaoSupport {
 		return findByProperty(GENDER, gender);
 	}
 
-	public List<Staff> findByPhonenum(Object phonenum) {
-		return findByProperty(PHONENUM, phonenum);
-	}
-
-	public List<Staff> findByAddress(Object address) {
-		return findByProperty(ADDRESS, address);
+	public List<Staff> findByPhone(Object phone) {
+		return findByProperty(PHONE, phone);
 	}
 
 	public List findAll() {

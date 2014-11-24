@@ -28,13 +28,11 @@ public class Author implements java.io.Serializable {
 	private String email;
 	private String password;
 	private Integer gender;
-	private String realname;
-	private String phonenumber;
+	private String name;
+	private String phone;
 	private String address;
 	private Date registertime;
-	private Set<Arrange> arranges = new HashSet<Arrange>(0);
 	private Set<Script> scripts = new HashSet<Script>(0);
-	private Set<Messageboard> messageboards = new HashSet<Messageboard>(0);
 
 	// Constructors
 
@@ -43,20 +41,16 @@ public class Author implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Author(String email, String password, Integer gender,
-			String realname, String phonenumber, String address,
-			Date registertime, Set<Arrange> arranges, Set<Script> scripts,
-			Set<Messageboard> messageboards) {
+	public Author(String email, String password, Integer gender, String name,
+			String phone, String address, Date registertime, Set<Script> scripts) {
 		this.email = email;
 		this.password = password;
 		this.gender = gender;
-		this.realname = realname;
-		this.phonenumber = phonenumber;
+		this.name = name;
+		this.phone = phone;
 		this.address = address;
 		this.registertime = registertime;
-		this.arranges = arranges;
 		this.scripts = scripts;
-		this.messageboards = messageboards;
 	}
 
 	// Property accessors
@@ -98,22 +92,22 @@ public class Author implements java.io.Serializable {
 		this.gender = gender;
 	}
 
-	@Column(name = "realname", length = 45)
-	public String getRealname() {
-		return this.realname;
+	@Column(name = "name", length = 45)
+	public String getName() {
+		return this.name;
 	}
 
-	public void setRealname(String realname) {
-		this.realname = realname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	@Column(name = "phonenumber", length = 45)
-	public String getPhonenumber() {
-		return this.phonenumber;
+	@Column(name = "phone", length = 45)
+	public String getPhone() {
+		return this.phone;
 	}
 
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Column(name = "address", length = 65535)
@@ -136,30 +130,12 @@ public class Author implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")
-	public Set<Arrange> getArranges() {
-		return this.arranges;
-	}
-
-	public void setArranges(Set<Arrange> arranges) {
-		this.arranges = arranges;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")
 	public Set<Script> getScripts() {
 		return this.scripts;
 	}
 
 	public void setScripts(Set<Script> scripts) {
 		this.scripts = scripts;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")
-	public Set<Messageboard> getMessageboards() {
-		return this.messageboards;
-	}
-
-	public void setMessageboards(Set<Messageboard> messageboards) {
-		this.messageboards = messageboards;
 	}
 
 }

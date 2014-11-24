@@ -29,8 +29,8 @@ public class AuthorDAO extends HibernateDaoSupport {
 	public static final String EMAIL = "email";
 	public static final String PASSWORD = "password";
 	public static final String GENDER = "gender";
-	public static final String REALNAME = "realname";
-	public static final String PHONENUMBER = "phonenumber";
+	public static final String NAME = "name";
+	public static final String PHONE = "phone";
 	public static final String ADDRESS = "address";
 
 	protected void initDao() {
@@ -110,12 +110,12 @@ public class AuthorDAO extends HibernateDaoSupport {
 		return findByProperty(GENDER, gender);
 	}
 
-	public List<Author> findByRealname(Object realname) {
-		return findByProperty(REALNAME, realname);
+	public List<Author> findByName(Object name) {
+		return findByProperty(NAME, name);
 	}
 
-	public List<Author> findByPhonenumber(Object phonenumber) {
-		return findByProperty(PHONENUMBER, phonenumber);
+	public List<Author> findByPhone(Object phone) {
+		return findByProperty(PHONE, phone);
 	}
 
 	public List<Author> findByAddress(Object address) {

@@ -27,9 +27,11 @@ public class ScriptDAO extends HibernateDaoSupport {
 	// property constants
 	public static final String TITLE = "title";
 	public static final String PATH = "path";
-	public static final String PRICE = "price";
-	public static final String REJECT = "reject";
+	public static final String PAYMENT = "payment";
 	public static final String STATE = "state";
+	public static final String PROGRESS = "progress";
+	public static final String PAY = "pay";
+	public static final String SUMMARY = "summary";
 
 	protected void initDao() {
 		// do nothing
@@ -57,7 +59,7 @@ public class ScriptDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Script findById(model.ScriptId id) {
+	public Script findById(java.lang.Integer id) {
 		log.debug("getting Script instance with id: " + id);
 		try {
 			Script instance = (Script) getHibernateTemplate().get("dao.Script",
@@ -104,16 +106,24 @@ public class ScriptDAO extends HibernateDaoSupport {
 		return findByProperty(PATH, path);
 	}
 
-	public List<Script> findByPrice(Object price) {
-		return findByProperty(PRICE, price);
-	}
-
-	public List<Script> findByReject(Object reject) {
-		return findByProperty(REJECT, reject);
+	public List<Script> findByPayment(Object payment) {
+		return findByProperty(PAYMENT, payment);
 	}
 
 	public List<Script> findByState(Object state) {
 		return findByProperty(STATE, state);
+	}
+
+	public List<Script> findByProgress(Object progress) {
+		return findByProperty(PROGRESS, progress);
+	}
+
+	public List<Script> findByPay(Object pay) {
+		return findByProperty(PAY, pay);
+	}
+
+	public List<Script> findBySummary(Object summary) {
+		return findByProperty(SUMMARY, summary);
 	}
 
 	public List findAll() {

@@ -2,13 +2,13 @@ package model;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -23,14 +23,16 @@ public class Script implements java.io.Serializable {
 
 	// Fields
 
-	private ScriptId id;
+	private Integer id;
 	private Magazine magazine;
 	private Author author;
 	private String title;
 	private String path;
-	private Integer price;
-	private Integer reject;
+	private Integer payment;
 	private Integer state;
+	private Integer progress;
+	private Integer pay;
+	private String summary;
 	private Set<Proofread> proofreads = new HashSet<Proofread>(0);
 	private Set<Compose> composes = new HashSet<Compose>(0);
 	private Set<Audit> audits = new HashSet<Audit>(0);
@@ -42,45 +44,43 @@ public class Script implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Script(ScriptId id, Magazine magazine, Author author) {
-		this.id = id;
-		this.magazine = magazine;
+	public Script(Author author) {
 		this.author = author;
 	}
 
 	/** full constructor */
-	public Script(ScriptId id, Magazine magazine, Author author, String title,
-			String path, Integer price, Integer reject, Integer state,
-			Set<Proofread> proofreads, Set<Compose> composes, Set<Audit> audits) {
-		this.id = id;
+	public Script(Magazine magazine, Author author, String title, String path,
+			Integer payment, Integer state, Integer progress, Integer pay,
+			String summary, Set<Proofread> proofreads, Set<Compose> composes,
+			Set<Audit> audits) {
 		this.magazine = magazine;
 		this.author = author;
 		this.title = title;
 		this.path = path;
-		this.price = price;
-		this.reject = reject;
+		this.payment = payment;
 		this.state = state;
+		this.progress = progress;
+		this.pay = pay;
+		this.summary = summary;
 		this.proofreads = proofreads;
 		this.composes = composes;
 		this.audits = audits;
 	}
 
 	// Property accessors
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "id", column = @Column(name = "id", nullable = false)),
-			@AttributeOverride(name = "authorId", column = @Column(name = "Author_id", nullable = false)),
-			@AttributeOverride(name = "magazineId", column = @Column(name = "Magazine_id", nullable = false)) })
-	public ScriptId getId() {
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(ScriptId id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Magazine_id", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "Magazine_id")
 	public Magazine getMagazine() {
 		return this.magazine;
 	}
@@ -90,7 +90,7 @@ public class Script implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Author_id", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "Author_id", nullable = false)
 	public Author getAuthor() {
 		return this.author;
 	}
@@ -117,22 +117,13 @@ public class Script implements java.io.Serializable {
 		this.path = path;
 	}
 
-	@Column(name = "price")
-	public Integer getPrice() {
-		return this.price;
+	@Column(name = "payment")
+	public Integer getPayment() {
+		return this.payment;
 	}
 
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-
-	@Column(name = "reject")
-	public Integer getReject() {
-		return this.reject;
-	}
-
-	public void setReject(Integer reject) {
-		this.reject = reject;
+	public void setPayment(Integer payment) {
+		this.payment = payment;
 	}
 
 	@Column(name = "state")
@@ -142,6 +133,33 @@ public class Script implements java.io.Serializable {
 
 	public void setState(Integer state) {
 		this.state = state;
+	}
+
+	@Column(name = "progress")
+	public Integer getProgress() {
+		return this.progress;
+	}
+
+	public void setProgress(Integer progress) {
+		this.progress = progress;
+	}
+
+	@Column(name = "pay")
+	public Integer getPay() {
+		return this.pay;
+	}
+
+	public void setPay(Integer pay) {
+		this.pay = pay;
+	}
+
+	@Column(name = "summary", length = 65535)
+	public String getSummary() {
+		return this.summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "script")

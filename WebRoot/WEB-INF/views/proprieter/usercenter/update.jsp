@@ -33,8 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	   	姓名:<sf:input path="name" value="${h_user.name}" /><br>
    	邮件:<sf:input path="email" value="${h_user.email}"/><br>
    	性别:<sf:input path="gender" value="${h_user.gender}"/><br>
-   	手机:<sf:input path="phonenum" value="${h_user.phonenum}"/><br>
-   	出版社:<sf:input path="address" value="${h_user.address}"/><br>
+   	手机:<sf:input path="phone" value="${h_user.phone}"/><br>
+  
    	密码:<sf:input path="password" value="${h_user.password}"/><br>
    	<input type="submit" value="修改"/>
    	</sf:form>

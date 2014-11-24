@@ -1,9 +1,12 @@
 package model;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Message entity. @author MyEclipse Persistence Tools
@@ -20,6 +23,7 @@ public class Message implements java.io.Serializable {
 	private Integer recvid;
 	private Integer recvstate;
 	private String content;
+	private Date time;
 
 	// Constructors
 
@@ -34,13 +38,14 @@ public class Message implements java.io.Serializable {
 
 	/** full constructor */
 	public Message(Integer id, Integer sendid, Integer sendstate,
-			Integer recvid, Integer recvstate, String content) {
+			Integer recvid, Integer recvstate, String content, Date time) {
 		this.id = id;
 		this.sendid = sendid;
 		this.sendstate = sendstate;
 		this.recvid = recvid;
 		this.recvstate = recvstate;
 		this.content = content;
+		this.time = time;
 	}
 
 	// Property accessors
@@ -97,6 +102,16 @@ public class Message implements java.io.Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "time", length = 10)
+	public Date getTime() {
+		return this.time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 }
