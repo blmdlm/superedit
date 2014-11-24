@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import model.Publisher;
 import model.Staff;
 
 import org.apache.log4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,7 +92,12 @@ public class ProprieterController {
 	 */
 	@RequestMapping(value = "/usercenter/update", method = RequestMethod.POST)
 	public String userCenterUpdate(Staff staff, HttpSession session) {
+		logger.info("staff"+staff);
+		
 		staff.setId(((Staff) session.getAttribute("h_user")).getId());
+		Publisher publisher=new Publisher();
+		publisher.setId(1);
+		staff.setPublisher(publisher);
 		//更新一次
 		staffService.update(staff);
 		//重新取一次
@@ -128,16 +135,23 @@ public class ProprieterController {
 	 * @return
 	 */
 	@RequestMapping(value = "/usermanager/create", method = RequestMethod.POST)
-	public String create(String email, int role, String password) {
+	public String create(String email, int role, String password,HttpSession session) {
 		Staff staff = new Staff();
 		staff.setEmail(email);
 		staff.setRole(role);
 		staff.setPassword(password);
 		staff.setParentid(7);
+		
+//		Publisher publisher=new Publisher();
+		staff.setPublisher(((Staff)session.getAttribute("h_user")).getPublisher());
+		
+		
 		if (staffService.isExist(staff)) {
-
+			
 			throw new StaffException("用户已存在");
 		}
+		
+		
 		staffService.save(staff);
 		return "/proprieter/usermanager/index";
 	}
@@ -167,9 +181,14 @@ public class ProprieterController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/usermanager/delete",method=RequestMethod.POST)
-	public String delete(@RequestParam String id){
-		return "/proprieter/usermanager/delete";
+	@RequestMapping(value = "/usermanager/delete/{id}")
+	public String delete(@PathVariable  int id,HttpSession session){
+		Staff staff=new Staff();
+		staff.setPublisher(((Staff)session.getAttribute("h_user")).getPublisher());
+		staff.setId(id);
+		staffService.delete(staff);
+		
+		return "redirect:/proprieter/usermanager/delete";
 	}
 	
 	

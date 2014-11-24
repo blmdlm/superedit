@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		
   		</td>
   		<td>${staff.email}</td>
-  		<td><a href="">删除</a></td>
+  		<td><a href="proprieter/usermanager/delete/${staff.id}">删除</a></td>
   	</tr>
   	</c:forEach>
   	<tr>
