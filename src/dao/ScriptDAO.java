@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +33,7 @@ public class ScriptDAO extends HibernateDaoSupport {
 	public static final String PROGRESS = "progress";
 	public static final String PAY = "pay";
 	public static final String SUMMARY = "summary";
+	public static final String DISTRIBUTOR = "distributor";
 
 	protected void initDao() {
 		// do nothing
@@ -62,8 +64,8 @@ public class ScriptDAO extends HibernateDaoSupport {
 	public Script findById(java.lang.Integer id) {
 		log.debug("getting Script instance with id: " + id);
 		try {
-			Script instance = (Script) getHibernateTemplate().get("dao.Script",
-					id);
+			Script instance = (Script) getHibernateTemplate().get(
+					"model.Script", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -124,6 +126,10 @@ public class ScriptDAO extends HibernateDaoSupport {
 
 	public List<Script> findBySummary(Object summary) {
 		return findByProperty(SUMMARY, summary);
+	}
+
+	public List<Script> findByDistributor(Object distributor) {
+		return findByProperty(DISTRIBUTOR, distributor);
 	}
 
 	public List findAll() {

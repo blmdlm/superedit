@@ -62,8 +62,8 @@ public class AuthorDAO extends HibernateDaoSupport {
 	public Author findById(java.lang.Integer id) {
 		log.debug("getting Author instance with id: " + id);
 		try {
-			Author instance = (Author) getHibernateTemplate().get("dao.Author",
-					id);
+			Author instance = (Author) getHibernateTemplate().get(
+					"model.Author", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

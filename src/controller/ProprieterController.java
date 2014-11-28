@@ -118,6 +118,23 @@ public class ProprieterController {
 	public String userManager(){
 		return "/proprieter/usermanager/index";
 	}
+	/**
+	 * 访问查看账户页面
+	 * @return
+	 */
+	@RequestMapping("/usermanager/check")
+	public String userManagerCheck(HttpSession session,Model model){
+		List<Staff> staffs=staffService.findByParentid(((Staff)session.getAttribute("h_user")).getRole());
+		
+		model.addAttribute("staffs", staffs);
+		return "/proprieter/usermanager/check";
+	}
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * 访问创建账户的页面

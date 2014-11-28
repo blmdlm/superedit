@@ -58,7 +58,7 @@ public class PublisherDAO extends HibernateDaoSupport {
 		log.debug("getting Publisher instance with id: " + id);
 		try {
 			Publisher instance = (Publisher) getHibernateTemplate().get(
-					"dao.Publisher", id);
+					"model.Publisher", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

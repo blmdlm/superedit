@@ -62,8 +62,8 @@ public class StaffDAO extends HibernateDaoSupport {
 	public Staff findById(java.lang.Integer id) {
 		log.debug("getting Staff instance with id: " + id);
 		try {
-			Staff instance = (Staff) getHibernateTemplate()
-					.get("model.Staff", id);
+			Staff instance = (Staff) getHibernateTemplate().get("model.Staff",
+					id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

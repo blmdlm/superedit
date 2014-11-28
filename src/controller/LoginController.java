@@ -31,6 +31,8 @@ public class LoginController {
 	public String login(HttpSession session){
 		
 		Staff staff=staffService.get(1);
+		logger.info(staff);
+		
 		session.setAttribute("h_user",staff);
 		return "redirect:/proprieter/index";
 		

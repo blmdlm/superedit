@@ -61,7 +61,7 @@ public class MessageDAO extends HibernateDaoSupport {
 		log.debug("getting Message instance with id: " + id);
 		try {
 			Message instance = (Message) getHibernateTemplate().get(
-					"dao.Message", id);
+					"model.Message", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

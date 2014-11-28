@@ -58,7 +58,7 @@ public class MagazineDAO extends HibernateDaoSupport {
 		log.debug("getting Magazine instance with id: " + id);
 		try {
 			Magazine instance = (Magazine) getHibernateTemplate().get(
-					"dao.Magazine", id);
+					"model.Magazine", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

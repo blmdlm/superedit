@@ -61,7 +61,7 @@ public class ProofreadDAO extends HibernateDaoSupport {
 		log.debug("getting Proofread instance with id: " + id);
 		try {
 			Proofread instance = (Proofread) getHibernateTemplate().get(
-					"dao.Proofread", id);
+					"model.Proofread", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

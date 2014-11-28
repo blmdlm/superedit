@@ -41,14 +41,6 @@ public class Staff implements java.io.Serializable {
 		this.publisher = publisher;
 	}
 
-	@Override
-	public String toString() {
-		return "Staff [id=" + id + ", publisher=" + publisher + ", email="
-				+ email + ", password=" + password + ", parentid=" + parentid
-				+ ", role=" + role + ", level=" + level + ", name=" + name
-				+ ", gender=" + gender + ", phone=" + phone + "]";
-	}
-
 	/** full constructor */
 	public Staff(Publisher publisher, String email, String password,
 			Integer parentid, Integer role, Integer level, String name,
@@ -76,7 +68,7 @@ public class Staff implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Publisher_id", nullable = false)
 	public Publisher getPublisher() {
 		return this.publisher;

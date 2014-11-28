@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Script entity. @author MyEclipse Persistence Tools
@@ -33,6 +36,8 @@ public class Script implements java.io.Serializable {
 	private Integer progress;
 	private Integer pay;
 	private String summary;
+	private Date date;
+	private Integer distributor;
 	private Set<Proofread> proofreads = new HashSet<Proofread>(0);
 	private Set<Compose> composes = new HashSet<Compose>(0);
 	private Set<Audit> audits = new HashSet<Audit>(0);
@@ -51,8 +56,8 @@ public class Script implements java.io.Serializable {
 	/** full constructor */
 	public Script(Magazine magazine, Author author, String title, String path,
 			Integer payment, Integer state, Integer progress, Integer pay,
-			String summary, Set<Proofread> proofreads, Set<Compose> composes,
-			Set<Audit> audits) {
+			String summary, Date date, Integer distributor,
+			Set<Proofread> proofreads, Set<Compose> composes, Set<Audit> audits) {
 		this.magazine = magazine;
 		this.author = author;
 		this.title = title;
@@ -62,6 +67,8 @@ public class Script implements java.io.Serializable {
 		this.progress = progress;
 		this.pay = pay;
 		this.summary = summary;
+		this.date = date;
+		this.distributor = distributor;
 		this.proofreads = proofreads;
 		this.composes = composes;
 		this.audits = audits;
@@ -160,6 +167,25 @@ public class Script implements java.io.Serializable {
 
 	public void setSummary(String summary) {
 		this.summary = summary;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date", length = 10)
+	public Date getDate() {
+		return this.date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	@Column(name = "distributor")
+	public Integer getDistributor() {
+		return this.distributor;
+	}
+
+	public void setDistributor(Integer distributor) {
+		this.distributor = distributor;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "script")

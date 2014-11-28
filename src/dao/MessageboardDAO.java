@@ -60,7 +60,7 @@ public class MessageboardDAO extends HibernateDaoSupport {
 		log.debug("getting Messageboard instance with id: " + id);
 		try {
 			Messageboard instance = (Messageboard) getHibernateTemplate().get(
-					"dao.Messageboard", id);
+					"model.Messageboard", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

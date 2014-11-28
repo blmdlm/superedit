@@ -59,8 +59,8 @@ public class AuditDAO extends HibernateDaoSupport {
 	public Audit findById(java.lang.Integer id) {
 		log.debug("getting Audit instance with id: " + id);
 		try {
-			Audit instance = (Audit) getHibernateTemplate()
-					.get("dao.Audit", id);
+			Audit instance = (Audit) getHibernateTemplate().get("model.Audit",
+					id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
