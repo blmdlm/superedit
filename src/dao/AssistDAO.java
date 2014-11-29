@@ -2,11 +2,15 @@ package dao;
 
 import java.util.List;
 
+import model.Staff;
+
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 /**
- * 辅助dao
+ * 辅助DAO
  *@Project superedit 
  *@ClassName AssistDAO
  *@Description TODO
@@ -14,11 +18,31 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  *@Date 2014年11月28日 下午10:47:13
  */
 public class AssistDAO extends HibernateDaoSupport{
+	
+	private static final Logger log = LoggerFactory.getLogger(AssistDAO.class);
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public List query(String sql){
-		sessionFactory.getCurrentSession().createSQLQuery(sql);
-		return null;
+	protected void initDao() {
+		// do nothing
 	}
+	/**
+	 * 通过parentid和role获取staff
+	 * @param parentid
+	 * @param role
+	 * @return
+	 */
+	public List<Staff> findByParentidAndRole(Integer parentid,Integer role){
+		try {
+			String queryString = "from Staff as model where model.parentid= ? and role = ? ";
+			return getHibernateTemplate().find(queryString, parentid,role);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+		
+	}
+	
+	
+
 }

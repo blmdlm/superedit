@@ -58,8 +58,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <a href="B_contribute" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>账户管理</a>
                 <ul>
                     <li><a href="proprieter/usermanager/check" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查看账户</a></li>
-                    <li><a href="B_onCheck" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>创建账户</a></li>
-                    <li><a href="B_postCheck" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>删除账户</a></li>
+                    <li><a href="proprieter/usermanager/create" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>创建账户</a></li>
+                    <li><a href="proprieter/usermanager/delete" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>删除账户</a></li>
                 </ul>
             </li> 
             <li class="childUlLi">

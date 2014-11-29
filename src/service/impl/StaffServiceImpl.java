@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import controller.ProprieterController;
+import dao.AssistDAO;
 import dao.StaffDAO;
 import model.Staff;
 import service.StaffService;
@@ -24,6 +25,8 @@ public class StaffServiceImpl implements StaffService {
 	private static Logger logger = Logger.getLogger(StaffServiceImpl.class);
 	@Autowired
 	private StaffDAO staffDAO;
+	@Autowired
+	private AssistDAO assistDAO;
 
 	@Override
 	public Staff get(Integer id) {
@@ -65,6 +68,12 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public List<Staff> findByParentid(Integer parentid) {
 		List<Staff> staffs=staffDAO.findByParentid(parentid);
+		return staffs;
+	}
+
+	@Override
+	public List<Staff> findByParentidAndRole(Integer parentid, Integer role) {
+		List<Staff> staffs=assistDAO.findByParentidAndRole(parentid, role);
 		return staffs;
 	}
 

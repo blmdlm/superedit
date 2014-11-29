@@ -60,8 +60,13 @@ public interface StaffService {
 	 * @return
 	 */
 	List<Staff> findByParentid(Integer parentid);
-	
-	
+	/**
+	 * 通过parentid和role找到职员
+	 * @param parentid
+	 * @param role
+	 * @return
+	 */
+	List<Staff> findByParentidAndRole(Integer parentid,Integer role);
 	
 	
 	

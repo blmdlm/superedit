@@ -40,7 +40,7 @@ public class ProprieterController {
 	StaffService staffService;
 
 	/**
-	 * 社长首页
+	 * 个人首页
 	 * 
 	 * @return
 	 */
@@ -52,7 +52,7 @@ public class ProprieterController {
 	/****************************************用户中心 **************************************/
 
 	/**
-	 * 社长用户中心首页
+	 * 用户中心首页
 	 * 
 	 * @return
 	 */
@@ -62,7 +62,7 @@ public class ProprieterController {
 	}
 
 	/**
-	 * 社长查看个人资料
+	 * 查看个人资料
 	 * 
 	 * @return
 	 */
@@ -124,9 +124,18 @@ public class ProprieterController {
 	 */
 	@RequestMapping("/usermanager/check")
 	public String userManagerCheck(HttpSession session,Model model){
-		List<Staff> staffs=staffService.findByParentid(((Staff)session.getAttribute("h_user")).getRole());
+		Integer parentid=(((Staff)session.getAttribute("h_user")).getId());
+		//获取总编List
+		List<Staff> staffs01=staffService.findByParentidAndRole(parentid, 6);
+		//获取财务人员List
+		List<Staff> staffs02=staffService.findByParentidAndRole(parentid, 9);
+		//获取留言管理人员List
+		List<Staff> staffs03=staffService.findByParentidAndRole(parentid, 8);
 		
-		model.addAttribute("staffs", staffs);
+		model.addAttribute("staffs01", staffs01);
+		model.addAttribute("staffs02", staffs02);
+		model.addAttribute("staffs03", staffs03);
+		
 		return "/proprieter/usermanager/check";
 	}
 	
@@ -141,7 +150,8 @@ public class ProprieterController {
 	 * @return
 	 */
 	@RequestMapping(value = "/usermanager/create", method = RequestMethod.GET)
-	public String create() {
+	public String create(Model model) {
+		model.addAttribute("staff",new Staff());
 		return "/proprieter/usermanager/create";
 	}
 	/**
@@ -152,25 +162,17 @@ public class ProprieterController {
 	 * @return
 	 */
 	@RequestMapping(value = "/usermanager/create", method = RequestMethod.POST)
-	public String create(String email, int role, String password,HttpSession session) {
-		Staff staff = new Staff();
-		staff.setEmail(email);
-		staff.setRole(role);
-		staff.setPassword(password);
-		staff.setParentid(7);
-		
-//		Publisher publisher=new Publisher();
+	public String create(Staff staff,HttpSession session) {
+		logger.info(staff);
+		staff.setName("new staff");
+		staff.setParentid(((Staff)session.getAttribute("h_user")).getId());
 		staff.setPublisher(((Staff)session.getAttribute("h_user")).getPublisher());
-		
-		
 		if (staffService.isExist(staff)) {
-			
 			throw new StaffException("用户已存在");
 		}
-		
-		
+
 		staffService.save(staff);
-		return "/proprieter/usermanager/index";
+		return "redirect:/proprieter/usermanager/check";
 	}
 	/**
 	 * 访问删除账户页面
@@ -178,18 +180,18 @@ public class ProprieterController {
 	 */
 	@RequestMapping(value = "/usermanager/delete")
 	public String delete(HttpSession session,Model model){
-		logger.info("进入了");
-		List<Staff> staffs=staffService.findByParentid(((Staff)session.getAttribute("h_user")).getRole());
-	
-		for (Staff staff : staffs) {
-			logger.info("staff email"+staff.getEmail());
-			logger.info("staff role"+staff.getRole());
-		}
+		Integer parentid=(((Staff)session.getAttribute("h_user")).getId());
+		//获取总编List
+		List<Staff> staffs01=staffService.findByParentidAndRole(parentid, 6);
+		//获取财务人员List
+		List<Staff> staffs02=staffService.findByParentidAndRole(parentid, 9);
+		//获取留言管理人员List
+		List<Staff> staffs03=staffService.findByParentidAndRole(parentid, 8);
 		
-		
-		model.addAttribute("staffs", staffs);
-		
-		
+		model.addAttribute("staffs01", staffs01);
+		model.addAttribute("staffs02", staffs02);
+		model.addAttribute("staffs03", staffs03);
+
 		
 		return "/proprieter/usermanager/delete";
 	}

@@ -9,7 +9,7 @@
 		<property name="driverClassName">
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
-		<property name="url" value="jdbc:mysql://localhost:3306/mydb"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/mydb?useUnicode=true&amp;characterEncoding=utf-8"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="mysql"></property>
 	</bean>
@@ -90,7 +90,12 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-
+	<!-- 辅助DAO -->
+	<bean id="AssistDAO" class="dao.AssistDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 
 	<!--控制器 -->
 	<!-- <bean id="HelloController" class="controller.HelloController"> <property 

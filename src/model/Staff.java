@@ -150,4 +150,12 @@ public class Staff implements java.io.Serializable {
 		this.phone = phone;
 	}
 
+	@Override
+	public String toString() {
+		return "Staff [id=" + id + ", publisher=" + publisher + ", email="
+				+ email + ", password=" + password + ", parentid=" + parentid
+				+ ", role=" + role + ", level=" + level + ", name=" + name
+				+ ", gender=" + gender + ", phone=" + phone + "]";
+	}
+
 }

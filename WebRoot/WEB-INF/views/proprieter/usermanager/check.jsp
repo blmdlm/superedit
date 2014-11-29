@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -22,31 +23,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--基本布局开始-->
     <div class="container-fluid">
     <div class="row-fluid" id="a1">
-    	
-        <p class="title">主编</p>
-       
+       <p class="title">总编</p>
+       <c:forEach items="${staffs01}" varStatus="i" var="staff">
        <div class="twobutton">
-            <button type="button" class="btn  btn-primary" disabled="disabled">Primary button</button>
-            <button type="button" class="btn btn-default " >删除</button> 
+            <button type="button" class="btn  btn-primary" style="width:130px" disabled="disabled">${staff.name}</button>
+          
         </div>
-
-
-
-        
-        
+		</c:forEach>
     </div>
+    
     <div class="row-fluid" id="a2">
+        
         <p class="title">财务人员</p>
-        <div class="span12">
-        	
+       <c:forEach items="${staffs02}" varStatus="i" var="staff">
+       <div class="twobutton">
+            <button type="button" class="btn  btn-primary" style="width:130px" disabled="disabled">${staff.name}</button>
+   
         </div>
+		</c:forEach>
     </div>
 
     <div class="row-fluid" id="a3">
         <p class="title">留言管理人员</p>
-        <div class="span12">
-        	
+       <c:forEach items="${staffs03}" varStatus="i" var="staff">
+       <div class="twobutton">
+            <button type="button" class="btn  btn-primary" style="width:130px" disabled="disabled">${staff.name}</button>
+    
         </div>
+		</c:forEach>
     </div>
     </div>
     <!--基本布局结束-->

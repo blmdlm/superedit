@@ -28,13 +28,22 @@ public class LoginController {
 	StaffService staffService;
 	
 	@RequestMapping("/login")
-	public String login(HttpSession session){
+	public String login(HttpSession session,String id){
 		
-		Staff staff=staffService.get(1);
-		logger.info(staff);
+		if ("h6".equals(id)) {
+			Staff staff=staffService.get(1);
+			session.setAttribute("h_user",staff);
+			return "redirect:/proprieter/index";
+		}else if ("i8".equals(id)) {
+			Staff staff=staffService.get(2);
+			session.setAttribute("i_user",staff);
+			return "redirect:/messagemanager/index";
+			
+		}else {
+			return "";
+		}
 		
-		session.setAttribute("h_user",staff);
-		return "redirect:/proprieter/index";
+
 		
 	}
 	
