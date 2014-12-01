@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import model.Messageboard;
+import model.Publisher;
 import model.Staff;
 
 import org.hibernate.SessionFactory;
@@ -41,6 +43,21 @@ public class AssistDAO extends HibernateDaoSupport{
 			throw re;
 		}
 		
+	}
+	/**
+	 *找到杂志社未审核的留言 
+	 * @param publisher
+	 * @return
+	 */
+	public List<Messageboard> findPostAuditMessageByPublisher(
+			Publisher publisher) {
+		try {
+			String queryString = "from Messageboard as model where model.type= 0 and audit_status = 0 ";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
 	}
 	
 	

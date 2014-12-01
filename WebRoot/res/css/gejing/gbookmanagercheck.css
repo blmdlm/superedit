@@ -1,0 +1,134 @@
+.messagebord{
+	position: absolute;
+	display: block;
+	/*border: 1px yellow solid;*/
+	width: 1290px;
+}
+.bord_up{
+	position: relative;
+	top: 0px;
+	left: 0px;
+	display: block;
+	width: 1290px;
+	height: 40px;
+	/*border: 1px solid black;*/
+}
+.bord_down{
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 1290px;
+	/*border: 1px yellow solid;	*/
+}
+span{
+	position: relative;
+	height: 140px;
+	width: 1290px;
+	display: block;
+	/*border: 1px solid red;*/
+}
+span .photo{
+	position: relative;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	/*display: block;*/
+	float: left;
+	margin-top: 90px;
+	margin-left: 10px;
+	margin-right: 10px;
+	/*border: 1px solid black;*/
+}
+
+span .content{
+	position: relative;
+	height: 120px;
+	width: 1160px;
+	float: left;
+	display: block;
+	
+	/*圆角加填充*/
+	background: none repeat scroll 0 0 #e5e5ea;
+    border-radius: 15px;
+    padding: 10px 20px  ;
+
+    /*border: 1px solid black;*/
+
+}
+
+
+
+span .content:after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: -5px;
+    background: url('../../img/chat-left.png') no-repeat scroll left top transparent;
+    width: 13px;
+    height: 13px;
+    display: block;
+}
+
+.user-name{
+	position: relative;
+	height: 30px;
+	width: 140px;
+	color: #007aff;
+	/*border: 1px solid red;*/
+}
+.message{
+	position: relative;
+	height: 40px;
+	width: 1130px;
+	font-size: 0.95em;
+	margin-bottom: 12px;
+	color: #333;
+
+	/*border: 1px solid red;*/
+}
+
+.time{
+	position: relative;
+	height: 30px;
+	width: 280px;
+	color: #888888;
+	font-size: 0.8em;
+	color: #888;
+	margin-bottom: 0px;
+	/*border: 1px solid red;*/
+}
+.message-right .photo{
+	float: right;
+}
+.message-right .content{
+	background: none repeat scroll 0 0 #178efe;
+	float: right;
+
+}
+.message-right .content:after{
+	background: url('../../img/chat-right.png') no-repeat scroll left top transparent;
+	left: auto;
+	right: -6px;
+}
+
+.message-right .user-name{
+	color: #FFFFFF;
+}
+.message-right .message{
+	color: #FFFFFF;
+}
+.message-right .time{
+	color: #FFFFFF;
+	opacity: 0.75;
+}
+/*.bubble{
+
+.
+
+.img{
+	border-radius: 50%;
+    bottom: -2px;
+    left: 0;
+    position: absolute;
+}*/
+

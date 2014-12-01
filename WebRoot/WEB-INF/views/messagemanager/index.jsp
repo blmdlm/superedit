@@ -49,23 +49,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <ul>
                 	<li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>消息</a></li>
                     <li><a href="messagemanager/usercenter/check" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查看个人资料</a></li>
-                    <li><a href="messagemanager/usercenter/update" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改个人资料</a></li>
+                    <li><a href="messagemanager/usercenter/postaduit" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改个人资料</a></li>
                     <li><a href="B_changePassword" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改密码</a></li>
                     
                 </ul>
             </li>
+            
             <li class="childUlLi">
-                <a href="B_contribute" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>留言管理</a>
+                <a href="B_personIfo"  target="menuFrame"> <i class="glyph-icon icon-reorder"></i>留言管理</a>
                 <ul>
-                    <li><a href="proprieter/usermanager/check" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查看留言</a></li>
-                    <li><a href="proprieter/usermanager/create" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>回复记录</a></li>
-                  </a></li>
+                	<li><a href="messagemanager/gbookmanager/check" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查看留言</a></li>
+                    <li><a href="messagemanager/gbookmanager/postaudit" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>待审核留言</a></li>
+                    <li><a href="messagemanager/usercenter/postaudit" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>未回复留言</a></li>
+                    <li><a href="B_changePassword" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>回复记录</a></li>
+                    
                 </ul>
-            </li> 
-           
+            </li>
+            
+
         </ul>
     </div>
     <!--菜单-->
+           
     <div id="layout_right_content" class="layout_right_content">
 
         <div class="route_bg">

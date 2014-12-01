@@ -29,6 +29,10 @@ public class MessageboardDAO extends HibernateDaoSupport {
 	public static final String SEND_ID = "sendId";
 	public static final String CONTENT = "content";
 	public static final String PARENTID = "parentid";
+	public static final String TYPE = "type";
+	public static final String STAFF_ID = "staffId";
+	public static final String AUDIT_STATUS = "auditStatus";
+	public static final String REPLY_STATUS = "replyStatus";
 
 	protected void initDao() {
 		// do nothing
@@ -105,6 +109,22 @@ public class MessageboardDAO extends HibernateDaoSupport {
 
 	public List<Messageboard> findByParentid(Object parentid) {
 		return findByProperty(PARENTID, parentid);
+	}
+
+	public List<Messageboard> findByType(Object type) {
+		return findByProperty(TYPE, type);
+	}
+
+	public List<Messageboard> findByStaffId(Object staffId) {
+		return findByProperty(STAFF_ID, staffId);
+	}
+
+	public List<Messageboard> findByAuditStatus(Object auditStatus) {
+		return findByProperty(AUDIT_STATUS, auditStatus);
+	}
+
+	public List<Messageboard> findByReplyStatus(Object replyStatus) {
+		return findByProperty(REPLY_STATUS, replyStatus);
 	}
 
 	public List findAll() {

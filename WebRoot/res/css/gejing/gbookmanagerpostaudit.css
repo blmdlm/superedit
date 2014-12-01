@@ -1,0 +1,48 @@
+.heading{
+	position: relative;
+	height: 40px;
+	/*border: 1px solid red;*/
+	margin-bottom: 5px;
+}
+
+.list{
+	position: relative;
+
+	/*border: 1px solid red;*/
+}
+
+.row{
+	position: relative;
+	display: block;
+	height: 50px;
+	margin-bottom: 10px;
+
+}
+
+.time{
+	position: relative;
+	display: block;
+	text-align: down;
+	top: 15px;
+	/*border: 1px solid black;*/
+
+}
+
+.message{
+	position: relative;
+	display: block;
+	top: 5px;
+	line-height: 20px;
+	min-width: 560px;
+	/*border: 1px solid black;*/
+}
+
+.buttons{
+	position: relative;
+	/*border: 1px red solid;*/
+	text-align: center;
+	margin-top: 8px;
+}
+.btns{
+	width: 110%;
+}

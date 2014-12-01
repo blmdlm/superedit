@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import controller.ProprieterController;
 import dao.AssistDAO;
 import dao.StaffDAO;
+import model.Messageboard;
+import model.Publisher;
 import model.Staff;
 import service.StaffService;
 
@@ -75,6 +77,12 @@ public class StaffServiceImpl implements StaffService {
 	public List<Staff> findByParentidAndRole(Integer parentid, Integer role) {
 		List<Staff> staffs=assistDAO.findByParentidAndRole(parentid, role);
 		return staffs;
+	}
+
+	@Override
+	public List<Messageboard> findPostAuditMessageByPublisher(
+			Publisher publisher) {
+		return assistDAO.findPostAuditMessageByPublisher(publisher);
 	}
 
 }

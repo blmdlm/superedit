@@ -3,6 +3,8 @@ package service;
 
 import java.util.List;
 
+import model.Messageboard;
+import model.Publisher;
 import model.Staff;
 
 /**
@@ -67,6 +69,12 @@ public interface StaffService {
 	 * @return
 	 */
 	List<Staff> findByParentidAndRole(Integer parentid,Integer role);
+	/**
+	 * 查找杂志社的未审核留言
+	 * @param publisher
+	 * @return
+	 */
+	List<Messageboard> findPostAuditMessageByPublisher(Publisher publisher);
 	
 	
 	

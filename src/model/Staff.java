@@ -118,12 +118,13 @@ public class Staff implements java.io.Serializable {
 	public Integer getLevel() {
 		return this.level;
 	}
-
-	public void setLevel(Integer level) {
+	
+	public void setLevel(Integer level){
 		this.level = level;
 	}
 
 	@Column(name = "name", length = 45)
+
 	public String getName() {
 		return this.name;
 	}
@@ -148,14 +149,6 @@ public class Staff implements java.io.Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	@Override
-	public String toString() {
-		return "Staff [id=" + id + ", publisher=" + publisher + ", email="
-				+ email + ", password=" + password + ", parentid=" + parentid
-				+ ", role=" + role + ", level=" + level + ", name=" + name
-				+ ", gender=" + gender + ", phone=" + phone + "]";
 	}
 
 }

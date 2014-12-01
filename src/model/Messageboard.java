@@ -22,8 +22,12 @@ public class Messageboard implements java.io.Serializable {
 	private Integer id;
 	private Integer sendId;
 	private String content;
-	private Date time;
+	private Date sendTime;
 	private Integer parentid;
+	private Integer type;
+	private Integer staffId;
+	private Integer auditStatus;
+	private Integer replyStatus;
 
 	// Constructors
 
@@ -32,12 +36,17 @@ public class Messageboard implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Messageboard(Integer sendId, String content, Date time,
-			Integer parentid) {
+	public Messageboard(Integer sendId, String content, Date sendTime,
+			Integer parentid, Integer type, Integer staffId,
+			Integer auditStatus, Integer replyStatus) {
 		this.sendId = sendId;
 		this.content = content;
-		this.time = time;
+		this.sendTime = sendTime;
 		this.parentid = parentid;
+		this.type = type;
+		this.staffId = staffId;
+		this.auditStatus = auditStatus;
+		this.replyStatus = replyStatus;
 	}
 
 	// Property accessors
@@ -71,13 +80,13 @@ public class Messageboard implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "time", length = 10)
-	public Date getTime() {
-		return this.time;
+	@Column(name = "send_time", length = 10)
+	public Date getSendTime() {
+		return this.sendTime;
 	}
 
-	public void setTime(Date time) {
-		this.time = time;
+	public void setSendTime(Date sendTime) {
+		this.sendTime = sendTime;
 	}
 
 	@Column(name = "parentid")
@@ -87,6 +96,42 @@ public class Messageboard implements java.io.Serializable {
 
 	public void setParentid(Integer parentid) {
 		this.parentid = parentid;
+	}
+
+	@Column(name = "type")
+	public Integer getType() {
+		return this.type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	@Column(name = "staff_id")
+	public Integer getStaffId() {
+		return this.staffId;
+	}
+
+	public void setStaffId(Integer staffId) {
+		this.staffId = staffId;
+	}
+
+	@Column(name = "audit_status")
+	public Integer getAuditStatus() {
+		return this.auditStatus;
+	}
+
+	public void setAuditStatus(Integer auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+
+	@Column(name = "reply_status")
+	public Integer getReplyStatus() {
+		return this.replyStatus;
+	}
+
+	public void setReplyStatus(Integer replyStatus) {
+		this.replyStatus = replyStatus;
 	}
 
 }
