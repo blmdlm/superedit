@@ -111,7 +111,17 @@
 		parent="StaffService">
 	</bean>
 
-
+	<bean id="MessageBoardService" class="service.MessageBoardService" abstract="true">
+	</bean>
+	<bean id="MessageBoardServiceImpl" class="service.impl.MessageBoardServiceImpl"
+		parent="MessageBoardService">
+	</bean>
+	
+	<bean id="AuthorService" class="service.AuthorService" abstract="true">
+	</bean>
+	<bean id="AuthorServiceImpl" class="service.impl.AuthorServiceImpl"
+		parent="AuthorService">
+	</bean>
 
 	<!-- 确保能够实例化bean -->
 	<bean

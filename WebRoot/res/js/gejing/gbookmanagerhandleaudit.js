@@ -1,7 +1,7 @@
 
 
-
-var xmlHttp;
+//js发送请求
+/*var xmlHttp;
 function createXMLHttpRequest(){
 	if (window.XMLHttpRequest) {//mozilla
 		xmlHttp=new XMLHttpRequest();
@@ -37,11 +37,26 @@ function sendAsynchronRequest(url,parameter,callback){
 		xmlHttp.send(parameter);
 	}
 }
+*/
+
+//jquey发送post请求
+
+
+
 
 //更改模态框
-function change(id){
-	var x=document.getElementById("confirm");
-	x.onclick=function(){handleAudit(id,2);};
+function change(id,status){
+	if(status=="2"){
+		var x=document.getElementById("confirm01");
+		x.onclick=function(){handleAudit(id,2);};
+	}else if(status=="3"){}		
+	var x=document.getElementById("confirm02");
+	x.onclick=function(){handleAudit(id,3);
+		
+		
+	}
+	
+
 	
 	
 }
@@ -51,11 +66,26 @@ function change(id){
 
 
 function handleAudit (id,status) {
-	url="messagemanager/gbookmanager/handleaudit";
-	var paramter="id="+id+"+&status="+status;
-	sendAsynchronRequest(url,paramter,loadCallBack);	
+	//alert(id+" "+status);
+	var url="messagemanager/gbookmanager/handleaudit";
+	//var paramter="id="+id+"+&status="+status;
+	//js方法
+	//sendAsynchronRequest(url,paramter,loadCallBack);
+	//jquery方法
+	$.post(url,{id:id,status:status}).done(function(data){
+//		alert("data="+data);
+		if(data == "OK"){
+//			alert("jquery跳转");
+			window.location.href="messagemanager/gbookmanager/postaudit";  
+		}
+		
+		
+	});
+
 }
 
+
+//js回调函数
 function loadCallBack(){
 	try{
 		if (xmlHttp.readyState==4) {

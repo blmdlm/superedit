@@ -79,10 +79,6 @@ public class StaffServiceImpl implements StaffService {
 		return staffs;
 	}
 
-	@Override
-	public List<Messageboard> findPostAuditMessageByPublisher(
-			Publisher publisher) {
-		return assistDAO.findPostAuditMessageByPublisher(publisher);
-	}
+
 
 }

@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<link rel="stylesheet" href="res/css/add.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="res/utilLib/bootstrap.min.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="res/css/gejing/gbookmanagerpostaudit.css" type="text/css" media="screen" />
+ <!--  <link rel="stylesheet" href="res/css/gejing/gbookmanagerpostaudit.css" type="text/css" media="screen" /> -->
   <script type="text/javascript" src="res/js/jquery-1.11.1.min.js"></script>
   <script type="text/javascript" src="res/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="res/js/gejing/gbookmanagerhandleaudit.js"></script>
@@ -28,23 +28,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <div class="div_from_aoto" style="width: 80%;">
- 		   <div class="heading"></div>
-       <div class="list ">
-			<c:forEach items="${messes}" varStatus="i" var="mess">	
-            <div class="row bg-success">
-              <div class="time col-md-1">${mess.sendTime}</div> 
-              <div class="message col-md-9">${mess.content}</div>
-              <div class="buttons col-md-1">
-                <button type="button" class="btns  btn btn-primary" data-toggle="modal" data-target="#myModal01" onclick="change(${mess.id})">通过</button>
-              </div>
-              <div class="buttons col-md-1">
-                <button type="button" class="btns  btn btn-primary" data-toggle="modal" data-target="#myModal02">不通过</button>
-              </div>
-            </div>    
+    <table class="table table-hover table-striped">
+    
+			<!-- On rows -->
+			<tr>
+				<td>时间</td>
+				<td>内容</td>
+				<td></td>
+				<td></td>
+			
+				
+			</tr>
+
+
+			<!-- On cells (`td` or `th`) -->
+			<c:forEach items="${results}" varStatus="i" var="result">
+				<tr class="${styles[result[3]]}">
+					<td>${result[1]}</td>
+					<td>${result[2]}</td>
+					<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal01" 
+ 					onclick="change(${result[0]},2)" >通过</button></td>
+					<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal02" 
+ 					onclick="change(${result[0]},3)" >不通过</button></td>
+				</tr>   
 			</c:forEach>
 
             
-
+		</table>
 
        </div>
     </div>
@@ -63,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         确认通过该条留言吗？
       </div>
       <div class="modal-footer">
-        <button id="confirm" type="button" class="btn btn-default" data-dismiss="modal" onclick="handleAudit(id,2)">确认</button>
+        <button id="confirm01" type="button" class="btn btn-default" data-dismiss="modal" onclick="handleAudit()">确认</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
       </div>
     </div>
@@ -82,13 +92,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         确认不通过该条留言吗？
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
+        <button id="confirm02" type="button" class="btn btn-default" data-dismiss="modal" onclick="handleAudit()" >确认</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
       </div>
     </div>
   </div>
 </div>
-    <!--模态框结束-->
+    <!--模态框结束-->    
 
 
 

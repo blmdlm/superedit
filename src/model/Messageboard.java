@@ -24,6 +24,14 @@ public class Messageboard implements java.io.Serializable {
 	private String content;
 	private Date sendTime;
 	private Integer parentid;
+	@Override
+	public String toString() {
+		return "Messageboard [id=" + id + ", sendId=" + sendId + ", content="
+				+ content + ", sendTime=" + sendTime + ", parentid=" + parentid
+				+ ", type=" + type + ", staffId=" + staffId + ", auditStatus="
+				+ auditStatus + ", replyStatus=" + replyStatus + "]";
+	}
+
 	private Integer type;
 	private Integer staffId;
 	private Integer auditStatus;

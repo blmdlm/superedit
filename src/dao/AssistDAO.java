@@ -52,8 +52,40 @@ public class AssistDAO extends HibernateDaoSupport{
 	public List<Messageboard> findPostAuditMessageByPublisher(
 			Publisher publisher) {
 		try {
-			String queryString = "from Messageboard as model where model.type= 0 and audit_status = 0 ";
+			String queryString = "from Messageboard as model where model.type= 0 and audit_status = 0 order by send_time";
 			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	/**
+	 * 找到杂志社未回复的留言
+	 * @param publisher
+	 * @return
+	 */
+	public List<Messageboard> findUnreplyMessageByPublisher(Publisher publisher) {
+		try {
+			String queryString = "from Messageboard as model where model.type= 0 and audit_status = 2 and reply_status=0 order by send_time";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	public List<Messageboard> findAllPassed() {
+		try {
+			String queryString = "from Messageboard as model where model.type= 0 and audit_status = 2  order by send_time desc";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	public List<Messageboard> findByParentid(Integer parentid) {
+		try {
+			String queryString = "from Messageboard as model where model.type= 1 and parentid = ?";
+			return getHibernateTemplate().find(queryString,parentid);
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
 			throw re;
