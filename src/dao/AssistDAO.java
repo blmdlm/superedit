@@ -1,9 +1,15 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import model.Magazine;
 import model.Messageboard;
 import model.Publisher;
+import model.Script;
 import model.Staff;
 
 import org.hibernate.SessionFactory;
@@ -11,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import com.mysql.fabric.xmlrpc.base.Value;
 /**
  * 辅助DAO
  *@Project superedit 
@@ -86,6 +94,92 @@ public class AssistDAO extends HibernateDaoSupport{
 		try {
 			String queryString = "from Messageboard as model where model.type= 1 and parentid = ?";
 			return getHibernateTemplate().find(queryString,parentid);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	
+	/**
+	 * 找到该出版社所有通过的未设置稿费的稿件
+	 * @param publisher
+	 * @return
+	 */
+	public List<Script> findPassUnSetByPubliser(Publisher publisher) {
+		
+		Set<Magazine> magazines=publisher.getMagazines();
+		int count=magazines.size();
+		List<Long> ids=new ArrayList<Long>();
+		Magazine magazine;
+		for (Iterator iterator = magazines.iterator(); iterator.hasNext();) {
+			magazine = (Magazine) iterator.next();
+			ids.add(Long.valueOf(magazine.getId()));
+		}
+			
+		
+		try {
+			
+			String queryString = "from Script as model where model.state= 2 and pay=0 and magazine_id in (:listParam) order by date";
+			String[] params={"listParam"};
+			Object[] values={ids};
+			return getHibernateTemplate().findByNamedParam(queryString, params, values);
+			
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	/**
+	 * 找出该出版社所有设置了稿费，还没有完成支付的稿件
+	 * @param publisher
+	 * @return
+	 */
+	public List<Script> findUnpayByPubliser(Publisher publisher) {
+		Set<Magazine> magazines=publisher.getMagazines();
+		int count=magazines.size();
+		List<Long> ids=new ArrayList<Long>();
+		Magazine magazine;
+		for (Iterator iterator = magazines.iterator(); iterator.hasNext();) {
+			magazine = (Magazine) iterator.next();
+			ids.add(Long.valueOf(magazine.getId()));
+		}
+			
+		
+		try {
+			
+			String queryString = "from Script as model where model.state= 2 and pay=1 and magazine_id in (:listParam) order by date";
+			String[] params={"listParam"};
+			Object[] values={ids};
+			return getHibernateTemplate().findByNamedParam(queryString, params, values);
+			
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	/**
+	 * 查找该杂志社所有已完成支付的稿件
+	 * @param publisher
+	 * @return
+	 */
+	public List<Script> findPayedByPubliser(Publisher publisher) {
+		Set<Magazine> magazines=publisher.getMagazines();
+		int count=magazines.size();
+		List<Long> ids=new ArrayList<Long>();
+		Magazine magazine;
+		for (Iterator iterator = magazines.iterator(); iterator.hasNext();) {
+			magazine = (Magazine) iterator.next();
+			ids.add(Long.valueOf(magazine.getId()));
+		}
+			
+		
+		try {
+			
+			String queryString = "from Script as model where model.state= 2 and pay=2 and magazine_id in (:listParam) order by date";
+			String[] params={"listParam"};
+			Object[] values={ids};
+			return getHibernateTemplate().findByNamedParam(queryString, params, values);
+			
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
 			throw re;

@@ -36,8 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>内容</td>
 				<td></td>
 				<td></td>
-			
-				
+
 			</tr>
 
 
@@ -57,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</table>
 
        </div>
-    </div>
+ 
 
 
 <!--模态框开始-->

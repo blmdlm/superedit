@@ -93,7 +93,7 @@ public class ProprieterController {
 	@RequestMapping(value = "/usercenter/update", method = RequestMethod.POST)
 	public String userCenterUpdate(Staff staff, HttpSession session) {
 		logger.info("staff"+staff);
-		
+		//bug!!!!!!!!!!!!!!
 		staff.setId(((Staff) session.getAttribute("h_user")).getId());
 		Publisher publisher=new Publisher();
 		publisher.setId(1);

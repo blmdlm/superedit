@@ -123,6 +123,11 @@
 		parent="AuthorService">
 	</bean>
 
+	<bean id="ScriptService" class="service.ScriptService" abstract="true">
+	</bean>
+	<bean id="ScriptServiceImpl" class="service.impl.ScriptServiceImpl"
+		parent="ScriptService">
+	</bean>
 	<!-- 确保能够实例化bean -->
 	<bean
 		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />

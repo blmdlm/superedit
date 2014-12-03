@@ -39,8 +39,14 @@ public class LoginController {
 			session.setAttribute("i_user",staff);
 			return "redirect:/messagemanager/index";
 			
+		}else if("j9".equals(id)){
+			Staff staff=staffService.get(3);
+			session.setAttribute("j_user",staff);
+			return "redirect:/financial/index";
+
 		}else {
 			return "";
+			
 		}
 		
 

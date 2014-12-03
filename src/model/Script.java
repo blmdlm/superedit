@@ -86,7 +86,7 @@ public class Script implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Magazine_id")
 	public Magazine getMagazine() {
 		return this.magazine;
@@ -96,7 +96,7 @@ public class Script implements java.io.Serializable {
 		this.magazine = magazine;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Author_id", nullable = false)
 	public Author getAuthor() {
 		return this.author;
