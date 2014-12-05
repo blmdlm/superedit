@@ -1,7 +1,10 @@
 package service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import dao.AssistDAO;
 import dao.AuthorDAO;
 import model.Author;
 import service.AuthorService;
@@ -15,10 +18,17 @@ import service.AuthorService;
  */
 public class AuthorServiceImpl implements AuthorService{
 	@Autowired
+	AssistDAO assistDAO;
+	
+	@Autowired
 	AuthorDAO authorDAO;
 	@Override
 	public Author get(Integer id) {
 		return authorDAO.findById(id);
+	}
+	@Override
+	public List<Author> getTop10New() {
+		return assistDAO.getTop10New();
 	}
 
 }

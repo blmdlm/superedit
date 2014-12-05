@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import model.Author;
 
 /**
@@ -17,5 +19,10 @@ public interface AuthorService {
 	 * @return
 	 */
 	Author get(Integer id);
+	/**
+	 * 查找新注册的10个作者
+	 * @return
+	 */
+	List<Author> getTop10New();
 	
 }

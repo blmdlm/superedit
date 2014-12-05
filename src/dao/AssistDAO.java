@@ -6,7 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import model.Author;
 import model.Magazine;
+import model.Message;
 import model.Messageboard;
 import model.Publisher;
 import model.Script;
@@ -17,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import service.ScriptService;
 
 import com.mysql.fabric.xmlrpc.base.Value;
 /**
@@ -180,6 +184,63 @@ public class AssistDAO extends HibernateDaoSupport{
 			Object[] values={ids};
 			return getHibernateTemplate().findByNamedParam(queryString, params, values);
 			
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	/**
+	 * 找出新注册的10个用户
+	 * @return
+	 */
+	public List<Author> getTop10New() {
+		try {
+			String queryString = "from Author as model  order by registertime desc limit 10";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	/**
+	 * 找出一个作者所有投递的稿件数
+	 * @param author
+	 * @return
+	 */
+	public List<Long> getSendSumByAuthor(Author author) {
+		try {
+			String queryString = "select count(*) from Script   where author_id = ?";
+			return getHibernateTemplate().find(queryString,author.getId());
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	/**
+	 * 找出一个作者所有通过的稿件数
+	 * @param author
+	 * @return
+	 */
+	public List<Long> getPassSumByAuthor(Author author) {
+		try {
+			String queryString = "select count(*) from Script   where author_id = ? and state = 2 ";
+			return getHibernateTemplate().find(queryString,author.getId());
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	/**
+	 * 查找最新的约稿记录
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	public List<Message> findLastMessage(Integer id, Integer id2) {
+		try {
+			log.info("id="+id+"id2="+id2);
+			String queryString = "from Message  as model where sendid = ? and sendstate=10 and recvstate=11 and recvid=? order by time desc";
+			return  getHibernateTemplate().find(queryString,id,id2);
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
 			throw re;

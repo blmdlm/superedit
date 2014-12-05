@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import model.Author;
 import model.Publisher;
 import model.Script;
 
@@ -44,5 +45,18 @@ public interface ScriptService {
 	 * @return
 	 */
 	List<Script> findPayedByPubliser(Publisher publisher);
+
+
+	/**
+	 * 查找一个作者投递的所有稿件数
+	 * @return
+	 */
+	Long getSendSumByAuthor(Author author);
+	/**
+	 * 查找一个作者所有通过的稿件数
+	 * @param author
+	 * @return
+	 */
+	Long getPassSumByAuthor(Author author);
 	
 }

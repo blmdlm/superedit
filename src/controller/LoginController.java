@@ -44,13 +44,19 @@ public class LoginController {
 			session.setAttribute("j_user",staff);
 			return "redirect:/financial/index";
 
+		
+
+		}else if("k10".equals(id)){
+			Staff staff=staffService.get(4);
+			session.setAttribute("k_user",staff);
+			return "/editor/index";
+
+		
+
 		}else {
 			return "";
 			
 		}
-		
-
-		
 	}
 	
 }

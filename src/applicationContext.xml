@@ -128,6 +128,12 @@
 	<bean id="ScriptServiceImpl" class="service.impl.ScriptServiceImpl"
 		parent="ScriptService">
 	</bean>
+	
+	<bean id="MessageService" class="service.MessageService" abstract="true">
+	</bean>
+	<bean id="MessageServiceImpl" class="service.impl.MessageServiceImpl"
+		parent="MessageService">
+	</bean>
 	<!-- 确保能够实例化bean -->
 	<bean
 		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
