@@ -31,17 +31,20 @@ function change(id){
 
 function confirm(id){
 
-	
-	var url="financial/paymentmanager/unpay";
+	var message=$("#message").val();
+	if(message==null||message==""){
+		alert("输入不能为空");
+	}else{
+	var url="editor/authorlib/solicit";
 
-	$.post(url,{id:id}).done(function(data){
+	$.post(url,{id:id,message:message}).done(function(data){
 		if(data == "OK"){
-			window.location.href="financial/paymentmanager/unpay";  
+			window.location.href="editor/authorlib/check";  
 		}
 		
 		
 	});
-
+	}
 
 
 }

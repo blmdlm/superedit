@@ -18,6 +18,11 @@ public interface MessageService {
 	 * @return
 	 */
 	Message findLastMessage(Integer id, Integer id2);
+	/**
+	 * 保存一条消息
+	 * @param mess
+	 */
+	void save(Message mess);
 
 	
 	

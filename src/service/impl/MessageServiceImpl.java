@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import dao.AssistDAO;
+import dao.MessageDAO;
 import model.Message;
 import service.MessageService;
 /**
@@ -18,7 +19,8 @@ import service.MessageService;
 public class MessageServiceImpl implements MessageService {
 	@Autowired
 	AssistDAO assistDAO;
-	
+	@Autowired
+	MessageDAO messageDAO;
 	@Override
 	public Message findLastMessage(Integer id, Integer id2) {
 		List<Message> messages= assistDAO.findLastMessage(id,id2);
@@ -27,6 +29,11 @@ public class MessageServiceImpl implements MessageService {
 		}
 		return messages.get(0);
 		
+	}
+
+	@Override
+	public void save(Message mess) {
+		messageDAO.save(mess);
 	}
 
 	

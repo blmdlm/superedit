@@ -1,6 +1,7 @@
 package controller.editor;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -126,10 +127,33 @@ public class AuthorLibController {
 	
 	
 	
+
 	
 	
 	
-	
+	/**
+	 * 进行约稿
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/solicit")
+	@ResponseBody
+	public String solicit(HttpSession session,Integer id,String message){
+		//获得当前登陆者的信息
+		Staff staff=(Staff) session.getAttribute("k_user");
+		//构造留言
+		Message mess =new Message();
+		mess.setContent(message);
+		mess.setSendid(staff.getId());
+		mess.setSendstate(10);
+		mess.setRecvid(id);
+		mess.setRecvstate(11);
+		mess.setTime(new Date());
+		//存储留言
+		messageService.save(mess);
+		
+		return "OK";
+	}
 	
 	
 	

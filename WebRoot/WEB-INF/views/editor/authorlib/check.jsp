@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		请输入约稿信息
 		</div>
 		<div class="row">
-			<textarea class="form-control" rows="3"></textarea>
+			<textarea id="message" class="form-control" rows="3"></textarea>
 		</div>
       </div>
       <div class="modal-footer">
