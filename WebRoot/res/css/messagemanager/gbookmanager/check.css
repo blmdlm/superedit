@@ -63,7 +63,7 @@ span .content:after {
     position: absolute;
     bottom: 0px;
     left: -5px;
-    background: url('../../img/chat-left.png') no-repeat scroll left top transparent;
+    background: url('../../../img/chat-left.png') no-repeat scroll left top transparent;
     width: 13px;
     height: 13px;
     display: block;
@@ -105,7 +105,7 @@ span .content:after {
 
 }
 .message-right .content:after{
-	background: url('../../img/chat-right.png') no-repeat scroll left top transparent;
+	background: url('../../../img/chat-right.png') no-repeat scroll left top transparent;
 	left: auto;
 	right: -6px;
 }

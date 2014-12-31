@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import controller.ProprieterController;
 import dao.AssistDAO;
 import dao.StaffDAO;
 import model.Messageboard;

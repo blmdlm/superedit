@@ -11,6 +11,7 @@
 	/*位置和大小*/
 	margin-bottom: 40px;
 	height: 200px;
+	overflow-y:auto;
 }
 
 .title{
@@ -22,13 +23,13 @@
 }
 /*设置背景图片*/
 #a1{
-background: url(../../img/bg01.jpg) no-repeat;
+background: url(../../../img/bg01.jpg) no-repeat;
 }
 #a2{
-background: url(../../img/bg02.jpg) no-repeat;
+background: url(../../../img/bg02.jpg) no-repeat;
 }
 #a3{
-background: url(../../img/bg03.jpg) no-repeat;
+background: url(../../../img/bg03.jpg) no-repeat;
 }
 /**/
 .twobutton{

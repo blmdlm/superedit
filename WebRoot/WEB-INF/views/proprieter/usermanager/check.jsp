@@ -15,24 +15,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <link rel="stylesheet" href="res/css/add.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="res/utilLib/bootstrap.min.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="res/css/gejing/usermanagercheck.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="res/css/proprieter/usermanager/check.css" type="text/css" media="screen" />
 
 </head>
 <body>
 <div class="div_from_aoto" style="width: 80%;">
     <!--基本布局开始-->
-    <div class="container-fluid">
-    <div class="row-fluid" id="a1">
+    <div class="container-fluid" >
+    <div class="row-fluid" id="a1" >
        <p class="title">总编</p>
        <c:forEach items="${staffs01}" varStatus="i" var="staff">
-       <div class="twobutton">
+       <div class="twobutton" >
             <button type="button" class="btn  btn-primary" style="width:130px" disabled="disabled">${staff.name}</button>
           
         </div>
 		</c:forEach>
     </div>
     
-    <div class="row-fluid" id="a2">
+    <div class="row-fluid" id="a2" >
         
         <p class="title">财务人员</p>
        <c:forEach items="${staffs02}" varStatus="i" var="staff">

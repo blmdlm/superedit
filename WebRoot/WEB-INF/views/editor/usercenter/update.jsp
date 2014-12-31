@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
@@ -11,7 +12,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>用户中心->查看个人资料</title>
+<title>用户中心->修改个人资料</title>
 
 <script type="text/javascript" src="res/js/jquery.min.js"></script>
 
@@ -23,7 +24,7 @@
 </head>
 <body>
 	<div class="div_from_aoto" style="width: 500px;">
-		<FORM>
+		<sf:form method="post" modelAttribute="staff">
 			<DIV class="control-group">
 				<br>
 				<br>
@@ -32,71 +33,75 @@
 				<br>
 				<br> <label class="laber_from">姓名:</label>
 				<DIV class="controls">
-					<INPUT class="input_from" type=text value="${i_user.name}"
-						readonly="readonly" />
+					<sf:input class="input_from" path="name" value="${k_user.name}" />
 					<P class=help-block></P>
 				</DIV>
 			</DIV>
 
-
-			<c:choose>
-
-				<c:when test="${i_user.gender==0}">
-					<DIV class="control-group">
-						<label class="laber_from">性别:</label>
-						<DIV class="controls">
-							<INPUT class="input_from" type=text value="男" readonly="readonly" />
-							<P class=help-block></P>
+			<DIV class="control-group">
+				<c:choose>
+					<c:when test="${k_user.gender==0}">
+						<DIV class="control-group">
+							<LABEL class="laber_from">性别:</LABEL>
+							<DIV class="controls">
+								<sf:select class="form-control" style="width:41%" path="gender">
+									<option value="0" >男</option> 
+									<option  value="1" >女</option> 
+								</sf:select>
+							</DIV>
 						</DIV>
-					</DIV>
-				</c:when>
+					</c:when>
 
-				<c:otherwise>
-					<DIV class="control-group">
-						<label class="laber_from">性别:</label>
-						<DIV class="controls">
-							<INPUT class="input_from" type=text value="女" readonly="readonly" />
-							<P class=help-block></P>
+					<c:otherwise>
+						<DIV class="control-group">
+							<LABEL class="laber_from">性别:</LABEL>
+							<DIV class="controls">
+								<sf:select class="form-control" style="width:41%" path="gender">
+									<option value="1" >女</option> 
+									<option value="0" >男</option> 
+								</sf:select>
+							</DIV>
 						</DIV>
-					</DIV>
-				</c:otherwise>
+					</c:otherwise>
+				</c:choose>
 
-			</c:choose>
+			</DIV>
+
+
+
+
 
 
 			<DIV class="control-group">
 				<LABEL class="laber_from">手机:</LABEL>
 				<DIV class="controls">
-					<INPUT class="input_from" type=text value="${i_user.phone}"
-						readonly="readonly" />
+					<sf:input class="input_from" path="phone" value="${k_user.phone}" />
 					<P class=help-block></P>
 				</DIV>
 			</DIV>
 			<DIV class="control-group">
 				<LABEL class="laber_from">邮箱:</LABEL>
 				<DIV class="controls">
-					<INPUT class="input_from" type=text value="${i_user.email}"
-						readonly="readonly" />
+					<sf:input class="input_from" path="email" value="${k_user.email}" />
 					<P class=help-block></P>
 				</DIV>
 			</DIV>
 			<DIV class="control-group">
 				<LABEL class="laber_from">出版社:</LABEL>
 				<DIV class="controls">
-					<INPUT class="input_from" type=text
-						value="${i_user.publisher.name}" readonly="readonly" />
+					<sf:input class="input_from" path="publisher.name"
+						value="${k_user.publisher.name}" />
 					<P class=help-block></P>
 				</DIV>
 			</DIV>
 			<DIV class="control-group">
 				<br> <LABEL class="laber_from"></LABEL>
-				<DIV class="controls">
-					<a href="messagemanager/usercenter/update"><button type="button"
-							class="btn btn-success" style="width:150px;">修改</button></a>
-				</DIV>
+					<DIV class="controls">
+						<button type="submit" class="btn btn-warning" style="width:150px;">保存</button>
+					</DIV>
 			</DIV>
 
-		</FORM>
+		</sf:form>
 	</div>
 </body>
 </html>

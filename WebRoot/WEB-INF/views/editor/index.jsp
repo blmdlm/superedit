@@ -48,8 +48,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <a href="B_personIfo"  target="menuFrame"> <i class="glyph-icon icon-reorder"></i>用户中心</a>
                 <ul>
                 	<li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>消息</a></li>
-                    <li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查看个人资料</a></li>
-                    <li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改个人资料</a></li>
+                    <li><a href="editor/usercenter/check" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查看个人资料</a></li>
+                    <li><a href="editor/usercenter/update" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改个人资料</a></li>
                     <li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改密码</a></li>
                     
                 </ul>

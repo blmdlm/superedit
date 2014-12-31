@@ -1,21 +1,17 @@
-package controller;
+package controller.MessageManager;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import model.Messageboard;
-import model.Publisher;
 import model.Staff;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,99 +21,27 @@ import service.MessageBoardService;
 import service.StaffService;
 
 /**
- * 留言管理人员的控制器
  * 
- * @Project superedit
- * @ClassName MessageManagerController
- * @Description TODO
- * @Author gejing gjblmdlm@sina.com
- * @Date 2014年11月29日 下午9:21:15
+ * @author gejing gjblmdlm@sina.com
+ *
  */
 @Controller
-@RequestMapping("/messagemanager")
-public class MessageManagerController {
+@RequestMapping("/messagemanager/gbookmanager")
+public class GbookManagerController {
 	private static Logger logger = Logger
-			.getLogger(MessageManagerController.class);
-	@Autowired
-	StaffService staffService;
+	.getLogger(GbookManagerController.class);
 	@Autowired
 	MessageBoardService messageBoardService;
 	@Autowired
 	AuthorService authorService;
-	/**
-	 * 个人首页
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index() {
-		return "/messagemanager/index";
-	}
-
-	/**************************************** 用户中心 **************************************/
-
-	/**
-	 * 用户中心首页
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/usercenter")
-	public String userCenter() {
-		return "/messagemanager/usercenter/index";
-	}
-
-	/**
-	 * 查看个人资料
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/usercenter/check")
-	public String userCenterCheck(HttpSession session, Model model) {
-		return "/messagemanager/usercenter/check";
-
-	}
-
-	/**
-	 * 修改资料界面
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/usercenter/update", method = RequestMethod.GET)
-	public String userCenterUpdate(Model model) {
-		model.addAttribute("staff", new Staff());
-		return "/messagemanager/usercenter/update";
-	}
-
-	/**
-	 * 处理修改资料
-	 * 
-	 * @param staff
-	 * @return
-	 */
-	@RequestMapping(value = "/usercenter/update", method = RequestMethod.POST)
-	public String userCenterUpdate(Staff staff, HttpSession session) {
-
-		staff.setId(((Staff) session.getAttribute("i_user")).getId());
-		Publisher publisher = new Publisher();
-		publisher.setId(1);
-		staff.setPublisher(publisher);
-		// 更新一次
-		staffService.update(staff);
-		// 重新取一次
-		staff = staffService.get(staff.getId());
-		// 刷新session
-		session.setAttribute("i_user", staff);
-		return "redirect:/messagemanager/usercenter/check";
-	}
-
-	/**************************************** 留言管理 **************************************************/
+	@Autowired
+	StaffService staffService;
 	/**
 	 * 访问查看留言板界面
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/gbookmanager/check")
+	@RequestMapping("/check")
 	public String gbookManagerCheck(Model model) {
 		//查询所有的留言
 		List<Messageboard> messes=messageBoardService.findAllPassed();
@@ -141,6 +65,7 @@ public class MessageManagerController {
 				//暂时不考虑多条回复的问题！！！！！！！！！！！！！！！！！！！！！！！
 				reply=replysList.get(0);
 				replys[i][0]=staffService.get(reply.getSendId()).getName();//回复者姓名
+				
 				replys[i][1]=reply.getSendTime().toString();//发送时间
 				replys[i][2]=reply.getContent();//回复内容
 				
@@ -158,7 +83,7 @@ public class MessageManagerController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/gbookmanager/postaudit")
+	@RequestMapping("/postaudit")
 	public String gbookManagerPostAduit(HttpSession session, Model model) {
 		// 获取当前登陆者的信息
 		Staff staff = (Staff) session.getAttribute("i_user");
@@ -189,7 +114,7 @@ public class MessageManagerController {
 	 * 处理审核留言的请求
 	 * @return
 	 */
-	@RequestMapping(value="/gbookmanager/handleaudit",method=RequestMethod.POST)
+	@RequestMapping(value="/handleaudit",method=RequestMethod.POST)
 	@ResponseBody
 	public String gbookManagerHandleAduit(Integer id,Integer status,HttpSession session){
 		//暂时不考虑多人同时操作！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
@@ -214,7 +139,7 @@ public class MessageManagerController {
 	 * 访问未回复留言页面
 	 * @return
 	 */
-	@RequestMapping(value="/gbookmanager/unreply")
+	@RequestMapping(value="/unreply")
 	public String gbookManagerUnreply(HttpSession session,Model model){
 		//获取当前登陆者信息
 		Staff staff = (Staff) session.getAttribute("i_user");
@@ -243,7 +168,7 @@ public class MessageManagerController {
 	 * 处理回复留言请求
 	 * @return
 	 */
-	@RequestMapping(value="/gbookmanager/reply",method=RequestMethod.POST)
+	@RequestMapping(value="/reply",method=RequestMethod.POST)
 	@ResponseBody
 	public String gbookManagerReply(HttpSession session,Integer id,String content){
 		//获取当前登陆者信息
@@ -264,8 +189,4 @@ public class MessageManagerController {
 		return "OK";
 		
 	}
-	
-	
-	
-
 }

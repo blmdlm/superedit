@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <link rel="stylesheet" href="res/css/add.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="res/utilLib/bootstrap.min.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="res/css/gejing/usermanagercheck.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="res/css/proprieter/usermanager/check.css" type="text/css" media="screen" />
 
 </head>
 <body>

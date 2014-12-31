@@ -30,19 +30,20 @@ public class LoginController {
 	@RequestMapping("/login")
 	public String login(HttpSession session,String id){
 		
-		if ("h6".equals(id)) {
+		if ("h7".equals(id)) {
+			logger.info("社长登录中");
 			Staff staff=staffService.get(1);
 			session.setAttribute("h_user",staff);
-			return "redirect:/proprieter/index";
+			return "/proprieter/index";
 		}else if ("i8".equals(id)) {
 			Staff staff=staffService.get(2);
 			session.setAttribute("i_user",staff);
-			return "redirect:/messagemanager/index";
+			return "/messagemanager/index";
 			
 		}else if("j9".equals(id)){
 			Staff staff=staffService.get(3);
 			session.setAttribute("j_user",staff);
-			return "redirect:/financial/index";
+			return "/financial/index";
 
 		
 

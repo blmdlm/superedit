@@ -32,7 +32,7 @@
 				<br>
 				<br> <label class="laber_from">姓名:</label>
 				<DIV class="controls">
-					<INPUT class="input_from" type=text value="${i_user.name}"
+					<INPUT class="input_from" type=text value="${k_user.name}"
 						readonly="readonly" />
 					<P class=help-block></P>
 				</DIV>
@@ -41,7 +41,7 @@
 
 			<c:choose>
 
-				<c:when test="${i_user.gender==0}">
+				<c:when test="${k_user.gender==0}">
 					<DIV class="control-group">
 						<label class="laber_from">性别:</label>
 						<DIV class="controls">
@@ -67,7 +67,7 @@
 			<DIV class="control-group">
 				<LABEL class="laber_from">手机:</LABEL>
 				<DIV class="controls">
-					<INPUT class="input_from" type=text value="${i_user.phone}"
+					<INPUT class="input_from" type=text value="${k_user.phone}"
 						readonly="readonly" />
 					<P class=help-block></P>
 				</DIV>
@@ -75,7 +75,7 @@
 			<DIV class="control-group">
 				<LABEL class="laber_from">邮箱:</LABEL>
 				<DIV class="controls">
-					<INPUT class="input_from" type=text value="${i_user.email}"
+					<INPUT class="input_from" type=text value="${k_user.email}"
 						readonly="readonly" />
 					<P class=help-block></P>
 				</DIV>
@@ -84,14 +84,14 @@
 				<LABEL class="laber_from">出版社:</LABEL>
 				<DIV class="controls">
 					<INPUT class="input_from" type=text
-						value="${i_user.publisher.name}" readonly="readonly" />
+						value="${k_user.publisher.name}" readonly="readonly" />
 					<P class=help-block></P>
 				</DIV>
 			</DIV>
 			<DIV class="control-group">
 				<br> <LABEL class="laber_from"></LABEL>
 				<DIV class="controls">
-					<a href="messagemanager/usercenter/update"><button type="button"
+					<a href="editor/usercenter/update"><button type="button"
 							class="btn btn-success" style="width:150px;">修改</button></a>
 				</DIV>
 			</DIV>

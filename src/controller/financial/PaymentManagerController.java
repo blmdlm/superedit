@@ -1,9 +1,10 @@
-package controller;
+package controller.financial;
 
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import model.Publisher;
 import model.Script;
 import model.Staff;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.ScriptService;
+import service.StaffService;
 
 /**
  * 
@@ -26,32 +28,20 @@ import service.ScriptService;
  * @Date 2014年12月3日 下午4:10:54
  */
 @Controller
-@RequestMapping("/financial")
-public class FinancialController {
-	private static Logger logger = Logger.getLogger(FinancialController.class);
+@RequestMapping("/financial/paymentmanager")
+public class PaymentManagerController {
+	private static Logger logger = Logger.getLogger(PaymentManagerController.class);
+	@Autowired
+	StaffService staffService;
 	@Autowired
 	ScriptService scriptService;
-
-	/**
-	 * 个人首页
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index() {
-		return "/financial/index";
-	}
-
-	/**************************************** 用户中心 **************************************/
-
-	/**************************************** 稿费管理 ***************************************/
 
 	/**
 	 * 访问设置稿费界面
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/paymentmanager/set")
+	@RequestMapping("/set")
 	public String paymentManagerSet(HttpSession session, Model model) {
 		// 获取登陆者的信息
 		Staff staff = (Staff) (session.getAttribute("j_user"));
@@ -89,7 +79,7 @@ public class FinancialController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/paymentmanager/set", method = RequestMethod.POST)
+	@RequestMapping(value = "/set", method = RequestMethod.POST)
 	@ResponseBody
 	public String paymentManagerSetPayment(HttpSession session, Integer id,
 			Integer content) {
@@ -112,7 +102,7 @@ public class FinancialController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/paymentmanager/unpay")
+	@RequestMapping("/unpay")
 	public String paymentManagerUnpay(HttpSession session, Model model) {
 		// 获取登陆者的信息
 		Staff staff = (Staff) (session.getAttribute("j_user"));
@@ -149,7 +139,7 @@ public class FinancialController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/paymentmanager/unpay", method = RequestMethod.POST)
+	@RequestMapping(value ="/unpay", method = RequestMethod.POST)
 	@ResponseBody
 	public String paymentManagerConfirmpay(Integer id) {
 		// 获取该稿件
@@ -167,7 +157,7 @@ public class FinancialController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/paymentmanager/payed")
+	@RequestMapping("/payed")
 	public String paymentManagerPayed(HttpSession session, Model model) {
 		// 获取登陆者的信息
 		Staff staff = (Staff) (session.getAttribute("j_user"));

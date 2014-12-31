@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <center> <h1>欢迎登陆超级采编系统</h1><br>
   
  		<p>社长请登陆</p>
-    	<a href="login?id=h6"><input type="submit" value="登陆"></a>
+    	<a href="login?id=h7"><input type="submit" value="登陆"></a>
     	<p>留言管理员请登陆</p>
     	<a href="login?id=i8"><input type="submit" value="登陆"></a>
     	 <p>财务人员请登陆</p>
