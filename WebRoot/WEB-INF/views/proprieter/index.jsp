@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li class="childUlLi">
                 <a href="B_download" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>查询管理</a>
                 <ul>
-					<li><a href="B_paymentQuery" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>审核查询</a></li>
+					<li><a href="proprieter/querymanager/author" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查询作者</a></li>
                 </ul>
             </li>
 			<li class="childUlLi">

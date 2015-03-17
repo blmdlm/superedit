@@ -30,5 +30,9 @@ public class AuthorServiceImpl implements AuthorService{
 	public List<Author> getTop10New() {
 		return assistDAO.getTop10New();
 	}
+	@Override
+	public List<Author> queryByName(String name) {
+		return assistDAO.queryByName(name);
+	}
 
 }

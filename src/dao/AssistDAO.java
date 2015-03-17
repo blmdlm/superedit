@@ -40,6 +40,14 @@ public class AssistDAO extends HibernateDaoSupport{
 	protected void initDao() {
 		// do nothing
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 通过parentid和role获取staff
 	 * @param parentid
@@ -202,6 +210,23 @@ public class AssistDAO extends HibernateDaoSupport{
 			throw re;
 		}
 	}
+	
+	public List<Author> queryByName(String name) {
+		try {
+			log.info("name"+name);
+			String queryString = "from Author as model  where name like '%"+name+"%' order by registertime desc ";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * 找出一个作者所有投递的稿件数
 	 * @param author
@@ -246,6 +271,7 @@ public class AssistDAO extends HibernateDaoSupport{
 			throw re;
 		}
 	}
+
 	
 	
 

@@ -24,5 +24,14 @@ public interface AuthorService {
 	 * @return
 	 */
 	List<Author> getTop10New();
+	/**
+	 * 模糊查询作者信息
+	 * @param name
+	 * @return
+	 */
+	List<Author> queryByName(String name);
+	
+	
+	
 	
 }

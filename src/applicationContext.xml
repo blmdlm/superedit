@@ -14,7 +14,10 @@
 		</property>
 		<property name="url" value="jdbc:mysql://localhost:3306/mydb?useUnicode=true&amp;characterEncoding=utf-8"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="mysql"></property>
+		<property name="password" value="mysqlroot"></property>
+		
+		
+		
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -26,6 +29,8 @@
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.MySQLDialect
 				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.connection.autocommit">false</prop>
 			</props>
 		</property>
 		<property name="annotatedClasses">
