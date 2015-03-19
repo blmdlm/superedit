@@ -58,5 +58,13 @@ public interface ScriptService {
 	 * @return
 	 */
 	Long getPassSumByAuthor(Author author);
+
+	/**
+	 * 在一个杂志社模糊查询稿件
+	 * @param publisher
+	 * @param title
+	 * @return
+	 */
+	List<Script> queryByTitle(Publisher publisher, String title);
 	
 }

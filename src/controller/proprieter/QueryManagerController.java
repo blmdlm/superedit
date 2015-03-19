@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import model.Author;
+import model.Script;
 import model.Staff;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
@@ -35,6 +36,93 @@ public class QueryManagerController {
 	AuthorService authorService;
 	@Autowired
 	ScriptService scriptService;
+	
+	/**
+	 * 访问查询稿件页面
+	 * @return
+	 */
+	@RequestMapping(value="/script",method=RequestMethod.GET)
+	public String script(){
+		return "/proprieter/querymanager/script";
+	}
+	
+	/**
+	 * 查询稿件信息
+	 * @param session
+	 * @param title
+	 * @return
+	 */
+	@RequestMapping(value="/script",method=RequestMethod.POST)
+	@ResponseBody
+	public String[][] script(HttpSession session,String title){
+		
+		log.info("title: "+title);
+		//获取当前登陆者的信息
+		Staff staff=(Staff) session.getAttribute("h_user");
+		//模糊查询稿件信息
+		List<Script> scripts=scriptService.queryByTitle(staff.getPublisher(),title);
+		//构建结果集
+		int count = scripts.size();
+		String results[][] = new String[count][9];
+		Script script;
+		String state=null;
+		for (int i = 0; i < count; i++) {
+			script = scripts.get(i);
+			
+			results[i][0] = script.getId().toString(); // id
+			results[i][1] = script.getTitle();//标题		
+			results[i][2] = script.getAuthor().getId().toString(); //作者id
+			results[i][3] = script.getAuthor().getName(); //作者名称
+			results[i][4] = script.getMagazine().getId().toString();//杂志id
+			results[i][5] = script.getMagazine().getName();//杂志名称
+			results[i][6] = script.getDate().toString();//投递时间
+
+			switch (script.getState()) {
+			case 1:
+				//表示处理中
+				state="处理中";
+				break;
+			case 2:
+				state="通过";
+				break;
+			case 3:	
+				state="不通过";
+				break;
+			}
+			results[i][7] = state;//处理状态
+			
+			
+			// 样式
+			String style=null;
+			switch (i%4) {
+			case 0:
+				style="success";
+				break;
+			case 1:
+				style="warning";
+				break;
+			case 2:
+				style="danger";
+				break;
+			case 3:
+				style="info";
+				break;
+			}
+			
+			results[i][8]=style;
+		
+	}
+		return results;
+	
+
+	}
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 访问查询作者页面
 	 * @return
@@ -48,16 +136,9 @@ public class QueryManagerController {
 	 */
 	@RequestMapping(value="/author",method=RequestMethod.POST)
 	@ResponseBody
-	public String[][] queryAuthor(HttpSession session,String name,Model model){
-		
-		//获取当前登陆者的信息
-		//Staff staff=(Staff) session.getAttribute("k_user");
-		
-		log.info("name"+name);
+	public String[][] author(HttpSession session,String name){
 		//根据作者名模糊查询作者信息
 		List<Author> authors= authorService.queryByName(name);
-		
-		log.info(authors.toString());
 		//构造结果集
 		int count = authors.size();
 		String results[][] = new String[count][11];

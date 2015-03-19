@@ -23,13 +23,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	media="screen" />
 <link rel="stylesheet" href="res/utilLib/bootstrap.min.css"
 	type="text/css" media="screen" />
-<link rel="stylesheet" href="res/css/proprieter/querymanager/author.css"
+<link rel="stylesheet" href="res/css/proprieter/querymanager/script.css"
 	type="text/css" media="screen" />
 <script type="text/javascript" src="res/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="res/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="res/js/jput.min.js"></script>
 <script type="text/javascript"
-	src="res/js/proprieter/querymanager/author.js"></script>
+	src="res/js/proprieter/querymanager/script.js"></script>
+
 </head>
 
 <body>
@@ -41,13 +41,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="col-lg-6 searchbox">
 				<div class="input-group">
 					<input type="text" id="input" class="form-control"
-						placeholder="搜索作者"> <span class="input-group-btn">
+						placeholder="搜索稿件"> <span class="input-group-btn">
 						<button class="btn btn-default" type="button"
 							onclick="showResult()">Search</button>
 					</span>
 				</div>
 			</div>
 		</div>
+
+
 		<!-- 搜索框结束 -->
 		<div class="row">
 			<br>
@@ -61,8 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 	<!--模态框开始-->
-
-	<!-- <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -99,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </div>
     </div>
   </div>
-</div> -->
+</div> 
 
 	<!--模态框结束-->
 

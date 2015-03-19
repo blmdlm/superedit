@@ -197,6 +197,55 @@ public class AssistDAO extends HibernateDaoSupport{
 			throw re;
 		}
 	}
+	
+	/**
+	 * 查询投递给该杂志社所有和该标题匹配的稿件
+	 * @return
+	 */
+	public List<Script> queryByScriptTitle(Publisher publisher,String title) {
+		Set<Magazine> magazines=publisher.getMagazines();
+		int count=magazines.size();
+		List<Long> ids=new ArrayList<Long>();
+		Magazine magazine;
+		for (Iterator iterator = magazines.iterator(); iterator.hasNext();) {
+			magazine = (Magazine) iterator.next();
+			ids.add(Long.valueOf(magazine.getId()));
+		}
+		
+		try {
+			
+			String queryString = "from Script as model where model.state != 0  and magazine_id in (:listParam) and title like '%"+title+"%' order by date";
+			String[] params={"listParam"};
+			Object[] values={ids};
+			return getHibernateTemplate().findByNamedParam(queryString, params, values);
+			
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 找出新注册的10个用户
 	 * @return
@@ -239,6 +288,7 @@ public class AssistDAO extends HibernateDaoSupport{
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
 			throw re;
+			
 		}
 	}
 	/**
@@ -271,6 +321,13 @@ public class AssistDAO extends HibernateDaoSupport{
 			throw re;
 		}
 	}
+
+
+
+
+
+
+
 
 	
 	

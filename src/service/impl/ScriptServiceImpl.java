@@ -61,4 +61,9 @@ public class ScriptServiceImpl implements ScriptService{
 		return assistDAO.getPassSumByAuthor(author).get(0);
 	}
 
+	@Override
+	public List<Script> queryByTitle(Publisher publisher,String title) {
+		return assistDAO.queryByScriptTitle(publisher,title);
+	}
+
 }
