@@ -139,6 +139,21 @@
 	<bean id="MessageServiceImpl" class="service.impl.MessageServiceImpl"
 		parent="MessageService">
 	</bean>
+	<bean id="AuditService" class="service.AuditService" abstract="true">
+	</bean>
+	<bean id="AuditServiceImpl" class="service.impl.AuditServiceImpl"
+		parent="AuditService">
+	</bean>
+	<bean id="ProofreadService" class="service.ProofreadService" abstract="true">
+	</bean>
+	<bean id="ProofreadServiceImpl" class="service.impl.ProofreadServiceImpl"
+		parent="ProofreadService">
+	</bean>
+	<bean id="ComposeService" class="service.ComposeService" abstract="true">
+	</bean>
+	<bean id="ComposeServiceImpl" class="service.impl.ComposeServiceImpl"
+		parent="ComposeService">
+	</bean>
 	<!-- 确保能够实例化bean -->
 	<bean
 		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />

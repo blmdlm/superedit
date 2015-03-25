@@ -15,8 +15,7 @@ function handleQuery (name) {
 //	alert(name);
 	var url="proprieter/querymanager/author";
 	
-	$.post(url,{name:name}).done(function(results){
-		
+	$.post(url,{name:name},function(results){
 		if(results != null){   //!!!!!!!!!!!!!!!!!!!!!!===""
 			var x=document.getElementById("result");
 		    var inHtml="";
@@ -46,20 +45,13 @@ function handleQuery (name) {
 				//+"<td><button type='button' class='btn btn-info' data-toggle='modal' data-target='#mymodal' onclick='change("+${results[author][0]}+")'>查看稿件</button></td></tr>";
 						
 			};
-			
-
-	
-		
-			
+						
 		inHtml=inHtml+"</table>";
-		
-
-
 
 x.innerHTML=inHtml;
 
-
-			};
+		};
+	
 			
 		
 		

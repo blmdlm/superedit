@@ -66,5 +66,6 @@ public interface ScriptService {
 	 * @return
 	 */
 	List<Script> queryByTitle(Publisher publisher, String title);
+
 	
 }

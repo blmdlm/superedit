@@ -6,10 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import model.Audit;
 import model.Author;
+import model.Compose;
 import model.Magazine;
 import model.Message;
 import model.Messageboard;
+import model.Proofread;
 import model.Publisher;
 import model.Script;
 import model.Staff;
@@ -316,6 +319,56 @@ public class AssistDAO extends HibernateDaoSupport{
 			log.info("id="+id+"id2="+id2);
 			String queryString = "from Message  as model where sendid = ? and sendstate=10 and recvstate=11 and recvid=? order by time desc";
 			return  getHibernateTemplate().find(queryString,id,id2);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+
+
+	/**
+	 * 查询一个稿件的最新的审核记录
+	 * @param scriptid
+	 * @return
+	 */
+	public List<Audit> getNewestAudit(int scriptid) {
+		try {
+			String queryString = "from Audit as model where script_id ="+scriptid+" order by audit_rank desc ";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+
+
+
+
+
+
+
+
+	public List<Proofread> getNewestProofread(int scriptid) {
+		try {
+			String queryString = "from Proofread as model where script_id ="+scriptid+" order by proofread_rank desc ";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+
+
+
+
+
+
+
+
+	public List<Compose> getNewestCompose(int scriptid) {
+		try {
+			String queryString = "from Compose as model where script_id ="+scriptid+" order by proofread_rank desc ";
+			return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
 			throw re;

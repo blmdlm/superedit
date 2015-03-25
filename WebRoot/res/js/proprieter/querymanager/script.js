@@ -63,51 +63,83 @@ x.innerHTML=inHtml;
 
 
  //点击查看详细信息
+ 
  function showDetail(id){
- 	//更改模态框的确认按钮的触发函数
- 	var x=document.getElementById("confirm");
- 	x.onclick=function(){ confirm(id);};
-	
- 	alert(id);
-	
- 	//更改模态框的body内容
- 	var url="editor/authorlib/solicithistory";
- 	$.post(url,{id:id},function(data){
- 		alert(data);
-		
- 		if(data == null||data==""){
- 			 document.getElementById('record').style.display = "none";
- 			 document.getElementById('record_title').innerHTML="没有约稿记录";
- 		}else{
- 			 document.getElementById('time').innerHTML=data.time;
- 			 document.getElementById('content').innerHTML=data.content;
- 		}
-		
-		
- 	});
+ 	//更改模态框的body内容	
+	showBasic(id);
+	showAudit(id);
+	showProofread(id);
+	showCompose(id);
+ 		
+// 		if(result[3]==3){//不通过
+// 			
+// 			
+// 			
+// 			
+// 		}else if(result[3]==2){//通过
+// 			
+// 		}else{//处理中
+// 			
+// 		}
+ 		
 	
 	
 	
 	
 	
  }
-
-
- function confirm(id){
-
- 	var message=$("#message").val();
- 	if(message==null||message==""){
- 		alert("输入不能为空");
- 	}else{
- 	var url="editor/authorlib/solicit";
-
- 	$.post(url,{id:id,message:message}).done(function(data){
- 		if(data == "OK"){
- 			window.location.href="editor/authorlib/check";  
- 		}
-		
-		
- 	});
- 	}
-
+ 
+ 
+ function showBasic(id){
+	 	var url="proprieter/querymanager/scriptbasicdetail";
+	 	$.post(url,{id:id},function(result){
+	 		$("#myModalLabel").text(result[0]);
+	 		$("#author").text(result[2]);
+	 		$("#summary").text(result[1]);
+	 	});
  }
+ 
+ function showAudit(id){
+	 	var url="proprieter/querymanager/audit";
+	 	$.post(url,{id:id},function(result){
+	 		$("#audit").text(result);
+	 	});
+	 
+ }
+ 
+ function showProofread(id){
+	 var url="proprieter/querymanager/proofread";
+	 $.post(url,{id:id},function(result){
+		 $("#proofread").text(result);
+	 });
+	 
+ }
+ 
+ function showCompose(id){
+	 var url="proprieter/querymanager/compose";
+	 $.post(url,{id:id},function(result){
+		 $("#compose").text(result);
+	 });
+	 
+ }
+ 
+
+
+// function confirm(id){
+//
+// 	var message=$("#message").val();
+// 	if(message==null||message==""){
+// 		alert("输入不能为空");
+// 	}else{
+// 	var url="editor/authorlib/solicit";
+//
+// 	$.post(url,{id:id,message:message}).done(function(data){
+// 		if(data == "OK"){
+// 			window.location.href="editor/authorlib/check";  
+// 		}
+//		
+//		
+// 	});
+// 	}
+//
+// }
