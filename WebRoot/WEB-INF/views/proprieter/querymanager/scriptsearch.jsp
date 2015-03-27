@@ -23,12 +23,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	media="screen" />
 <link rel="stylesheet" href="res/utilLib/bootstrap.min.css"
 	type="text/css" media="screen" />
-<link rel="stylesheet" href="res/css/proprieter/querymanager/script.css"
+<link rel="stylesheet" href="res/css/proprieter/querymanager/scriptsearch.css"
 	type="text/css" media="screen" />
 <script type="text/javascript" src="res/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="res/js/bootstrap.min.js"></script>
 <script type="text/javascript"
-	src="res/js/proprieter/querymanager/script.js"></script>
+	src="res/js/proprieter/querymanager/scriptsearch.js"></script>
 
 </head>
 
@@ -56,72 +56,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<!-- 结果集开始 -->
 		<div class="row">
-			<div id="result"></div>
+			<div id="result">
+
+
+
+			
+			
+			
+			
+			
+			
+			
+			</div>
 		</div>
 		<!-- 结果集结束 -->
 	</div>
-
-
-	<!--模态框开始-->
-	<div class="modal fade" id="mymodal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel"></h4>
-				</div>
-				<!-- 模态框body开始 -->
-				<div class="modal-body">
-					<table class="table table-hover">
-						<tr>
-							<td class="active">作者</td>
-							<td id="author" class="info"></td>
-						</tr>
-						<tr>
-							<td class="active">摘要</td>
-							<td id="summary" class="info"></td>
-						</tr>
-						<tr>
-							<td class="active">审核流程</td>
-							<td id="audit" class="info"></td>
-						</tr>
-						<tr>
-							<td class="active">校对流程</td>
-							<td id="proofread" class="info"></td>
-						</tr>
-						<tr>
-							<td class="active">排版流程</td>
-							<td id="compose" class="info"></td>
-						</tr>
-						<tr>
-							<td class="active">稿费状态</td>
-							<td id="payment" class="info"></td>
-						</tr>
-				
-					</table>
-
-				</div>
-				<!-- 模态框body结束 -->
-<!-- 				<div class="modal-footer"> -->
-<!-- 					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button> -->
-<!-- 				</div> -->
-			</div>
-		</div>
-	</div>
-
-	<!--模态框结束-->
-
-
-
-
-
-
-
-
-
 
 
 

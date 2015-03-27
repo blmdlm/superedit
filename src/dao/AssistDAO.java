@@ -276,7 +276,20 @@ public class AssistDAO extends HibernateDaoSupport{
 	
 	
 	
-	
+	/**
+	 * 找出一个作者的所有稿件
+	 */
+	public List<Script> getAllScriptsByAuthodid(int authorid) {
+		try {
+			String queryString = "from Script as model  where author_id = ?";
+			return getHibernateTemplate().find(queryString,authorid);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+			
+		}
+	}
+
 	
 	
 	/**
@@ -350,7 +363,7 @@ public class AssistDAO extends HibernateDaoSupport{
 
 	public List<Proofread> getNewestProofread(int scriptid) {
 		try {
-			String queryString = "from Proofread as model where script_id ="+scriptid+" order by proofread_rank desc ";
+			String queryString = "from Proofread as model where script_id ="+scriptid+" order by proof_rank desc ";
 			return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
@@ -374,6 +387,13 @@ public class AssistDAO extends HibernateDaoSupport{
 			throw re;
 		}
 	}
+
+
+
+
+
+
+
 
 
 

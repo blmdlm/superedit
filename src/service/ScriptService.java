@@ -66,6 +66,12 @@ public interface ScriptService {
 	 * @return
 	 */
 	List<Script> queryByTitle(Publisher publisher, String title);
+	/**
+	 * 找出一个作者的所有稿件
+	 * @param authorid
+	 * @return
+	 */
+	List<Script> getAllScriptsByAuthorid(int authorid);
 
 	
 }

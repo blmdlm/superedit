@@ -56,29 +56,28 @@ public class QueryManagerController {
 	 * 访问查询稿件页面
 	 * @return
 	 */
-	@RequestMapping(value="/script",method=RequestMethod.GET)
+	@RequestMapping(value="/scriptsearch",method=RequestMethod.GET)
 	public String script(){
-		return "/proprieter/querymanager/script";
+		return "/proprieter/querymanager/scriptsearch";
 	}
 	
 	/**
-	 * 查询稿件基本信息
+	 * 模糊查询稿件
 	 * @param session
 	 * @param title
 	 * @return
 	 */
-	@RequestMapping(value="/script",method=RequestMethod.POST)
+	@RequestMapping(value="/scriptsearch",method=RequestMethod.POST)
 	@ResponseBody
 	public String[][] script(HttpSession session,String title){
 		
-		log.info("title: "+title);
 		//获取当前登陆者的信息
 		Staff staff=(Staff) session.getAttribute("h_user");
 		//模糊查询稿件信息
 		List<Script> scripts=scriptService.queryByTitle(staff.getPublisher(),title);
 		//构建结果集
 		int count = scripts.size();
-		String results[][] = new String[count][9];
+		String results[][] = new String[count][7];
 		Script script;
 		String state=null;
 		for (int i = 0; i < count; i++) {
@@ -88,43 +87,30 @@ public class QueryManagerController {
 			results[i][1] = script.getTitle();//标题		
 			results[i][2] = script.getAuthor().getId().toString(); //作者id
 			results[i][3] = script.getAuthor().getName(); //作者名称
-			results[i][4] = script.getMagazine().getId().toString();//杂志id
-			results[i][5] = script.getMagazine().getName();//杂志名称
-			results[i][6] = script.getDate().toString();//投递时间
-
-			switch (script.getState()) {
-			case 1:
-				//表示处理中
-				state="审核中";
-				break;
-			case 2:
-				state="通过";
-				break;
-			case 3:	
-				state="不通过";
-				break;
-			}
-			results[i][7] = state;//处理状态
-			
+			results[i][4] = script.getDate().toString();//投递时间
+			results[i][5] = script.getSummary();//摘要
 			
 			// 样式
 			String style=null;
-			switch (i%4) {
+			switch (i%5) {
 			case 0:
-				style="success";
+				style="panel-primary";
 				break;
 			case 1:
-				style="warning";
+				style="panel-success";
 				break;
 			case 2:
-				style="danger";
+				style="panel-info";
 				break;
 			case 3:
-				style="info";
+				style="panel-warning";
+				break;
+			case 4:
+				style="panel-danger";
 				break;
 			}
 			
-			results[i][8]=style;
+			results[i][6]=style;
 		
 	}
 		return results;
@@ -132,28 +118,202 @@ public class QueryManagerController {
 
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
-	 * 查询稿件的详细信息
+	 * 查看稿件详细信息
+	 * @return
+	 */
+	@RequestMapping(value = "/scriptdetail", method = RequestMethod.GET)
+	public String scriptdetail(Model model,int id){
+		//这里有bug	可能可以看到其他人不在其杂志社的消息！！！！！！！！！！！！！！
+		
+				Script script=scriptService.get(id);
+				//构建结果集
+				String result[] = new String[10];
+				String state=null;
+					
+					result[0] = script.getId().toString(); // id
+					result[1] = script.getTitle();//标题		
+					result[2] = script.getAuthor().getId().toString(); //作者id
+					result[3] = script.getAuthor().getName(); //作者名称
+					result[4] = script.getMagazine().getId().toString();//杂志id
+					result[5] = script.getMagazine().getName();//杂志名称
+					result[6] = script.getDate().toString();//投递时间
+
+					switch (script.getState()) {
+					case 1:
+						//表示处理中
+						state="审核中";
+						break;
+					case 2:
+						state="通过";
+						break;
+					case 3:	
+						state="不通过";
+						break;
+					}
+					result[7] = state;//处理状态
+					result[8]=script.getSummary();    //摘要
+					if (script.getState()==3) {
+					result[9]="";
+				}else{
+					if (script.getPay()==null) 
+					{
+						result[9]="未知";
+					}else if(script.getPay()==0){
+						result[9]="待设置稿费";
+					}
+					else if(script.getPay()==1){
+						result[9]="待支付稿费 "+script.getPayment()+" RMB";
+					}else if(script.getPay()==2){
+						result[9]="已支付稿费 "+script.getPayment()+" RMB";
+					}
+				}
+					
+					
+					
+					
+		model.addAttribute("result", result);
+		return "/proprieter/querymanager/scriptdetail";
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	/**
+//	 * 查询稿件基本信息
+//	 * @param session
+//	 * @param title
+//	 * @return
+//	 */
+//	@RequestMapping(value="/script",method=RequestMethod.POST)
+//	@ResponseBody
+//	public String[][] script(HttpSession session,String title){
+//		
+//		log.info("title: "+title);
+//		//获取当前登陆者的信息
+//		Staff staff=(Staff) session.getAttribute("h_user");
+//		//模糊查询稿件信息
+//		List<Script> scripts=scriptService.queryByTitle(staff.getPublisher(),title);
+//		//构建结果集
+//		int count = scripts.size();
+//		String results[][] = new String[count][9];
+//		Script script;
+//		String state=null;
+//		for (int i = 0; i < count; i++) {
+//			script = scripts.get(i);
+//			
+//			results[i][0] = script.getId().toString(); // id
+//			results[i][1] = script.getTitle();//标题		
+//			results[i][2] = script.getAuthor().getId().toString(); //作者id
+//			results[i][3] = script.getAuthor().getName(); //作者名称
+//			results[i][4] = script.getMagazine().getId().toString();//杂志id
+//			results[i][5] = script.getMagazine().getName();//杂志名称
+//			results[i][6] = script.getDate().toString();//投递时间
+//
+//			switch (script.getState()) {
+//			case 1:
+//				//表示处理中
+//				state="审核中";
+//				break;
+//			case 2:
+//				state="通过";
+//				break;
+//			case 3:	
+//				state="不通过";
+//				break;
+//			}
+//			results[i][7] = state;//处理状态
+//			
+//			
+//			// 样式
+//			String style=null;
+//			switch (i%4) {
+//			case 0:
+//				style="success";
+//				break;
+//			case 1:
+//				style="warning";
+//				break;
+//			case 2:
+//				style="danger";
+//				break;
+//			case 3:
+//				style="info";
+//				break;
+//			}
+//			
+//			results[i][8]=style;
+//		
+//	}
+//		return results;
+//	
+//
+//	}
+	
+	/**
+	 * 查询稿件的基本信息
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/scriptbasicdetail",method=RequestMethod.POST)
-	@ResponseBody
-	public String[] basicDetail(HttpSession session,Integer id){
-		log.info("id"+id);
-		//获取当前登陆者的信息
-		Staff staff=(Staff) session.getAttribute("h_user");
-		//查询稿件信息
-		Script script=scriptService.get(id);
-		//构建结果
-		String result[]=new String [10];
-		//基本信息
-		result[0]=script.getTitle();    //标题
-		result[1]=script.getSummary();    //摘要
-		result[2]=script.getAuthor().getName();    //作者
-		result[3]=script.getState().toString();  //状态
-		return result;		
-	}
+//	@RequestMapping(value="/scriptbasicdetail",method=RequestMethod.POST)
+//	@ResponseBody
+//	public String[] basicDetail(HttpSession session,Integer id){
+//		log.info("id"+id);
+//		//获取当前登陆者的信息
+//		Staff staff=(Staff) session.getAttribute("h_user");
+//		//查询稿件信息
+//		Script script=scriptService.get(id);
+//		//构建结果
+//		String result[]=new String [5];
+//		//基本信息
+//		result[0]=script.getTitle();    //标题
+//		result[1]=script.getSummary();    //摘要
+//		result[2]=script.getAuthor().getName();    //作者
+//		result[3]=script.getAuthor().getId().toString();    //作者id
+//
+//		if (script.getState()==3) {
+//			result[4]="";
+//		}else{
+//			if (script.getPay()==null) 
+//			{
+//				result[4]="未知";
+//			}else if(script.getPay()==0){
+//				result[4]="待设置稿费";
+//			}
+//			else if(script.getPay()==1){
+//				result[4]="待支付稿费 "+script.getPayment()+" RMB";
+//			}else if(script.getPay()==2){
+//				result[4]="已支付稿费 "+script.getPayment()+" RMB";
+//			}
+//		}
+//		
+//		
+//		
+//		
+//		return result;		
+//	}
 	
 	/**
 	 * 查询一个稿件最新的审核记录
@@ -162,7 +322,7 @@ public class QueryManagerController {
 	 */
 	@RequestMapping(value="/audit",method=RequestMethod.POST)
 	@ResponseBody
-	public String audit(int id){
+	public String[] audit(int id){
 		Audit audit=auditService.getNewest(id);
 		String result=null;
 		switch (audit.getAuditState()) {
@@ -170,20 +330,20 @@ public class QueryManagerController {
 			result="待审核";
 			break;
 		case 1:            //审核中
-			result="审核中\t"+staffService.get(audit.getStaffId()).getName()+"\t"+audit.getAuditDate();
+			result="审核中 "+staffService.get(audit.getStaffId()).getName()+" "+audit.getAuditDate();
 			break;
 		case 2:            //审核通过
-			result="审核通过\t"+staffService.get(audit.getStaffId()).getName()+"\t"+audit.getAuditDate();
+			result="审核通过 "+staffService.get(audit.getStaffId()).getName()+" "+audit.getAuditDate();
 			break;
 		case 3:            //审核不通过
-			result="审核不通过\t"+staffService.get(audit.getStaffId()).getName()+"\t"+audit.getAuditDate();
+			result="审核不通过 "+staffService.get(audit.getStaffId()).getName()+" "+audit.getAuditDate();
 			break;
 
 		default:			
 			break;
 		}
 				
-		return result;
+		return new String[]{result};
 		
 	}
 	/**
@@ -193,12 +353,12 @@ public class QueryManagerController {
 	 */
 	@RequestMapping(value="/proofread",method=RequestMethod.POST)
 	@ResponseBody
-	public String proofread(int id){
+	public String[] proofread(int id){
 		Proofread  proofread;
 		try {
 			proofread=proofreadService.getNewest(id);
 		} catch (Exception e) {
-			return "";
+			return null;
 		}
 	
 		String result=null;
@@ -207,17 +367,17 @@ public class QueryManagerController {
 			result="待校对";
 			break;
 		case 1:            //校对中
-			result="校对中\t"+staffService.get(proofread.getStaffId()).getName()+"\t"+proofread.getProofDate();
+			result="校对中 "+staffService.get(proofread.getStaffId()).getName()+" "+proofread.getProofDate();
 			break;
 		case 2:            //校对完成
-			result="校对完成\t"+staffService.get(proofread.getStaffId()).getName()+"\t"+proofread.getProofDate();
+			result="校对完成 "+staffService.get(proofread.getStaffId()).getName()+" "+proofread.getProofDate();
 			break;
 	
 		default:			
 			break;
 		}
 		
-		return result;
+		return new String[]{result};
 		
 	}
 	/**
@@ -227,12 +387,12 @@ public class QueryManagerController {
 	 */
 	@RequestMapping(value="/compose",method=RequestMethod.POST)
 	@ResponseBody
-	public String compose(int id){
+	public String[] compose(int id){
 		Compose compose;
 		try {
 			compose=composeService.getNewest(id);
 		} catch (Exception e) {
-			return "";
+			return null;
 		}
 		
 		String result=null;
@@ -241,43 +401,50 @@ public class QueryManagerController {
 			result="待排版";
 			break;
 		case 1:            //排版中
-			result="排版中\t"+staffService.get(compose.getStaffId()).getName()+"\t"+compose.getComposeDate();
+			result="排版中 "+staffService.get(compose.getStaffId()).getName()+" "+compose.getComposeDate();
 			break;
 		case 2:            //排版完成
-			result="排版完成\t"+staffService.get(compose.getStaffId()).getName()+"\t"+compose.getComposeDate();
+			result="排版完成 "+staffService.get(compose.getStaffId()).getName()+" "+compose.getComposeDate();
 			break;			
 		default:			
 			break;
 		}
 		
-		return result;
+		return new String[]{result};
 		
 	}
 	
 	
 	
+	
+	
+	
+	
+	
 	/**
-	 * 访问查询作者页面
+	 * 访问作者查询页面
 	 * @return
 	 */
-	@RequestMapping(value = "/author", method = RequestMethod.GET)
-	public String author(){
-		return "/proprieter/querymanager/author";
+	@RequestMapping(value = "/authorsearch", method = RequestMethod.GET)
+	public String authorsearch(){
+		return "/proprieter/querymanager/authorsearch";
 	}
+	
+
+	
 	/**
-	 * 查询作者信息
+	 * 搜索作者
 	 */
-	@RequestMapping(value="/author",method=RequestMethod.POST)
+	@RequestMapping(value="/authorsearch",method=RequestMethod.POST)
 	@ResponseBody
-	public String[][] author(HttpSession session,String name){
+	public String[][] authorsearch(HttpSession session,String name){
 		//根据作者名模糊查询作者信息
 		List<Author> authors= authorService.queryByName(name);
 		//构造结果集
 		int count = authors.size();
-		String results[][] = new String[count][11];
+		String results[][] = new String[count][3];
 		Author author;
-		Long send;
-		Long pass;
+
 		for (int i = 0; i < count; i++) {
 			author = authors.get(i);
 			results[i][0] = author.getId().toString(); // id
@@ -285,53 +452,102 @@ public class QueryManagerController {
 			results[i][1] = author.getName();//姓名
 			if (author.getGender()==0) {  //性别
 				
-				results[i][2] = "男";
+				results[i][2] = "boy";
 			}else {
-				results[i][2] = "女";
+				results[i][2] = "girl";
 				
 			}
 					
-			results[i][3] = author.getPhone(); //手机
-			results[i][4] = author.getEmail();//邮箱
-			results[i][5] = author.getAddress();//地址
-			results[i][6] = author.getRegistertime().toString();//注册时间
-			send=scriptService.getSendSumByAuthor(author);
-			
-			if (send.intValue()==0) {
-				results[i][7] = "0"; //投递总数
-				results[i][8] = "0"; //录用总数
-				results[i][9] = "0"; //录用比
-			}else{
-				pass=scriptService.getPassSumByAuthor(author);
-				results[i][7] = send.toString(); //投递总数
-				results[i][8] = pass.toString(); //录用总数
-				results[i][9] = String.valueOf(pass.intValue()/send.intValue());
-			}
-			
-			
-			// 样式
-			String style=null;
-			switch (i%4) {
-			case 0:
-				style="success";
-				break;
-			case 1:
-				style="warning";
-				break;
-			case 2:
-				style="danger";
-				break;
-			case 3:
-				style="info";
-				break;
-			}
-			
-			results[i][10]=style;
+
 		
 	}
 		return results;
 	
 	}
+	
+	/**
+	 * 查看作者详细信息
+	 * @return
+	 */
+	@RequestMapping(value = "/authordetail", method = RequestMethod.GET)
+	public String authordetail(Model model,int id){
+		//查询作者
+		Author author=authorService.get(id);
+		//构造结果集
+		String result[]=new String[10];
+		Long send;
+		Long pass;
+		result[0] = author.getId().toString();//id
+		result[1] = author.getName();//姓名
+		if (author.getGender()==0) {  //性别
+			
+			result[2] = "男";
+		}else {
+			result[2] = "女";
+			
+		}
+				
+		result[3] = author.getPhone(); //手机
+		result[4] = author.getEmail();//邮箱
+		result[5] = author.getAddress();//地址
+		result[6] = author.getRegistertime().toString();//注册时间
+		send=scriptService.getSendSumByAuthor(author);
+		
+		if (send.intValue()==0) {
+			result[7] = "0"; //投递总数
+			result[8] = "0"; //录用总数
+			result[9] = "0"; //录用比
+		}else{
+			pass=scriptService.getPassSumByAuthor(author);
+			result[7] = send.toString(); //投递总数
+			result[8] = pass.toString(); //录用总数
+			result[9] = String.valueOf(pass.intValue()/send.intValue());
+		}
+		model.addAttribute("result", result);
+		
+
+	return "/proprieter/querymanager/authordetail";
+	}
+	
+	
+	
+	/**
+	 * 返回该作者的所有稿件
+	 * @param authorid
+	 * @return
+	 */
+	@RequestMapping(value = "/allscripts", method = RequestMethod.POST)
+	@ResponseBody
+	public String[][] allscripts(int authorid){
+		List<Script> scripts=scriptService.getAllScriptsByAuthorid(authorid);
+		if (scripts==null||scripts.size()==0) {
+			return null;
+		}
+		int count=scripts.size();
+		String [][]results=new String [count][3];
+		for (int i = 0; i < count; i++) {
+			results[i][0]=scripts.get(i).getId().toString();
+			results[i][1]=scripts.get(i).getTitle();
+			results[i][2]=scripts.get(i).getDate().toString();
+		}
+		
+		return results;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 	
 	

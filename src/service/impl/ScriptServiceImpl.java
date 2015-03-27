@@ -66,4 +66,9 @@ public class ScriptServiceImpl implements ScriptService{
 		return assistDAO.queryByScriptTitle(publisher,title);
 	}
 
+	@Override
+	public List<Script> getAllScriptsByAuthorid(int authorid) {
+			return assistDAO.getAllScriptsByAuthodid(authorid);
+	}
+
 }

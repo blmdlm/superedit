@@ -8,6 +8,6 @@ public interface ProofreadService {
 	 * @param id
 	 * @return
 	 */
-	Proofread getNewest(int id);
+	Proofread getNewest(int id) throws RuntimeException;
 
 }

@@ -8,6 +8,6 @@ public interface ComposeService {
 	 * @param id
 	 * @return
 	 */
-	Compose getNewest(int id);
+	Compose getNewest(int id) throws RuntimeException;
 
 }

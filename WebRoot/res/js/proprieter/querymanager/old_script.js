@@ -1,4 +1,18 @@
 
+
+
+if(true){
+	
+	alert("asdasdda");
+}
+
+
+
+
+
+
+
+
 //显示结果
 function showResult(){
 //获取用户输入 
@@ -94,8 +108,9 @@ x.innerHTML=inHtml;
 	 	var url="proprieter/querymanager/scriptbasicdetail";
 	 	$.post(url,{id:id},function(result){
 	 		$("#myModalLabel").text(result[0]);
-	 		$("#author").text(result[2]);
+	 		$("#author").html("<a href='proprieter/querymanager/author?authorid="+result[3]+"'>"+result[2]+"</a>");
 	 		$("#summary").text(result[1]);
+	 		$("#payment").text(result[4]);
 	 	});
  }
  

@@ -14,5 +14,5 @@ public interface AuditService {
 	 * @param scriptid
 	 * @return
 	 */
-	public Audit getNewest(int scriptid);
+	public Audit getNewest(int scriptid) throws RuntimeException;
 }
