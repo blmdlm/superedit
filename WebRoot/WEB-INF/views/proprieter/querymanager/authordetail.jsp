@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <center>
   
 	<button type="button" class="btn btn-primary btn-sm "  data-toggle="modal" data-target="#myModal" onclick="check(${result[0]})">
-  		查看所有稿件
+  		查看所有投递给本杂志社的稿件
 	</button>
   </center>
 </div>
@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="modal-content">
 		<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">所有稿件</h4>
+        <h4 class="modal-title" id="myModalLabel">所有投递给本杂志社的稿件</h4>
       </div>
       <div class="modal-body">
       	<br>

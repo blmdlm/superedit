@@ -54,6 +54,13 @@ public class LoginController {
 
 		
 
+		}else if("g6".equals(id)){
+			Staff staff=staffService.get(5);
+			session.setAttribute("g_user",staff);
+			return "/chiefeditor/index";
+			
+			
+			
 		}else {
 			return "";
 			

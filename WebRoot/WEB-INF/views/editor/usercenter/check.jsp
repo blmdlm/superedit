@@ -25,8 +25,7 @@
 	<div class="div_from_aoto" style="width: 500px;">
 		<FORM>
 			<DIV class="control-group">
-				<br>
-				<br>
+
 				<br>
 				<br>
 				<br>
@@ -80,6 +79,16 @@
 					<P class=help-block></P>
 				</DIV>
 			</DIV>
+			
+			<DIV class="control-group">
+				<LABEL class="laber_from">杂志:</LABEL>
+				<DIV class="controls">
+					<INPUT class="input_from" type=text
+						value="${magazine.name}" readonly="readonly" />
+					<P class=help-block></P>
+				</DIV>
+			</DIV>
+			
 			<DIV class="control-group">
 				<LABEL class="laber_from">出版社:</LABEL>
 				<DIV class="controls">
@@ -88,6 +97,9 @@
 					<P class=help-block></P>
 				</DIV>
 			</DIV>
+			
+
+			
 			<DIV class="control-group">
 				<br> <LABEL class="laber_from"></LABEL>
 				<DIV class="controls">

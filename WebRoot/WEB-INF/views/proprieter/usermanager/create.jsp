@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         <DIV class="control-group" ><br>
             <LABEL class="laber_from" ></LABEL>
-            <DIV class="controls" ><button type="submit" class="btn btn-warning" style="width:150px;" >创建</button></DIV>
+            <DIV class="controls" ><button type="submit" class="btn btn-warning" style="width:150px;" onclick="">创建</button></DIV>
         </DIV>
     </sf:form>
 </div>

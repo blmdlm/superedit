@@ -26,13 +26,6 @@ public class Message implements java.io.Serializable {
 	private Integer sendstate;
 	private Integer recvid;
 	private Integer recvstate;
-	@Override
-	public String toString() {
-		return "Message [id=" + id + ", sendid=" + sendid + ", sendstate="
-				+ sendstate + ", recvid=" + recvid + ", recvstate=" + recvstate
-				+ ", content=" + content + ", time=" + time + "]";
-	}
-
 	private String content;
 	private Date time;
 

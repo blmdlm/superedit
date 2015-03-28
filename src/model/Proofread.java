@@ -27,7 +27,7 @@ public class Proofread implements java.io.Serializable {
 	private String proofPath;
 	private Date proofDate;
 	private Integer proofRank;
-	private String proofState;
+	private Integer proofState;
 	private Integer staffId;
 
 	// Constructors
@@ -43,7 +43,7 @@ public class Proofread implements java.io.Serializable {
 
 	/** full constructor */
 	public Proofread(Script script, String proofPath, Date proofDate,
-			Integer proofRank, String proofState, Integer staffId) {
+			Integer proofRank, Integer proofState, Integer staffId) {
 		this.script = script;
 		this.proofPath = proofPath;
 		this.proofDate = proofDate;
@@ -64,7 +64,7 @@ public class Proofread implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Script_id", nullable = false)
 	public Script getScript() {
 		return this.script;
@@ -102,12 +102,12 @@ public class Proofread implements java.io.Serializable {
 		this.proofRank = proofRank;
 	}
 
-	@Column(name = "proof_state", length = 45)
-	public String getProofState() {
+	@Column(name = "proof_state")
+	public Integer getProofState() {
 		return this.proofState;
 	}
 
-	public void setProofState(String proofState) {
+	public void setProofState(Integer proofState) {
 		this.proofState = proofState;
 	}
 

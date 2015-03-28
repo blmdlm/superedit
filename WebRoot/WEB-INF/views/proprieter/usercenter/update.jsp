@@ -89,8 +89,8 @@
 			<DIV class="control-group">
 				<LABEL class="laber_from">出版社:</LABEL>
 				<DIV class="controls">
-					<sf:input class="input_from" path="publisher.name"
-						value="${h_user.publisher.name}" />
+					<input class="input_from" type="text"
+						value="${h_user.publisher.name}" readonly="readonly" />
 					<P class=help-block></P>
 				</DIV>
 			</DIV>

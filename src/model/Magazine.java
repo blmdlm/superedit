@@ -58,7 +58,7 @@ public class Magazine implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Publisher_id", nullable = false)
 	public Publisher getPublisher() {
 		return this.publisher;
@@ -77,7 +77,7 @@ public class Magazine implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "magazine")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "magazine")
 	public Set<Script> getScripts() {
 		return this.scripts;
 	}

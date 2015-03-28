@@ -29,6 +29,8 @@ public class Staff implements java.io.Serializable {
 	private String name;
 	private Integer gender;
 	private String phone;
+	private Integer magazineId;
+	private Integer enable;
 
 	// Constructors
 
@@ -44,7 +46,7 @@ public class Staff implements java.io.Serializable {
 	/** full constructor */
 	public Staff(Publisher publisher, String email, String password,
 			Integer parentid, Integer role, Integer level, String name,
-			Integer gender, String phone) {
+			Integer gender, String phone, Integer magazineId, Integer enable) {
 		this.publisher = publisher;
 		this.email = email;
 		this.password = password;
@@ -54,6 +56,8 @@ public class Staff implements java.io.Serializable {
 		this.name = name;
 		this.gender = gender;
 		this.phone = phone;
+		this.magazineId = magazineId;
+		this.enable = enable;
 	}
 
 	// Property accessors
@@ -118,13 +122,12 @@ public class Staff implements java.io.Serializable {
 	public Integer getLevel() {
 		return this.level;
 	}
-	
-	public void setLevel(Integer level){
+
+	public void setLevel(Integer level) {
 		this.level = level;
 	}
 
 	@Column(name = "name", length = 45)
-
 	public String getName() {
 		return this.name;
 	}
@@ -149,6 +152,24 @@ public class Staff implements java.io.Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	@Column(name = "magazine_id")
+	public Integer getMagazineId() {
+		return this.magazineId;
+	}
+
+	public void setMagazineId(Integer magazineId) {
+		this.magazineId = magazineId;
+	}
+
+	@Column(name = "enable")
+	public Integer getEnable() {
+		return this.enable;
+	}
+
+	public void setEnable(Integer enable) {
+		this.enable = enable;
 	}
 
 }

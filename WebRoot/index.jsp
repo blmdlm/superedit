@@ -33,5 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<a href="login?id=j9"><input type="submit" value="登陆"></a>
     	 <p>编辑请登陆</p>
     	<a href="login?id=k10"><input type="submit" value="登陆"></a>
+    	 <p>总编请登陆</p>
+    	<a href="login?id=g6"><input type="submit" value="登陆"></a>
   </body>
 </html>

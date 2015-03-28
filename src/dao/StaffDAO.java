@@ -32,6 +32,8 @@ public class StaffDAO extends HibernateDaoSupport {
 	public static final String NAME = "name";
 	public static final String GENDER = "gender";
 	public static final String PHONE = "phone";
+	public static final String MAGAZINE_ID = "magazineId";
+	public static final String ENABLE = "enable";
 
 	protected void initDao() {
 		// do nothing
@@ -128,6 +130,14 @@ public class StaffDAO extends HibernateDaoSupport {
 
 	public List<Staff> findByPhone(Object phone) {
 		return findByProperty(PHONE, phone);
+	}
+
+	public List<Staff> findByMagazineId(Object magazineId) {
+		return findByProperty(MAGAZINE_ID, magazineId);
+	}
+
+	public List<Staff> findByEnable(Object enable) {
+		return findByProperty(ENABLE, enable);
 	}
 
 	public List findAll() {

@@ -66,12 +66,40 @@ public interface ScriptService {
 	 * @return
 	 */
 	List<Script> queryByTitle(Publisher publisher, String title);
+	
+	/**
+	 * 模糊查询投递给一个杂志的的稿件
+	 * @param title
+	 * @param magazineid
+	 * @return
+	 */
+	List<Script> queryByTitleAndMagazineid(String title, int magazineid);
+	
+	
+	
 	/**
 	 * 找出一个作者的所有稿件
 	 * @param authorid
 	 * @return
 	 */
 	List<Script> getAllScriptsByAuthorid(int authorid);
+	/**
+	 * 找出一个作者投递给一个杂志的所有稿件
+	 * @param authorid
+	 * @param magazineid
+	 * @return
+	 */
+	List<Script> getAllScriptsByAuthoridAndMagazineid(int authorid,
+			int magazineid);
+	/**
+	 * 找出一个作者投递给一个杂志社的所有稿件
+	 * @param authorid
+	 * @param publisher
+	 * @return
+	 */
+	List<Script> getAllScriptsByAuthoridAndPublisher(int authorid,
+			Publisher publisher);
+
 
 	
 }

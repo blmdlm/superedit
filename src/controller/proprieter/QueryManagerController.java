@@ -8,6 +8,7 @@ import model.Audit;
 import model.Author;
 import model.Compose;
 import model.Proofread;
+import model.Publisher;
 import model.Script;
 import model.Staff;
 
@@ -512,14 +513,17 @@ public class QueryManagerController {
 	
 	
 	/**
-	 * 返回该作者的所有稿件
+	 * 返回该作者的所有投递到本杂志社的稿件
 	 * @param authorid
 	 * @return
 	 */
 	@RequestMapping(value = "/allscripts", method = RequestMethod.POST)
 	@ResponseBody
-	public String[][] allscripts(int authorid){
-		List<Script> scripts=scriptService.getAllScriptsByAuthorid(authorid);
+	public String[][] allscripts(HttpSession session,int authorid){
+		//获取当前登陆者的信息
+		Staff staff=(Staff) session.getAttribute("h_user");
+		Publisher publisher=staff.getPublisher();
+		List<Script> scripts=scriptService.getAllScriptsByAuthoridAndPublisher(authorid,publisher);
 		if (scripts==null||scripts.size()==0) {
 			return null;
 		}

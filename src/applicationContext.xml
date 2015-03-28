@@ -154,6 +154,11 @@
 	<bean id="ComposeServiceImpl" class="service.impl.ComposeServiceImpl"
 		parent="ComposeService">
 	</bean>
+	<bean id="MagazineService" class="service.MagazineService" abstract="true">
+	</bean>
+	<bean id="MagazineServiceImpl" class="service.impl.MagazineServiceImpl"
+		parent="MagazineService">
+	</bean>
 	<!-- 确保能够实例化bean -->
 	<bean
 		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />

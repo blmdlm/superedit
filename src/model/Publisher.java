@@ -73,7 +73,7 @@ public class Publisher implements java.io.Serializable {
 		this.magazines = magazines;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "publisher")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "publisher")
 	public Set<Staff> getStaffs() {
 		return this.staffs;
 	}

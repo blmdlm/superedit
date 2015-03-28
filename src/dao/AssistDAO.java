@@ -229,7 +229,23 @@ public class AssistDAO extends HibernateDaoSupport{
 	}
 
 	
-	
+	/**
+	 * 查询投递给该杂志所有和该标题匹配的稿件
+	 * @param title
+	 * @param magazineid
+	 * @return
+	 */
+	public List<Script> queryByScriptTitle(String title, int magazineid) {
+		try {
+			String queryString = "from Script as model  where title like '%"+title+"%' and magazine_id = ?";
+			return getHibernateTemplate().find(queryString,magazineid);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+			
+		}
+	}
+
 	
 	
 	
@@ -289,8 +305,52 @@ public class AssistDAO extends HibernateDaoSupport{
 			
 		}
 	}
-
-	
+	/**
+	 * 找出一个作者投递给一个杂志的所有稿件
+	 * @param authorid
+	 * @param magazineid
+	 * @return
+	 */
+	public List<Script> getAllScriptsByAuthodidAndMagazineid(int authorid,
+			int magazineid) {
+		try {
+			String queryString = "from Script as model  where author_id = ? and magazine_id = ?";
+			return getHibernateTemplate().find(queryString,authorid,magazineid);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+			
+		}
+	}
+	/**
+	 * 找出一个作者投递给一个杂志社的所有稿件
+	 * @param authorid
+	 * @param publisher
+	 * @return
+	 */
+	public List<Script> getAllScriptsByAuthodidAndPublisher(int authorid,
+			Publisher publisher) {
+		Set<Magazine> magazines=publisher.getMagazines();
+		int count=magazines.size();
+		List<Long> ids=new ArrayList<Long>();
+		Magazine magazine;
+		for (Iterator iterator = magazines.iterator(); iterator.hasNext();) {
+			magazine = (Magazine) iterator.next();
+			ids.add(Long.valueOf(magazine.getId()));
+		}
+		
+		try {
+			
+			String queryString = "from Script as model where magazine_id in (:listParam) and author_id ="+authorid+" order by date";
+			String[] params={"listParam"};
+			Object[] values={ids};
+			return getHibernateTemplate().findByNamedParam(queryString, params, values);
+			
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 	
 	/**
 	 * 找出一个作者所有投递的稿件数
@@ -387,6 +447,30 @@ public class AssistDAO extends HibernateDaoSupport{
 			throw re;
 		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

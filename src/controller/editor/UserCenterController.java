@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import service.MagazineService;
 import service.StaffService;
 
 /**
@@ -24,7 +25,8 @@ public class UserCenterController {
 	private static Logger logger = Logger.getLogger(UserCenterController.class);
 	@Autowired
 	StaffService staffService;
-	
+	@Autowired
+	MagazineService magazineService;
 	/**
 	 * 查看个人资料
 	 * 
@@ -32,6 +34,8 @@ public class UserCenterController {
 	 */
 	@RequestMapping("/check")
 	public String userCenterCheck(HttpSession session, Model model) {
+		Staff currentStaff=(Staff) session.getAttribute("k_user"); 
+		model.addAttribute("magazine", magazineService.get(currentStaff.getMagazineId()));
 		return "/editor/usercenter/check";
 
 	}
@@ -43,7 +47,9 @@ public class UserCenterController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String userCenterUpdate(Model model) {
+	public String userCenterUpdate(HttpSession session,Model model) {
+		Staff currentStaff=(Staff) session.getAttribute("k_user"); 
+		model.addAttribute("magazine", magazineService.get(currentStaff.getMagazineId()));
 		model.addAttribute("staff", new Staff());
 		return "/editor/usercenter/update";
 	}
