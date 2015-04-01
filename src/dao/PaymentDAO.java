@@ -2,9 +2,8 @@ package dao;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import model.Script;
+import model.Payment;
 
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
@@ -14,31 +13,30 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * A data access object (DAO) providing persistence and search support for
- * Script entities. Transaction control of the save(), update() and delete()
+ * Payment entities. Transaction control of the save(), update() and delete()
  * operations can directly support Spring container-managed transactions or they
  * can be augmented to handle user-managed Spring transactions. Each of these
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see model.Script
+ * @see model.Payment
  * @author MyEclipse Persistence Tools
  */
-public class ScriptDAO extends HibernateDaoSupport {
-	private static final Logger log = LoggerFactory.getLogger(ScriptDAO.class);
+public class PaymentDAO extends HibernateDaoSupport {
+	private static final Logger log = LoggerFactory.getLogger(PaymentDAO.class);
 	// property constants
-	public static final String TITLE = "title";
-	public static final String PATH = "path";
+	public static final String SCRIPT_ID = "scriptId";
+	public static final String STAFF_ID = "staffId";
+	public static final String MAGAZINE_ID = "magazineId";
+	public static final String COST = "cost";
 	public static final String STATE = "state";
-	public static final String PROGRESS = "progress";
-	public static final String SUMMARY = "summary";
-	public static final String DISTRIBUTOR = "distributor";
 
 	protected void initDao() {
 		// do nothing
 	}
 
-	public void save(Script transientInstance) {
-		log.debug("saving Script instance");
+	public void save(Payment transientInstance) {
+		log.debug("saving Payment instance");
 		try {
 			getHibernateTemplate().save(transientInstance);
 			log.debug("save successful");
@@ -48,8 +46,8 @@ public class ScriptDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void delete(Script persistentInstance) {
-		log.debug("deleting Script instance");
+	public void delete(Payment persistentInstance) {
+		log.debug("deleting Payment instance");
 		try {
 			getHibernateTemplate().delete(persistentInstance);
 			log.debug("delete successful");
@@ -59,11 +57,11 @@ public class ScriptDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Script findById(java.lang.Integer id) {
-		log.debug("getting Script instance with id: " + id);
+	public Payment findById(java.lang.Integer id) {
+		log.debug("getting Payment instance with id: " + id);
 		try {
-			Script instance = (Script) getHibernateTemplate().get(
-					"model.Script", id);
+			Payment instance = (Payment) getHibernateTemplate().get(
+					"model.Payment", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -71,10 +69,10 @@ public class ScriptDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List<Script> findByExample(Script instance) {
-		log.debug("finding Script instance by example");
+	public List<Payment> findByExample(Payment instance) {
+		log.debug("finding Payment instance by example");
 		try {
-			List<Script> results = (List<Script>) getHibernateTemplate()
+			List<Payment> results = (List<Payment>) getHibernateTemplate()
 					.findByExample(instance);
 			log.debug("find by example successful, result size: "
 					+ results.size());
@@ -86,10 +84,10 @@ public class ScriptDAO extends HibernateDaoSupport {
 	}
 
 	public List findByProperty(String propertyName, Object value) {
-		log.debug("finding Script instance with property: " + propertyName
+		log.debug("finding Payment instance with property: " + propertyName
 				+ ", value: " + value);
 		try {
-			String queryString = "from Script as model where model."
+			String queryString = "from Payment as model where model."
 					+ propertyName + "= ?";
 			return getHibernateTemplate().find(queryString, value);
 		} catch (RuntimeException re) {
@@ -98,34 +96,30 @@ public class ScriptDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List<Script> findByTitle(Object title) {
-		return findByProperty(TITLE, title);
+	public List<Payment> findByScriptId(Object scriptId) {
+		return findByProperty(SCRIPT_ID, scriptId);
 	}
 
-	public List<Script> findByPath(Object path) {
-		return findByProperty(PATH, path);
+	public List<Payment> findByStaffId(Object staffId) {
+		return findByProperty(STAFF_ID, staffId);
 	}
 
-	public List<Script> findByState(Object state) {
+	public List<Payment> findByMagazineId(Object magazineId) {
+		return findByProperty(MAGAZINE_ID, magazineId);
+	}
+
+	public List<Payment> findByCost(Object cost) {
+		return findByProperty(COST, cost);
+	}
+
+	public List<Payment> findByState(Object state) {
 		return findByProperty(STATE, state);
 	}
 
-	public List<Script> findByProgress(Object progress) {
-		return findByProperty(PROGRESS, progress);
-	}
-
-	public List<Script> findBySummary(Object summary) {
-		return findByProperty(SUMMARY, summary);
-	}
-
-	public List<Script> findByDistributor(Object distributor) {
-		return findByProperty(DISTRIBUTOR, distributor);
-	}
-
 	public List findAll() {
-		log.debug("finding all Script instances");
+		log.debug("finding all Payment instances");
 		try {
-			String queryString = "from Script";
+			String queryString = "from Payment";
 			return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find all failed", re);
@@ -133,10 +127,10 @@ public class ScriptDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Script merge(Script detachedInstance) {
-		log.debug("merging Script instance");
+	public Payment merge(Payment detachedInstance) {
+		log.debug("merging Payment instance");
 		try {
-			Script result = (Script) getHibernateTemplate().merge(
+			Payment result = (Payment) getHibernateTemplate().merge(
 					detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -146,8 +140,8 @@ public class ScriptDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void attachDirty(Script instance) {
-		log.debug("attaching dirty Script instance");
+	public void attachDirty(Payment instance) {
+		log.debug("attaching dirty Payment instance");
 		try {
 			getHibernateTemplate().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -157,8 +151,8 @@ public class ScriptDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void attachClean(Script instance) {
-		log.debug("attaching clean Script instance");
+	public void attachClean(Payment instance) {
+		log.debug("attaching clean Payment instance");
 		try {
 			getHibernateTemplate().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -168,7 +162,7 @@ public class ScriptDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public static ScriptDAO getFromApplicationContext(ApplicationContext ctx) {
-		return (ScriptDAO) ctx.getBean("ScriptDAO");
+	public static PaymentDAO getFromApplicationContext(ApplicationContext ctx) {
+		return (PaymentDAO) ctx.getBean("PaymentDAO");
 	}
 }

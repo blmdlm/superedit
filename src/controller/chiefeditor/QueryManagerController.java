@@ -8,6 +8,7 @@ import model.Audit;
 import model.Author;
 import model.Compose;
 import model.Magazine;
+import model.Payment;
 import model.Proofread;
 import model.Script;
 import model.Staff;
@@ -26,6 +27,7 @@ import service.AuthorService;
 import service.ComposeService;
 import service.MagazineService;
 import service.MessageService;
+import service.PaymentService;
 import service.ProofreadService;
 import service.ScriptService;
 import service.StaffService;
@@ -50,7 +52,8 @@ public class QueryManagerController {
 	ProofreadService proofreadService;
 	@Autowired
 	ComposeService composeService;
-
+	@Autowired
+	PaymentService paymentService;
 	/**
 	 * 访问查询稿件页面
 	 * 
@@ -130,7 +133,7 @@ public class QueryManagerController {
 
 		Script script = scriptService.get(id);
 		// 构建结果集
-		String result[] = new String[10];
+		String result[] = new String[9];
 		String state = null;
 
 		result[0] = script.getId().toString(); // id
@@ -155,19 +158,19 @@ public class QueryManagerController {
 		}
 		result[7] = state;// 处理状态
 		result[8] = script.getSummary(); // 摘要
-		if (script.getState() == 3) {
-			result[9] = "";
-		} else {
-			if (script.getPay() == null) {
-				result[9] = "未知";
-			} else if (script.getPay() == 0) {
-				result[9] = "待设置稿费";
-			} else if (script.getPay() == 1) {
-				result[9] = "待支付稿费 " + script.getPayment() + " RMB";
-			} else if (script.getPay() == 2) {
-				result[9] = "已支付稿费 " + script.getPayment() + " RMB";
-			}
-		}
+//		if (script.getState() == 3) {
+//			result[9] = "";
+//		} else {
+//			if (script.getPay() == null) {
+//				result[9] = "未知";
+//			} else if (script.getPay() == 0) {
+//				result[9] = "待设置稿费";
+//			} else if (script.getPay() == 1) {
+//				result[9] = "待支付稿费 " + script.getPayment() + " RMB";
+//			} else if (script.getPay() == 2) {
+//				result[9] = "已支付稿费 " + script.getPayment() + " RMB";
+//			}
+//		}
 
 		model.addAttribute("result", result);
 		return "/chiefeditor/querymanager/scriptdetail";
@@ -289,7 +292,51 @@ public class QueryManagerController {
 	//
 	// return result;
 	// }
+	/**
+	 * 查询一个稿件的稿费记录
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/payment", method = RequestMethod.POST)
+	@ResponseBody
+	public String[] payment(int id) {
+		String result = "";
+		Script script=scriptService.get(id);
+		
+		switch (script.getState()) {
+		case 1:
+			result="请等待审核通过";
+			break;
+		case 2:
+			Payment payment=paymentService.getByScriptid(id);
+			switch (payment.getState()) {
+			case 0:
+				result="稿费待设置中";
+				break;
+			case 1:
+				result="待支付稿费"+payment.getCost()+"RMB";
+				break;
+			case 2:
+				result="已支付稿费"+payment.getCost()+"RMB";
+				break;
+			
+			default:
+				break;
+			}
+			
+			break;
+		case 3:
+			result="审核不通过，没有稿费";
+			break;
 
+		default:
+			break;
+		}
+
+		return new String[] { result };
+
+	}
 	/**
 	 * 查询一个稿件最新的审核记录
 	 * 

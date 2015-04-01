@@ -62,16 +62,16 @@
 					<td>投递时间</td>
 					<td>${result[6]}</td>
 				</tr>
-				<tr>
-					<td>稿费</td>
-					<td>${result[9]}</td>
-				</tr>
+
 				<tr>
 					<td>处理状态</td>
 					<td>${result[7]}</td>
 				</tr>
 
-
+				<tr class="detail">
+					<td>稿费状态</td>
+					<td id="payment"></td>
+				</tr>
 				<tr class="detail">
 					<td>审核状态</td>
 					<td id="audit"></td>

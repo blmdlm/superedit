@@ -33,6 +33,7 @@ public class MessageboardDAO extends HibernateDaoSupport {
 	public static final String STAFF_ID = "staffId";
 	public static final String AUDIT_STATUS = "auditStatus";
 	public static final String REPLY_STATUS = "replyStatus";
+	public static final String PUBLISHER_ID = "publisherId";
 
 	protected void initDao() {
 		// do nothing
@@ -125,6 +126,10 @@ public class MessageboardDAO extends HibernateDaoSupport {
 
 	public List<Messageboard> findByReplyStatus(Object replyStatus) {
 		return findByProperty(REPLY_STATUS, replyStatus);
+	}
+
+	public List<Messageboard> findByPublisherId(Object publisherId) {
+		return findByProperty(PUBLISHER_ID, publisherId);
 	}
 
 	public List findAll() {

@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="res/utilLib/bootstrap.min.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="res/js/jquery-1.11.1.min.js"></script>
   	<script type="text/javascript" src="res/js/bootstrap.min.js"></script>
-  	<script type="text/javascript" src="res/js/gejing/paymentmanagerset.js"></script>
+  	<script type="text/javascript" src="res/js/financial/paymentmanager/set.js"></script>
   </head>
   
   <body>
@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${result[3]}</td>
 					<td>${result[4]}</td>
 					<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#mymodal" 
- onclick="change(${result[0]})" >设置稿费</button></td>
+ onclick="change(${result[6]})" >设置稿费</button></td>
 				</tr>
 			</c:forEach>
 

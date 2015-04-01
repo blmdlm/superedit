@@ -65,6 +65,7 @@
  //点击查看详细信息
  
  function check(id){
+	showPayment(id);
 	showAudit(id);
 	showProofread(id);
 	showCompose(id);
@@ -74,6 +75,14 @@
  
  
 
+ function showPayment(id){
+	 	var url="proprieter/querymanager/payment";
+	 	$.post(url,{id:id},function(result){
+	 		$("#payment").text(result);
+	 	});
+	 
+}
+ 
  
  function showAudit(id){
 	 	var url="proprieter/querymanager/audit";

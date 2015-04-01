@@ -10,6 +10,7 @@ import model.Author;
 import model.Compose;
 import model.Magazine;
 import model.Message;
+import model.Payment;
 import model.Proofread;
 import model.Script;
 import model.Staff;
@@ -28,6 +29,7 @@ import service.AuthorService;
 import service.ComposeService;
 import service.MagazineService;
 import service.MessageService;
+import service.PaymentService;
 import service.ProofreadService;
 import service.ScriptService;
 import service.StaffService;
@@ -52,6 +54,8 @@ public class QueryManagerController {
 	ProofreadService proofreadService;
 	@Autowired
 	ComposeService composeService;
+	@Autowired
+	PaymentService paymentService;
 
 	/**
 	 * 访问查询稿件页面
@@ -76,9 +80,10 @@ public class QueryManagerController {
 
 		// 获取当前登陆者的信息
 		Staff staff = (Staff) session.getAttribute("k_user");
-		int magazineid=staff.getMagazineId();
+		int magazineid = staff.getMagazineId();
 		// 模糊查询稿件信息
-		List<Script> scripts = scriptService.queryByTitleAndMagazineid(title,magazineid);
+		List<Script> scripts = scriptService.queryByTitleAndMagazineid(title,
+				magazineid);
 		// 构建结果集
 		int count = scripts.size();
 		String results[][] = new String[count][7];
@@ -147,148 +152,195 @@ public class QueryManagerController {
 		case 1:
 			// 表示处理中
 			state = "审核中";
+			result[9]="请等待审核通过";
 			break;
 		case 2:
-			state = "通过 "+auditService.getNewest(id).getAuditDate();
+			state = "通过 " + auditService.getNewest(id).getAuditDate();
+			Payment payment=paymentService.getByScriptid(id);
+			switch (payment.getState()) {
+			case 0:
+				result[9]="稿费待设置中";
+				break;
+			case 1:
+				result[9]="待支付稿费"+payment.getCost()+"RMB";
+				break;
+			case 2:
+				result[9]="已支付稿费"+payment.getCost()+"RMB";
+				break;
+			
+			default:
+				break;
+			}
 			break;
 		case 3:
-			state = "不通过 "+auditService.getNewest(id).getAuditDate();
+			state = "不通过 " + auditService.getNewest(id).getAuditDate();
+			result[9]="审核不通过，没有稿费";
 			break;
 		}
 		result[7] = state;// 处理状态
 		result[8] = script.getSummary(); // 摘要
-		if (script.getState() == 3) {
-			result[9] = "";
-		} else {
-			if (script.getPay() == null) {
-				result[9] = "未知";
-			} else if (script.getPay() == 0) {
-				result[9] = "待设置稿费";
-			} else if (script.getPay() == 1) {
-				result[9] = "待支付稿费 " + script.getPayment() + " RMB";
-			} else if (script.getPay() == 2) {
-				result[9] = "已支付稿费 " + script.getPayment() + " RMB";
-			}
-		}
 
 		model.addAttribute("result", result);
 		return "/editor/querymanager/scriptdetail";
 
 	}
-
-
-	/**
-	 * 查询一个稿件最新的审核记录
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "/audit", method = RequestMethod.POST)
-	@ResponseBody
-	public String[] audit(int id) {
-		Audit audit = auditService.getNewest(id);
-		String result = null;
-		switch (audit.getAuditState()) {
-		case 0: // 待审核
-			result = "待审核";
-			break;
-		case 1: // 审核中
-			result = "审核中 " + staffService.get(audit.getStaffId()).getName()
-					+ " " + audit.getAuditDate();
-			break;
-		case 2: // 审核通过
-			result = "审核通过 " + staffService.get(audit.getStaffId()).getName()
-					+ " " + audit.getAuditDate();
-			break;
-		case 3: // 审核不通过
-			result = "审核不通过 " + staffService.get(audit.getStaffId()).getName()
-					+ " " + audit.getAuditDate();
-			break;
-
-		default:
-			break;
-		}
-
-		return new String[] { result };
-
-	}
-
-	/**
-	 * 查询一个稿件最新的校对记录
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "/proofread", method = RequestMethod.POST)
-	@ResponseBody
-	public String[] proofread(int id) {
-		Proofread proofread;
-		try {
-			proofread = proofreadService.getNewest(id);
-		} catch (Exception e) {
-			return null;
-		}
-
-		String result = null;
-		switch (Integer.valueOf(proofread.getProofState()).intValue()) {
-		case 0: // 待校对
-			result = "待校对";
-			break;
-		case 1: // 校对中
-			result = "校对中 "
-					+ staffService.get(proofread.getStaffId()).getName() + " "
-					+ proofread.getProofDate();
-			break;
-		case 2: // 校对完成
-			result = "校对完成 "
-					+ staffService.get(proofread.getStaffId()).getName() + " "
-					+ proofread.getProofDate();
-			break;
-
-		default:
-			break;
-		}
-
-		return new String[] { result };
-
-	}
-
-	/**
-	 * 查询一个稿件最新的排版记录
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "/compose", method = RequestMethod.POST)
-	@ResponseBody
-	public String[] compose(int id) {
-		Compose compose;
-		try {
-			compose = composeService.getNewest(id);
-		} catch (Exception e) {
-			return null;
-		}
-
-		String result = null;
-		switch (compose.getComposeState()) {
-		case 0: // 待排版
-			result = "待排版";
-			break;
-		case 1: // 排版中
-			result = "排版中 " + staffService.get(compose.getStaffId()).getName()
-					+ " " + compose.getComposeDate();
-			break;
-		case 2: // 排版完成
-			result = "排版完成 " + staffService.get(compose.getStaffId()).getName()
-					+ " " + compose.getComposeDate();
-			break;
-		default:
-			break;
-		}
-
-		return new String[] { result };
-
-	}
+//	/**
+//	 * 查询一个稿件的稿费记录
+//	 * 
+//	 * @param id
+//	 * @return
+//	 */
+//	@RequestMapping(value = "/payment", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String[] payment(int id) {
+//		String result = "";
+//		Script script=scriptService.get(id);
+//		
+//		switch (script.getState()) {
+//		case 1:
+//			result="请等待审核通过";
+//			break;
+//		case 2:
+//			Payment payment=paymentService.getByScriptid(id);
+//			switch (payment.getState()) {
+//			case 0:
+//				result="稿费待设置中";
+//				break;
+//			case 1:
+//				result="待支付稿费"+payment.getCost()+"RMB";
+//				break;
+//			case 2:
+//				result="已支付稿费"+payment.getCost()+"RMB";
+//				break;
+//			
+//			default:
+//				break;
+//			}
+//			
+//			break;
+//		case 3:
+//			result="审核不通过，没有稿费";
+//			break;
+//
+//		default:
+//			break;
+//		}
+//
+//		return new String[] { result };
+//
+//	}
+//	/**
+//	 * 查询一个稿件最新的审核记录
+//	 * 
+//	 * @param id
+//	 * @return
+//	 */
+//	@RequestMapping(value = "/audit", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String[] audit(int id) {
+//		Audit audit = auditService.getNewest(id);
+//		String result = null;
+//		switch (audit.getAuditState()) {
+//		case 0: // 待审核
+//			result = "待审核";
+//			break;
+//		case 1: // 审核中
+//			result = "审核中 " + staffService.get(audit.getStaffId()).getName()
+//					+ " " + audit.getAuditDate();
+//			break;
+//		case 2: // 审核通过
+//			result = "审核通过 " + staffService.get(audit.getStaffId()).getName()
+//					+ " " + audit.getAuditDate();
+//			break;
+//		case 3: // 审核不通过
+//			result = "审核不通过 " + staffService.get(audit.getStaffId()).getName()
+//					+ " " + audit.getAuditDate();
+//			break;
+//
+//		default:
+//			break;
+//		}
+//
+//		return new String[] { result };
+//
+//	}
+//
+//	/**
+//	 * 查询一个稿件最新的校对记录
+//	 * 
+//	 * @param id
+//	 * @return
+//	 */
+//	@RequestMapping(value = "/proofread", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String[] proofread(int id) {
+//		Proofread proofread;
+//		try {
+//			proofread = proofreadService.getNewest(id);
+//		} catch (Exception e) {
+//			return null;
+//		}
+//
+//		String result = null;
+//		switch (Integer.valueOf(proofread.getProofState()).intValue()) {
+//		case 0: // 待校对
+//			result = "待校对";
+//			break;
+//		case 1: // 校对中
+//			result = "校对中 "
+//					+ staffService.get(proofread.getStaffId()).getName() + " "
+//					+ proofread.getProofDate();
+//			break;
+//		case 2: // 校对完成
+//			result = "校对完成 "
+//					+ staffService.get(proofread.getStaffId()).getName() + " "
+//					+ proofread.getProofDate();
+//			break;
+//
+//		default:
+//			break;
+//		}
+//
+//		return new String[] { result };
+//
+//	}
+//
+//	/**
+//	 * 查询一个稿件最新的排版记录
+//	 * 
+//	 * @param id
+//	 * @return
+//	 */
+//	@RequestMapping(value = "/compose", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String[] compose(int id) {
+//		Compose compose;
+//		try {
+//			compose = composeService.getNewest(id);
+//		} catch (Exception e) {
+//			return null;
+//		}
+//
+//		String result = null;
+//		switch (compose.getComposeState()) {
+//		case 0: // 待排版
+//			result = "待排版";
+//			break;
+//		case 1: // 排版中
+//			result = "排版中 " + staffService.get(compose.getStaffId()).getName()
+//					+ " " + compose.getComposeDate();
+//			break;
+//		case 2: // 排版完成
+//			result = "排版完成 " + staffService.get(compose.getStaffId()).getName()
+//					+ " " + compose.getComposeDate();
+//			break;
+//		default:
+//			break;
+//		}
+//
+//		return new String[] { result };
+//
+//	}
 
 	/**
 	 * 访问作者查询页面
@@ -378,11 +430,12 @@ public class QueryManagerController {
 	 */
 	@RequestMapping(value = "/allscripts", method = RequestMethod.POST)
 	@ResponseBody
-	public String[][] allscripts(HttpSession session,int authorid) {
-		Staff staff=(Staff) session.getAttribute("k_user");
-		log.info("staff="+staff.toString());
-		int magazineid=staff.getMagazineId();
-		List<Script> scripts = scriptService.getAllScriptsByAuthoridAndMagazineid(authorid,magazineid);
+	public String[][] allscripts(HttpSession session, int authorid) {
+		Staff staff = (Staff) session.getAttribute("k_user");
+		log.info("staff=" + staff.toString());
+		int magazineid = staff.getMagazineId();
+		List<Script> scripts = scriptService
+				.getAllScriptsByAuthoridAndMagazineid(authorid, magazineid);
 		if (scripts == null || scripts.size() == 0) {
 			return null;
 		}
@@ -396,76 +449,53 @@ public class QueryManagerController {
 
 		return results;
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * 查询最近的一次约稿记录
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/solicithistory",method=RequestMethod.POST)
+	@RequestMapping(value = "/solicithistory", method = RequestMethod.POST)
 	@ResponseBody
-	public Message solicitHistory(HttpSession session,Integer id){
-		//获得当前登陆者的信息
-		Staff staff=(Staff) session.getAttribute("k_user");
-		//查询最近的约稿记录
-		Message message=messageService.findLastMessage(staff.getId(),id);
-		
-		if (message==null) {
+	public Message solicitHistory(HttpSession session, Integer id) {
+		// 获得当前登陆者的信息
+		Staff staff = (Staff) session.getAttribute("k_user");
+		// 查询最近的约稿记录
+		Message message = messageService.findLastMessage(staff.getId(), id);
+
+		if (message == null) {
 			log.info("message=null");
 			return null;
 		}
-		log.info("message="+message.toString());
-		
-		return message;
-		
-	}
-	
-	
-	
+		log.info("message=" + message.toString());
 
-	
-	
-	
+		return message;
+
+	}
+
 	/**
 	 * 进行约稿
+	 * 
 	 * @param session
 	 * @return
 	 */
 	@RequestMapping("/solicit")
 	@ResponseBody
-	public String solicit(HttpSession session,Integer id,String message){
-		//获得当前登陆者的信息
-		Staff staff=(Staff) session.getAttribute("k_user");
-		//构造留言
-		Message mess =new Message();
+	public String solicit(HttpSession session, Integer id, String message) {
+		// 获得当前登陆者的信息
+		Staff staff = (Staff) session.getAttribute("k_user");
+		// 构造留言
+		Message mess = new Message();
 		mess.setContent(message);
 		mess.setSendid(staff.getId());
 		mess.setSendstate(10);
 		mess.setRecvid(id);
 		mess.setRecvstate(11);
 		mess.setTime(new Date());
-		//存储留言
+		// 存储留言
 		messageService.save(mess);
-		
+
 		return "OK";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

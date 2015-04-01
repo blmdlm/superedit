@@ -44,6 +44,7 @@
 				<value>model.Magazine</value>
 				<value>model.Message</value>
 				<value>model.Messageboard</value>
+				<value>model.Payment</value>
 				<value>model.Compose</value></list>
 		</property></bean>
 	<bean id="AuditDAO" class="dao.AuditDAO">
@@ -97,7 +98,11 @@
 		</property>
 	</bean>
 	
-	
+		<bean id="PaymentDAO" class="dao.PaymentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 	<!-- 辅助DAO -->
 	<bean id="AssistDAO" class="dao.AssistDAO">
 		<property name="sessionFactory">
@@ -154,11 +159,19 @@
 	<bean id="ComposeServiceImpl" class="service.impl.ComposeServiceImpl"
 		parent="ComposeService">
 	</bean>
+	
 	<bean id="MagazineService" class="service.MagazineService" abstract="true">
 	</bean>
 	<bean id="MagazineServiceImpl" class="service.impl.MagazineServiceImpl"
 		parent="MagazineService">
 	</bean>
+	
+	<bean id="PaymentService" class="service.PaymentService" abstract="true">
+	</bean>
+	<bean id="PaymentServiceImpl" class="service.impl.PaymentServiceImpl"
+		parent="PaymentService">
+	</bean>
+	
 	<!-- 确保能够实例化bean -->
 	<bean
 		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />

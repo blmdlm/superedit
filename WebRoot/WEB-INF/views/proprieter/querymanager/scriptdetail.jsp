@@ -67,6 +67,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<td>${result[7]}</td>	
   	</tr>
   	
+  	<tr class="detail">  	
+  	<td>稿费状态</td>
+  	<td id="payment"></td>
+  	</tr>
   	
    	<tr class="detail">  	
   	<td>审核状态</td>

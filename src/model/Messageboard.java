@@ -28,6 +28,7 @@ public class Messageboard implements java.io.Serializable {
 	private Integer staffId;
 	private Integer auditStatus;
 	private Integer replyStatus;
+	private Integer publisherId;
 
 	// Constructors
 
@@ -38,7 +39,7 @@ public class Messageboard implements java.io.Serializable {
 	/** full constructor */
 	public Messageboard(Integer sendId, String content, Date sendTime,
 			Integer parentid, Integer type, Integer staffId,
-			Integer auditStatus, Integer replyStatus) {
+			Integer auditStatus, Integer replyStatus, Integer publisherId) {
 		this.sendId = sendId;
 		this.content = content;
 		this.sendTime = sendTime;
@@ -47,6 +48,7 @@ public class Messageboard implements java.io.Serializable {
 		this.staffId = staffId;
 		this.auditStatus = auditStatus;
 		this.replyStatus = replyStatus;
+		this.publisherId = publisherId;
 	}
 
 	// Property accessors
@@ -132,6 +134,15 @@ public class Messageboard implements java.io.Serializable {
 
 	public void setReplyStatus(Integer replyStatus) {
 		this.replyStatus = replyStatus;
+	}
+
+	@Column(name = "publisher_id")
+	public Integer getPublisherId() {
+		return this.publisherId;
+	}
+
+	public void setPublisherId(Integer publisherId) {
+		this.publisherId = publisherId;
 	}
 
 }

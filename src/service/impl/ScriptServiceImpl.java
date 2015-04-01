@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import dao.AssistDAO;
 import dao.ScriptDAO;
 import model.Author;
+import model.Payment;
 import model.Publisher;
 import model.Script;
 import service.ScriptService;
@@ -25,10 +26,7 @@ public class ScriptServiceImpl implements ScriptService{
 	@Autowired
 	AssistDAO assistDAO;
 	
-	@Override
-	public List<Script> findPassUnSetByPubliser(Publisher publisher) {
-		return assistDAO.findPassUnSetByPubliser(publisher);
-	}
+
 
 	@Override
 	public Script get(Integer id) {
@@ -41,15 +39,7 @@ public class ScriptServiceImpl implements ScriptService{
 		
 	}
 
-	@Override
-	public List<Script> findUnpayByPubliser(Publisher publisher) {
-		return assistDAO.findUnpayByPubliser(publisher);
-	}
 
-	@Override
-	public List<Script> findPayedByPubliser(Publisher publisher) {
-		return assistDAO.findPayedByPubliser(publisher);
-	}
 
 	@Override
 	public Long getSendSumByAuthor(Author author) {
@@ -87,5 +77,7 @@ public class ScriptServiceImpl implements ScriptService{
 			Publisher publisher) {
 		return assistDAO.getAllScriptsByAuthodidAndPublisher(authorid,publisher);
 	}
+
+
 
 }

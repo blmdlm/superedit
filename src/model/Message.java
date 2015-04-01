@@ -1,12 +1,10 @@
 package model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,15 +33,9 @@ public class Message implements java.io.Serializable {
 	public Message() {
 	}
 
-	/** minimal constructor */
-	public Message(Integer id) {
-		this.id = id;
-	}
-
 	/** full constructor */
-	public Message(Integer id, Integer sendid, Integer sendstate,
-			Integer recvid, Integer recvstate, String content, Date time) {
-		this.id = id;
+	public Message(Integer sendid, Integer sendstate, Integer recvid,
+			Integer recvstate, String content, Date time) {
 		this.sendid = sendid;
 		this.sendstate = sendstate;
 		this.recvid = recvid;

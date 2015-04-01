@@ -64,6 +64,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     
                 </ul>
             </li>
+            <li class="childUlLi">
+                <a href="B_personIfo"  target="menuFrame"> <i class="glyph-icon icon-reorder"></i>统计管理</a>
+                <ul>
+                	<li><a href="financial/paymentmanager/set" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>设置稿费</a></li>
+                </ul>
+            </li>
             
 
         </ul>

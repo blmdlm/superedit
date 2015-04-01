@@ -47,7 +47,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li class="childUlLi">
                 <a href="B_personIfo"  target="menuFrame"> <i class="glyph-icon icon-reorder"></i>用户中心</a>
                 <ul>
-                	<li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>消息</a></li>
                     <li><a href="messagemanager/usercenter/check" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查看个人资料</a></li>
                     <li><a href="messagemanager/usercenter/update" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改个人资料</a></li>
                     <li><a href="B_changePassword" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改密码</a></li>
@@ -61,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<li><a href="messagemanager/gbookmanager/check" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查看留言</a></li>
                     <li><a href="messagemanager/gbookmanager/postaudit" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>待审核留言</a></li>
                     <li><a href="messagemanager/gbookmanager/unreply" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>未回复留言</a></li>
-                    <li><a href="B_changePassword" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>回复记录</a></li>
+                    <li><a href="messagemanager/gbookmanager/record" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>回复记录</a></li>
                     
                 </ul>
             </li>

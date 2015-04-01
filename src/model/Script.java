@@ -31,10 +31,8 @@ public class Script implements java.io.Serializable {
 	private Author author;
 	private String title;
 	private String path;
-	private Integer payment;
 	private Integer state;
 	private Integer progress;
-	private Integer pay;
 	private String summary;
 	private Date date;
 	private Integer distributor;
@@ -55,17 +53,15 @@ public class Script implements java.io.Serializable {
 
 	/** full constructor */
 	public Script(Magazine magazine, Author author, String title, String path,
-			Integer payment, Integer state, Integer progress, Integer pay,
-			String summary, Date date, Integer distributor,
-			Set<Proofread> proofreads, Set<Compose> composes, Set<Audit> audits) {
+			Integer state, Integer progress, String summary, Date date,
+			Integer distributor, Set<Proofread> proofreads,
+			Set<Compose> composes, Set<Audit> audits) {
 		this.magazine = magazine;
 		this.author = author;
 		this.title = title;
 		this.path = path;
-		this.payment = payment;
 		this.state = state;
 		this.progress = progress;
-		this.pay = pay;
 		this.summary = summary;
 		this.date = date;
 		this.distributor = distributor;
@@ -124,15 +120,6 @@ public class Script implements java.io.Serializable {
 		this.path = path;
 	}
 
-	@Column(name = "payment")
-	public Integer getPayment() {
-		return this.payment;
-	}
-
-	public void setPayment(Integer payment) {
-		this.payment = payment;
-	}
-
 	@Column(name = "state")
 	public Integer getState() {
 		return this.state;
@@ -149,15 +136,6 @@ public class Script implements java.io.Serializable {
 
 	public void setProgress(Integer progress) {
 		this.progress = progress;
-	}
-
-	@Column(name = "pay")
-	public Integer getPay() {
-		return this.pay;
-	}
-
-	public void setPay(Integer pay) {
-		this.pay = pay;
 	}
 
 	@Column(name = "summary", length = 65535)

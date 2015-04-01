@@ -57,6 +57,14 @@ public interface MessageBoardService {
 	 * @return
 	 */
 	List<Messageboard> findByParentid(Integer parentid);
+	/**
+	 * 查找某个杂志社的某个职员的留言记录
+	 * @param publisher
+	 * @param id
+	 * @return
+	 */
+	List<Messageboard> findReocrdByPublisherAndStaff(Publisher publisher,
+			Integer id);
 	
 	
 }

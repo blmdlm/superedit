@@ -12,6 +12,7 @@ import model.Compose;
 import model.Magazine;
 import model.Message;
 import model.Messageboard;
+import model.Payment;
 import model.Proofread;
 import model.Publisher;
 import model.Script;
@@ -116,11 +117,11 @@ public class AssistDAO extends HibernateDaoSupport{
 	}
 	
 	/**
-	 * 找到该出版社所有通过的未设置稿费的稿件
+	 * 找到该出版社所有通过的未设置稿费的记录
 	 * @param publisher
 	 * @return
 	 */
-	public List<Script> findPassUnSetByPubliser(Publisher publisher) {
+	public List<Payment> findPassUnSetByPubliser(Publisher publisher) {
 		
 		Set<Magazine> magazines=publisher.getMagazines();
 		int count=magazines.size();
@@ -134,7 +135,7 @@ public class AssistDAO extends HibernateDaoSupport{
 		
 		try {
 			
-			String queryString = "from Script as model where model.state= 2 and pay=0 and magazine_id in (:listParam) order by date";
+			String queryString = "from Payment as model where  state=0 and magazine_id in (:listParam) order by deliver_date";
 			String[] params={"listParam"};
 			Object[] values={ids};
 			return getHibernateTemplate().findByNamedParam(queryString, params, values);
@@ -145,11 +146,11 @@ public class AssistDAO extends HibernateDaoSupport{
 		}
 	}
 	/**
-	 * 找出该出版社所有设置了稿费，还没有完成支付的稿件
+	 * 找出该出版社某个员工所有设置了稿费，还没有完成支付的稿件
 	 * @param publisher
 	 * @return
 	 */
-	public List<Script> findUnpayByPubliser(Publisher publisher) {
+	public List<Payment> findUnpayByPubliserAndStaff(Publisher publisher,int staffid) {
 		Set<Magazine> magazines=publisher.getMagazines();
 		int count=magazines.size();
 		List<Long> ids=new ArrayList<Long>();
@@ -162,7 +163,7 @@ public class AssistDAO extends HibernateDaoSupport{
 		
 		try {
 			
-			String queryString = "from Script as model where model.state= 2 and pay=1 and magazine_id in (:listParam) order by date";
+			String queryString = "from Payment as model where staff_id = "+staffid+" and state=1 and magazine_id in (:listParam) order by deliver_date";
 			String[] params={"listParam"};
 			Object[] values={ids};
 			return getHibernateTemplate().findByNamedParam(queryString, params, values);
@@ -173,11 +174,11 @@ public class AssistDAO extends HibernateDaoSupport{
 		}
 	}
 	/**
-	 * 查找该杂志社所有已完成支付的稿件
+	 * 查找该杂志社某个员工所有已完成支付的稿费记录
 	 * @param publisher
 	 * @return
 	 */
-	public List<Script> findPayedByPubliser(Publisher publisher) {
+	public List<Payment> findPayedByPubliserAndStaff(Publisher publisher,int staffid) {
 		Set<Magazine> magazines=publisher.getMagazines();
 		int count=magazines.size();
 		List<Long> ids=new ArrayList<Long>();
@@ -190,7 +191,7 @@ public class AssistDAO extends HibernateDaoSupport{
 		
 		try {
 			
-			String queryString = "from Script as model where model.state= 2 and pay=2 and magazine_id in (:listParam) order by date";
+			String queryString = "from Payment as model where staff_id = "+staffid+" and state=2 and magazine_id in (:listParam) order by pay_date";
 			String[] params={"listParam"};
 			Object[] values={ids};
 			return getHibernateTemplate().findByNamedParam(queryString, params, values);
@@ -441,6 +442,31 @@ public class AssistDAO extends HibernateDaoSupport{
 	public List<Compose> getNewestCompose(int scriptid) {
 		try {
 			String queryString = "from Compose as model where script_id ="+scriptid+" order by proofread_rank desc ";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+
+
+
+
+
+
+
+	/**
+	 * 找出某个出版社某个职员的留言记录
+	 * @param publisher
+	 * @param id
+	 * @return
+	 */
+	public List<Messageboard> findReocrdByPublisherAndStaff(
+			Publisher publisher, Integer id) {
+		
+		log.info("pid="+publisher.getId()+" staffid="+id);
+		try {
+			String queryString = "from Messageboard as model where model.type= 1  and send_id="+id+" and publisher_id="+publisher.getId()+" order by send_time";
 			return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);

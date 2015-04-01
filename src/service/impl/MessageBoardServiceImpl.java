@@ -63,4 +63,10 @@ public class MessageBoardServiceImpl implements MessageBoardService {
 		return messageboardDAO.findByParentid(parentid); 
 	}
 
+	@Override
+	public List<Messageboard> findReocrdByPublisherAndStaff(
+			Publisher publisher, Integer id) {
+		return assistDAO.findReocrdByPublisherAndStaff(publisher,id);
+	}
+
 }

@@ -33,8 +33,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>录用杂志</td>
 				<td>稿件标题</td>
 				<td>作者</td>
-				<td>时间</td>
+				<td>投递时间</td>
 				<td>稿费</td>
+				<td>支付时间</td>
 				
 			</tr>
 
@@ -45,6 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${result[3]}</td>
 					<td>${result[4]}</td>
 					<td>RMB ${result[5]}.00</td>
+					<td>${result[7]}</td>
 				</tr>
 			</c:forEach>
 
