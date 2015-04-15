@@ -175,9 +175,9 @@ public class PaymentManagerController {
 	public String paymentManagerPayed(HttpSession session, Model model) {
 		// 获取登陆者的信息
 		Staff staff = (Staff) (session.getAttribute("j_user"));
-		// 获取该杂志社所有已完成支付的稿费记录
-		List<Payment> payments = paymentService.findPayedByPubliserAndStaff(staff
-				.getPublisher(),staff.getId());
+		// 获取该杂志社所有已完成支付的稿费记录.get
+		List<Payment> payments = paymentService.findPayedByPubliserAndStaff(staff.getPublisher(),staff.getId());
+
 		// 构造结果
 		int count = payments.size();
 		String results[][] = new String[count][8];
