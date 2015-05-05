@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <ul>
                     <li><a href="messagemanager/usercenter/check" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查看个人资料</a></li>
                     <li><a href="messagemanager/usercenter/update" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改个人资料</a></li>
-                    <li><a href="B_changePassword" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改密码</a></li>
+                    <li><a href="messagemanager/usercenter/password" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改密码</a></li>
                     
                 </ul>
             </li>

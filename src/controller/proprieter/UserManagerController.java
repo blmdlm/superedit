@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import model.Magazine;
+import model.Script;
 import model.Staff;
 
 import org.apache.log4j.Logger;
@@ -13,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import exception.StaffException;
+import service.MagazineService;
 import service.StaffService;
 
 /**
@@ -28,7 +32,8 @@ public class UserManagerController {
 	private static Logger logger = Logger.getLogger(UserManagerController.class);
 	@Autowired
 	StaffService staffService;
-	
+	@Autowired
+	MagazineService magazineService;
 	/**
 	 * 访问查看账户页面
 	 * @return
@@ -72,18 +77,26 @@ public class UserManagerController {
 	 * @param password
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(Staff staff,HttpSession session) {
-		logger.info(staff);
+	public String[] create(HttpSession session,String email,int role,String password,int magazineid) {
+		Staff staff=new Staff();
 		staff.setName("new staff");
+		staff.setEmail(email);
+		staff.setPassword(password);
+		staff.setRole(role);
+		staff.setEnable(0);
+		if (role==6) {
+			staff.setMagazineId(magazineid);
+		}
 		staff.setParentid(((Staff)session.getAttribute("h_user")).getId());
 		staff.setPublisher(((Staff)session.getAttribute("h_user")).getPublisher());
 		if (staffService.isExist(staff)) {
-			throw new StaffException("用户已存在");
+			return new String[]{"用户已存在"};
 		}
 
 		staffService.save(staff);
-		return "redirect:/proprieter/usermanager/check";
+		return new String[]{"1"};
 	}
 	/**
 	 * 访问删除账户页面
@@ -113,13 +126,49 @@ public class UserManagerController {
 	 */
 	@RequestMapping(value = "/delete/{id}")
 	public String delete(@PathVariable  int id,HttpSession session){
-		Staff staff=new Staff();
-		staff.setPublisher(((Staff)session.getAttribute("h_user")).getPublisher());
-		staff.setId(id);
-		staffService.delete(staff);
-		
+		Staff staff=staffService.get(id);
+		staff.setEnable(1);
+		staffService.update(staff);
+
 		return "redirect:/proprieter/usermanager/delete";
 	}
 	
+	
+	
+	/**
+	 * 查看该出版社的所有杂志
+	 * @param id
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/allmagazines")
+	public String[][] allMagazines(HttpSession session){
+		
+		Staff currentStaff=(Staff)session.getAttribute("h_user");	
+		List<Magazine> magazines=magazineService.getByPublisher(currentStaff.getPublisher());
+		// 构建结果集
+		if (magazines==null) {
+			return null;
+		}		
+		int count = magazines.size();
+				
+				
+				String results[][] = new String[count][2];
+				Magazine magazine;
+			
+				for (int i = 0; i < count; i++) {
+					magazine = magazines.get(i);
+
+					results[i][0] = magazine.getId().toString(); // id
+					results[i][1] = magazine.getName();// 名字
+					
+		     }
+	
+	return results;
+	
+	
+	
+	}
 	
 }

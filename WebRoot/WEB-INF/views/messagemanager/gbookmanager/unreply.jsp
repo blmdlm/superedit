@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript" src="res/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="res/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="res/js/gejing/gbookmanagerunreply.js"></script>
+<script type="text/javascript" src="res/js/messagemanager/gbookmanager/unreply.js"></script>
 </head>
 
 <body>

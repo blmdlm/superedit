@@ -1,6 +1,9 @@
 package service;
 
+import java.util.List;
+
 import model.Magazine;
+import model.Publisher;
 
 /**
  * 
@@ -10,4 +13,6 @@ import model.Magazine;
 public interface MagazineService {
 
 	public Magazine get(int id);
+	
+	public List<Magazine> getByPublisher(Publisher publisher);
 }

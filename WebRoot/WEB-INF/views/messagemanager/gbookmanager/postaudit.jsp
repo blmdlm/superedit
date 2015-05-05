@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <!--  <link rel="stylesheet" href="res/css/gejing/gbookmanagerpostaudit.css" type="text/css" media="screen" /> -->
   <script type="text/javascript" src="res/js/jquery-1.11.1.min.js"></script>
   <script type="text/javascript" src="res/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="res/js/gejing/gbookmanagerhandleaudit.js"></script>
+  <script type="text/javascript" src="res/js/messagemanager/gbookmanager/handleaudit.js"></script>
   </head>
   
   <body>

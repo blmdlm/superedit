@@ -9,8 +9,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.MagazineService;
 import service.StaffService;
@@ -75,4 +77,67 @@ public class UserCenterController {
 		return "redirect:/proprieter/usercenter/check";
 	}
 
+	
+	/**
+	 * 修改密码界面
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/password", method = RequestMethod.GET)
+	public String userCenterPassword(HttpSession session,Model model) {
+		Staff currentStaff=(Staff) session.getAttribute("h_user"); 
+		model.addAttribute("staff", new Staff());
+		return "/proprieter/usercenter/password";
+	}
+	
+	
+	
+	/**
+	 * 确认原密码
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/checkoldpassword", method = RequestMethod.GET)
+	public String[] userCenterCheckoldpassword(HttpSession session,String oldpassword) {
+		Staff currentStaff=(Staff) session.getAttribute("h_user");
+		if (currentStaff.getPassword().equals(oldpassword)) {
+			return new String[]{"1"};
+		}else {
+			return new String[]{"0"};
+		}
+		
+	}
+	
+	/**
+	 * 修改密码
+	 * @param session
+	 * @param password
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/editPassowrdyet", method = RequestMethod.GET)
+	public String[] userCentereditPassowrdyet(HttpSession session,String password,String oldpassword) {
+		Staff currentStaff=(Staff) session.getAttribute("h_user");
+		
+		if (!currentStaff.getPassword().equals(oldpassword)) {
+			return new String[]{"0"};
+		}
+		currentStaff.setPassword(password);
+		//更新一次
+		staffService.update(currentStaff);
+		//重新取一次
+		Staff staff=staffService.get(currentStaff.getId());
+		//刷新session
+		session.setAttribute("h_user", staff);
+		return new String[]{"1"};
+	
+
+		
+	}
+	
+	
+	
+	
+	
+	
 }

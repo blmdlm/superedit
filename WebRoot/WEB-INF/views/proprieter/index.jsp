@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!-- 	<li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>消息</a></li> -->
                     <li><a href="proprieter/usercenter/check" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查看个人资料</a></li>
                     <li><a href="proprieter/usercenter/update" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改个人资料</a></li>
-                    <li><a href="B_changePassword" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改密码</a></li>
+                    <li><a href="proprieter/usercenter/password" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>修改密码</a></li>
                     
                 </ul>
             </li>
@@ -69,19 +69,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a href="proprieter/querymanager/scriptsearch" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>查询稿件</a></li>
                 </ul>
             </li>
-<!-- 			<li class="childUlLi">
-                <a href="B_search" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>统计管理</a>
-                <ul>
-                    <li><a href="B_manuscriptStatistics" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>稿件统计</a></li>
-                    <li><a href="B_paymentStatistics" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>稿费统计</a></li>
-                </ul>
-            </li>  -->          
-			<li class="childUlLi">
-                <a href="B_message"> <i class="glyph-icon  icon-location-arrow"></i>系统消息</a>
-                <ul>
-                    <li><a href="B_message" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>系统消息</a></li>
-                </ul>
-            </li>
+     
+			
         </ul>
     </div>
     <!--菜单-->

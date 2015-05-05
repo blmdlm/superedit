@@ -60,7 +60,7 @@ public class AssistDAO extends HibernateDaoSupport{
 	 */
 	public List<Staff> findByParentidAndRole(Integer parentid,Integer role){
 		try {
-			String queryString = "from Staff as model where model.parentid= ? and role = ? ";
+			String queryString = "from Staff as model where model.parentid= ? and role = ? and enable=0 ";
 			return getHibernateTemplate().find(queryString, parentid,role);
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
@@ -470,6 +470,27 @@ public class AssistDAO extends HibernateDaoSupport{
 			return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+
+
+
+
+
+
+
+	/**
+	 * 获取某个出版社所有的杂志
+	 * @param publisher
+	 * @return
+	 */
+	public List<Magazine> getAllMagazinesByPublisher(Publisher publisher) {
+		try {
+			String queryString = "from Magazine as model where publisher_id ="+publisher.getId();
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			
 			throw re;
 		}
 	}
