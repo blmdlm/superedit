@@ -43,13 +43,6 @@ public interface ScriptService {
 	 */
 	Long getPassSumByAuthor(Author author);
 
-	/**
-	 * 在一个杂志社模糊查询稿件
-	 * @param publisher
-	 * @param title
-	 * @return
-	 */
-	List<Script> queryByTitle(Publisher publisher, String title);
 	
 	/**
 	 * 模糊查询投递给一个杂志的的稿件
@@ -83,6 +76,10 @@ public interface ScriptService {
 	 */
 	List<Script> getAllScriptsByAuthoridAndPublisher(int authorid,
 			Publisher publisher);
+	List<Script> queryByTitleInPublisher(String title, Publisher publisher);
+	String[][] listToArray(List<Script> scripts);
+	String[] ObjectDetailToArray(Script script);
+	String[] getPaymentState(Script script);
 
 
 	

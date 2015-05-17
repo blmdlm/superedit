@@ -6,6 +6,7 @@ import model.Publisher;
 import model.Staff;
 
 import org.apache.log4j.Logger;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,56 +29,38 @@ public class UserCenterController {
 	private static Logger logger = Logger.getLogger(UserCenterController.class);
 	@Autowired
 	StaffService staffService;
-
 	
 	/**
-	 * 查看个人资料
-	 * 
-	 * @return
+	 * 访问查看个人资料页面
 	 */
 	@RequestMapping("/check")
-	public String userCenterCheck( Model model) {
-		
+	public String userCenterCheck( Model model) {	
 		return "/proprieter/usercenter/check";
-
 	}
 
 	/**
-	 * 修改资料界面
-	 * 
-	 * @param model
-	 * @return
+	 * 访问修改个人资料页面
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String userCenterUpdate(Model model) {
-
 		model.addAttribute("staff", new Staff());
 		return "/proprieter/usercenter/update";
 	}
 
 	/**
 	 * 处理修改资料
-	 * 
-	 * @param staff
-	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String userCenterUpdate(Staff staff, HttpSession session) {
 		Staff currentStaff=(Staff) session.getAttribute("h_user");
-		currentStaff.setName(staff.getName());
-		currentStaff.setGender(staff.getGender());
-		currentStaff.setPhone(staff.getPhone());
-		currentStaff.setEmail(staff.getEmail());
-		//更新一次
-		staffService.update(currentStaff);
-		//重新取一次
-		staff=staffService.get(currentStaff.getId());
-		//刷新session
-		session.setAttribute("h_user", staff);
+		currentStaff=staffService.updateTargetByOther(currentStaff,staff);
+		session.setAttribute("h_user", currentStaff);
 		return "redirect:/proprieter/usercenter/check";
 	}
 
 	
+	
+
 	/**
 	 * 修改密码界面
 	 * 
@@ -100,7 +83,7 @@ public class UserCenterController {
 	@RequestMapping(value = "/checkoldpassword", method = RequestMethod.GET)
 	public String[] userCenterCheckoldpassword(HttpSession session,String oldpassword) {
 		Staff currentStaff=(Staff) session.getAttribute("h_user");
-		if (currentStaff.getPassword().equals(oldpassword)) {
+		if (staffService.confirmPassword(currentStaff, oldpassword)) {
 			return new String[]{"1"};
 		}else {
 			return new String[]{"0"};
@@ -109,28 +92,19 @@ public class UserCenterController {
 	}
 	
 	/**
-	 * 修改密码
-	 * @param session
-	 * @param password
-	 * @return
+	 * 处理修改密码
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/editPassowrdyet", method = RequestMethod.GET)
 	public String[] userCentereditPassowrdyet(HttpSession session,String password,String oldpassword) {
 		Staff currentStaff=(Staff) session.getAttribute("h_user");
-		
-		if (!currentStaff.getPassword().equals(oldpassword)) {
+		if(staffService.confirmPassword(currentStaff,oldpassword)){
+			session.setAttribute("h_user", staffService.changePasswordAndUpdate(currentStaff, password));
+			return new String[]{"1"};
+		}else {
 			return new String[]{"0"};
 		}
-		currentStaff.setPassword(password);
-		//更新一次
-		staffService.update(currentStaff);
-		//重新取一次
-		Staff staff=staffService.get(currentStaff.getId());
-		//刷新session
-		session.setAttribute("h_user", staff);
-		return new String[]{"1"};
-	
+		
 
 		
 	}

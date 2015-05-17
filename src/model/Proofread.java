@@ -64,7 +64,7 @@ public class Proofread implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Script_id", nullable = false)
 	public Script getScript() {
 		return this.script;

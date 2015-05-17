@@ -35,21 +35,17 @@ public class UserManagerController {
 	 */
 	@RequestMapping("/check")
 	public String userManagerCheck(HttpSession session,Model model){
-		Integer parentid=(((Staff)session.getAttribute("g_user")).getId());
-		//获取编辑List
-		List<Staff> staffs01=staffService.findByParentidAndRole(parentid, 10);
-		//获取审核人员List
-		List<Staff> staffs02=staffService.findByParentidAndRole(parentid, 3);
-		//获取校对人员List
-		List<Staff> staffs03=staffService.findByParentidAndRole(parentid, 5);
-		//获取排版人员List
-		List<Staff> staffs04=staffService.findByParentidAndRole(parentid, 4);		
+		Staff currentStaff=(Staff)session.getAttribute("g_user");
 		
-		
-		model.addAttribute("staffs01", staffs01);
-		model.addAttribute("staffs02", staffs02);
-		model.addAttribute("staffs03", staffs03);
-		model.addAttribute("staffs04", staffs04);
+		List<Staff> editors=staffService.getEditors(currentStaff);
+		List<Staff> auditors=staffService.getAuditors(currentStaff);
+		List<Staff> proofreaders=staffService.getProofreaders(currentStaff);
+		List<Staff> composers=staffService.getComposers(currentStaff);
+	
+		model.addAttribute("staffs01", editors);
+		model.addAttribute("staffs02", auditors);
+		model.addAttribute("staffs03", proofreaders);
+		model.addAttribute("staffs04", composers);
 		
 		return "/chiefeditor/usermanager/check";
 	}
@@ -96,22 +92,18 @@ public class UserManagerController {
 	 */
 	@RequestMapping(value = "/delete")
 	public String delete(HttpSession session,Model model){
-		Integer parentid=(((Staff)session.getAttribute("g_user")).getId());
-		//获取编辑List
-		List<Staff> staffs01=staffService.findByParentidAndRole(parentid, 10);
-		//获取审核人员List
-		List<Staff> staffs02=staffService.findByParentidAndRole(parentid, 3);
-		//获取校对人员List
-		List<Staff> staffs03=staffService.findByParentidAndRole(parentid, 5);
-		//获取排版人员List
-		List<Staff> staffs04=staffService.findByParentidAndRole(parentid, 4);		
+		Staff currentStaff=(Staff)session.getAttribute("g_user");
 		
-		model.addAttribute("staffs01", staffs01);
-		model.addAttribute("staffs02", staffs02);
-		model.addAttribute("staffs03", staffs03);
-		model.addAttribute("staffs04", staffs04);
-
-		
+		List<Staff> editors=staffService.getEditors(currentStaff);
+		List<Staff> auditors=staffService.getAuditors(currentStaff);
+		List<Staff> proofreaders=staffService.getProofreaders(currentStaff);
+		List<Staff> composers=staffService.getComposers(currentStaff);
+	
+		model.addAttribute("staffs01", editors);
+		model.addAttribute("staffs02", auditors);
+		model.addAttribute("staffs03", proofreaders);
+		model.addAttribute("staffs04", composers);
+	
 		return "/chiefeditor/usermanager/delete";
 	}
 	/**
@@ -120,12 +112,8 @@ public class UserManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/delete/{id}")
-	public String delete(@PathVariable  int id,HttpSession session){
-		Staff staff=new Staff();
-		staff.setPublisher(((Staff)session.getAttribute("g_user")).getPublisher());
-		staff.setId(id);
-		staffService.delete(staff);
-		
+	public String delete(@PathVariable  int id){
+		staffService.deleteById(id);
 		return "redirect:/chiefeditor/usermanager/delete";
 	}
 	

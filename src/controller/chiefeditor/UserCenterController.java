@@ -38,7 +38,6 @@ public class UserCenterController {
 	@RequestMapping("/check")
 	public String userCenterCheck(HttpSession session,Model model) {
 		Staff currentStaff=(Staff) session.getAttribute("g_user"); 
-		logger.info(magazineService+" "+currentStaff);
 		model.addAttribute("magazine", magazineService.get(currentStaff.getMagazineId()));
 		return "/chiefeditor/usercenter/check";
 
@@ -60,23 +59,12 @@ public class UserCenterController {
 
 	/**
 	 * 处理修改资料
-	 * 
-	 * @param staff
-	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String userCenterUpdate(Staff staff, HttpSession session) {
 		Staff currentStaff=(Staff) session.getAttribute("g_user");
-		currentStaff.setName(staff.getName());
-		currentStaff.setGender(staff.getGender());
-		currentStaff.setPhone(staff.getPhone());
-		currentStaff.setEmail(staff.getEmail());
-		//更新一次
-		staffService.update(currentStaff);
-		//重新取一次
-		staff=staffService.get(currentStaff.getId());
-		//刷新session
-		session.setAttribute("g_user", staff);
+		currentStaff=staffService.updateTargetByOther(currentStaff, staff);
+		session.setAttribute("g_user", currentStaff);
 		return "redirect:/chiefeditor/usercenter/check";
 	}
 	
@@ -84,9 +72,6 @@ public class UserCenterController {
 	
 	/**
 	 * 修改密码界面
-	 * 
-	 * @param model
-	 * @return
 	 */
 	@RequestMapping(value = "/password", method = RequestMethod.GET)
 	public String userCenterPassword(HttpSession session,Model model) {
@@ -104,7 +89,7 @@ public class UserCenterController {
 	@RequestMapping(value = "/checkoldpassword", method = RequestMethod.GET)
 	public String[] userCenterCheckoldpassword(HttpSession session,String oldpassword) {
 		Staff currentStaff=(Staff) session.getAttribute("g_user");
-		if (currentStaff.getPassword().equals(oldpassword)) {
+		if (staffService.confirmPassword(currentStaff, oldpassword)) {
 			return new String[]{"1"};
 		}else {
 			return new String[]{"0"};
@@ -122,17 +107,12 @@ public class UserCenterController {
 	@RequestMapping(value = "/editPassowrdyet", method = RequestMethod.GET)
 	public String[] userCentereditPassowrdyet(HttpSession session,String password,String oldpassword) {
 		Staff currentStaff=(Staff) session.getAttribute("g_user");
-		if (!currentStaff.getPassword().equals(oldpassword)) {
+		if(staffService.confirmPassword(currentStaff,oldpassword)){
+			session.setAttribute("g_user", staffService.changePasswordAndUpdate(currentStaff, password));
+			return new String[]{"1"};
+		}else {
 			return new String[]{"0"};
 		}
-		currentStaff.setPassword(password);
-		//更新一次
-		staffService.update(currentStaff);
-		//重新取一次
-		Staff staff=staffService.get(currentStaff.getId());
-		//刷新session
-		session.setAttribute("g_user", staff);
-		return new String[]{"1"};
 		
 	}
 	

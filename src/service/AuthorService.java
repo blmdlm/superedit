@@ -30,6 +30,7 @@ public interface AuthorService {
 	 * @return
 	 */
 	List<Author> queryByName(String name);
+	String[] getDetail(Author author);
 	
 	
 	

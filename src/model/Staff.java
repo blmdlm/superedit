@@ -30,7 +30,7 @@ public class Staff implements java.io.Serializable {
 	private Integer gender;
 	private String phone;
 	private Integer magazineId;
-	private Integer enable;
+	private Integer locked;
 
 	// Constructors
 
@@ -46,7 +46,7 @@ public class Staff implements java.io.Serializable {
 	/** full constructor */
 	public Staff(Publisher publisher, String email, String password,
 			Integer parentid, Integer role, Integer level, String name,
-			Integer gender, String phone, Integer magazineId, Integer enable) {
+			Integer gender, String phone, Integer magazineId, Integer locked) {
 		this.publisher = publisher;
 		this.email = email;
 		this.password = password;
@@ -57,7 +57,7 @@ public class Staff implements java.io.Serializable {
 		this.gender = gender;
 		this.phone = phone;
 		this.magazineId = magazineId;
-		this.enable = enable;
+		this.locked = locked;
 	}
 
 	// Property accessors
@@ -163,13 +163,14 @@ public class Staff implements java.io.Serializable {
 		this.magazineId = magazineId;
 	}
 
-	@Column(name = "enable")
-	public Integer getEnable() {
-		return this.enable;
+	@Column(name = "locked")
+	public Integer getLocked() {
+		return this.locked;
 	}
 
-	public void setEnable(Integer enable) {
-		this.enable = enable;
+	public void setLocked(Integer locked) {
+		this.locked = locked;
 	}
+
 
 }

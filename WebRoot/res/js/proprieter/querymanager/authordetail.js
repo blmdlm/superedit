@@ -14,7 +14,7 @@
  			for (var script in results) {
 			
 				inHtml=inHtml
-				+"<tr><td><a href='proprieter/querymanager/scriptdetail?id="+results[script][0]+"'>"+results[script][1]+"</a></td><td>"+results[script][2]+"</td></tr>";
+				+"<tr><td><a href='proprieter/querymanager/scriptdetail?id="+results[script][0]+"'>"+results[script][1]+"</a></td><td>"+results[script][4]+"</td></tr>";
 				
 					
 			};
@@ -32,22 +32,3 @@
 }
 
 
-// function confirm(id){
-
-// 	var message=$("#message").val();
-// 	if(message==null||message==""){
-// 		alert("输入不能为空");
-// 	}else{
-// 	var url="editor/authorlib/solicit";
-
-// 	$.post(url,{id:id,message:message}).done(function(data){
-// 		if(data == "OK"){
-// 			window.location.href="editor/authorlib/check";  
-// 		}
-		
-		
-// 	});
-// 	}
-
-
-// }

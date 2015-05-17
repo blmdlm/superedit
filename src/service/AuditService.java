@@ -15,4 +15,6 @@ public interface AuditService {
 	 * @return
 	 */
 	public Audit getNewest(int scriptid) throws RuntimeException;
+
+	public String[] getAuditState(Audit audit);
 }

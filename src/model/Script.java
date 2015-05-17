@@ -166,7 +166,7 @@ public class Script implements java.io.Serializable {
 		this.distributor = distributor;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "script")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "script")
 	public Set<Proofread> getProofreads() {
 		return this.proofreads;
 	}
@@ -175,7 +175,7 @@ public class Script implements java.io.Serializable {
 		this.proofreads = proofreads;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "script")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "script")
 	public Set<Compose> getComposes() {
 		return this.composes;
 	}
@@ -184,7 +184,7 @@ public class Script implements java.io.Serializable {
 		this.composes = composes;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "script")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "script")
 	public Set<Audit> getAudits() {
 		return this.audits;
 	}

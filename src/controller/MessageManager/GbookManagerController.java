@@ -39,8 +39,6 @@ public class GbookManagerController {
 
 	/**
 	 * 访问查看留言板界面
-	 * 
-	 * @return
 	 */
 	@RequestMapping("/check")
 	public String gbookManagerCheck(Model model) {

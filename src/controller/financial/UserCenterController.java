@@ -28,8 +28,6 @@ public class UserCenterController {
 	
 	/**
 	 * 查看个人资料
-	 * 
-	 * @return
 	 */
 	@RequestMapping("/check")
 	public String userCenterCheck(HttpSession session, Model model) {
@@ -39,9 +37,6 @@ public class UserCenterController {
 
 	/**
 	 * 修改资料界面
-	 * 
-	 * @param model
-	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String userCenterUpdate(Model model) {
@@ -58,16 +53,8 @@ public class UserCenterController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String userCenterUpdate(Staff staff, HttpSession session) {
 		Staff currentStaff=(Staff) session.getAttribute("j_user");
-		currentStaff.setName(staff.getName());
-		currentStaff.setGender(staff.getGender());
-		currentStaff.setPhone(staff.getPhone());
-		currentStaff.setEmail(staff.getEmail());
-		//更新一次
-		staffService.update(currentStaff);
-		//重新取一次
-		staff=staffService.get(currentStaff.getId());
-		//刷新session
-		session.setAttribute("j_user", staff);
+		currentStaff=staffService.updateTargetByOther(currentStaff,staff);
+		session.setAttribute("j_user", currentStaff);
 		return "redirect:/financial/usercenter/check";
 	}
 	
@@ -95,7 +82,7 @@ public class UserCenterController {
 	@RequestMapping(value = "/checkoldpassword", method = RequestMethod.GET)
 	public String[] userCenterCheckoldpassword(HttpSession session,String oldpassword) {
 		Staff currentStaff=(Staff) session.getAttribute("j_user");
-		if (currentStaff.getPassword().equals(oldpassword)) {
+		if (staffService.confirmPassword(currentStaff, oldpassword)) {
 			return new String[]{"1"};
 		}else {
 			return new String[]{"0"};
@@ -113,21 +100,12 @@ public class UserCenterController {
 	@RequestMapping(value = "/editPassowrdyet", method = RequestMethod.GET)
 	public String[] userCentereditPassowrdyet(HttpSession session,String password,String oldpassword) {
 		Staff currentStaff=(Staff) session.getAttribute("j_user");
-		
-		if (!currentStaff.getPassword().equals(oldpassword)) {
+		if(staffService.confirmPassword(currentStaff,oldpassword)){
+			session.setAttribute("j_user", staffService.changePasswordAndUpdate(currentStaff, password));
+			return new String[]{"1"};
+		}else {
 			return new String[]{"0"};
 		}
-		currentStaff.setPassword(password);
-		//更新一次
-		staffService.update(currentStaff);
-		//重新取一次
-		Staff staff=staffService.get(currentStaff.getId());
-		//刷新session
-		session.setAttribute("j_user", staff);
-		return new String[]{"1"};
-	
-
-		
 	}
 	
 	

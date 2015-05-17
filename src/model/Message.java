@@ -21,11 +21,12 @@ public class Message implements java.io.Serializable {
 
 	private Integer id;
 	private Integer sendid;
-	private Integer sendstate;
+	private Integer sendrole;
 	private Integer recvid;
-	private Integer recvstate;
+	private Integer recvrole;
 	private String content;
 	private Date time;
+	private Integer state;
 
 	// Constructors
 
@@ -33,15 +34,21 @@ public class Message implements java.io.Serializable {
 	public Message() {
 	}
 
+	/** minimal constructor */
+	public Message(Integer state) {
+		this.state = state;
+	}
+
 	/** full constructor */
-	public Message(Integer sendid, Integer sendstate, Integer recvid,
-			Integer recvstate, String content, Date time) {
+	public Message(Integer sendid, Integer sendrole, Integer recvid,
+			Integer recvrole, String content, Date time, Integer state) {
 		this.sendid = sendid;
-		this.sendstate = sendstate;
+		this.sendrole = sendrole;
 		this.recvid = recvid;
-		this.recvstate = recvstate;
+		this.recvrole = recvrole;
 		this.content = content;
 		this.time = time;
+		this.state = state;
 	}
 
 	// Property accessors
@@ -65,13 +72,13 @@ public class Message implements java.io.Serializable {
 		this.sendid = sendid;
 	}
 
-	@Column(name = "sendstate")
-	public Integer getSendstate() {
-		return this.sendstate;
+	@Column(name = "sendrole")
+	public Integer getSendrole() {
+		return this.sendrole;
 	}
 
-	public void setSendstate(Integer sendstate) {
-		this.sendstate = sendstate;
+	public void setSendrole(Integer sendrole) {
+		this.sendrole = sendrole;
 	}
 
 	@Column(name = "recvid")
@@ -83,13 +90,13 @@ public class Message implements java.io.Serializable {
 		this.recvid = recvid;
 	}
 
-	@Column(name = "recvstate")
-	public Integer getRecvstate() {
-		return this.recvstate;
+	@Column(name = "recvrole")
+	public Integer getRecvrole() {
+		return this.recvrole;
 	}
 
-	public void setRecvstate(Integer recvstate) {
-		this.recvstate = recvstate;
+	public void setRecvrole(Integer recvrole) {
+		this.recvrole = recvrole;
 	}
 
 	@Column(name = "content", length = 65535)
@@ -109,6 +116,15 @@ public class Message implements java.io.Serializable {
 
 	public void setTime(Date time) {
 		this.time = time;
+	}
+
+	@Column(name = "state", nullable = false)
+	public Integer getState() {
+		return this.state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
 }

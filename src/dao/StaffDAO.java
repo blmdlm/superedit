@@ -33,7 +33,7 @@ public class StaffDAO extends HibernateDaoSupport {
 	public static final String GENDER = "gender";
 	public static final String PHONE = "phone";
 	public static final String MAGAZINE_ID = "magazineId";
-	public static final String ENABLE = "enable";
+	public static final String LOCKED = "locked";
 
 	protected void initDao() {
 		// do nothing
@@ -136,8 +136,8 @@ public class StaffDAO extends HibernateDaoSupport {
 		return findByProperty(MAGAZINE_ID, magazineId);
 	}
 
-	public List<Staff> findByEnable(Object enable) {
-		return findByProperty(ENABLE, enable);
+	public List<Staff> findByLocked(Object locked) {
+		return findByProperty(LOCKED, locked);
 	}
 
 	public List findAll() {

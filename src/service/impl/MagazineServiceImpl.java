@@ -28,6 +28,24 @@ public class MagazineServiceImpl implements MagazineService{
 		return assistDAO.getAllMagazinesByPublisher(publisher);
 		
 	}
+
+
+	@Override
+	public String[][] listToArray(List<Magazine> magazines) {
+		if (magazines==null) {
+			return null;
+		}		
+		int count = magazines.size();	
+		String results[][] = new String[count][2];
+		Magazine magazine;		
+		for (int i = 0; i < count; i++) {
+			magazine = magazines.get(i);
+			results[i][0] = magazine.getId().toString(); 
+			results[i][1] = magazine.getName();	
+		 }
+	
+	     return results;
+	}
 	
 	
 

@@ -129,7 +129,7 @@ public class Author implements java.io.Serializable {
 		this.registertime = registertime;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")
 	public Set<Script> getScripts() {
 		return this.scripts;
 	}

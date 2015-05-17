@@ -10,4 +10,6 @@ public interface ComposeService {
 	 */
 	Compose getNewest(int id) throws RuntimeException;
 
+	String[] getComposeState(Compose compose);
+
 }

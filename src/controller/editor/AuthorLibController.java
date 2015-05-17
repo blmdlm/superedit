@@ -145,9 +145,9 @@ public class AuthorLibController {
 		Message mess =new Message();
 		mess.setContent(message);
 		mess.setSendid(staff.getId());
-		mess.setSendstate(10);
+		mess.setSendrole(10);
 		mess.setRecvid(id);
-		mess.setRecvstate(11);
+		mess.setRecvrole(11);
 		mess.setTime(new Date());
 		//存储留言
 		messageService.save(mess);

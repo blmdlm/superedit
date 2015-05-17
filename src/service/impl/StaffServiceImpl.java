@@ -2,6 +2,8 @@ package service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,11 +74,78 @@ public class StaffServiceImpl implements StaffService {
 		return staffs;
 	}
 
+
+
 	@Override
-	public List<Staff> findByParentidAndRole(Integer parentid, Integer role) {
-		List<Staff> staffs=assistDAO.findByParentidAndRole(parentid, role);
-		return staffs;
+	public List<Staff> getChiefEditors(Staff proprieter) {
+		return assistDAO.findByParentidAndRole(proprieter.getId(), 6);
 	}
+
+	@Override
+	public List<Staff> getFinancials(Staff proprieter) {
+		return assistDAO.findByParentidAndRole(proprieter.getId(), 9);
+	}
+
+	@Override
+	public List<Staff> getMessageManagers(Staff proprieter) {
+		return assistDAO.findByParentidAndRole(proprieter.getId(), 8);
+	}
+
+	@Override
+	public List<Staff> getEditors(Staff chiefEditor) {
+		return assistDAO.findByParentidAndRole(chiefEditor.getId(), 10);
+	}
+
+	@Override
+	public List<Staff> getAuditors(Staff chiefEditor) {
+		return assistDAO.findByParentidAndRole(chiefEditor.getId(), 3);
+	}
+
+	@Override
+	public List<Staff> getProofreaders(Staff chiefEditor) {
+		return assistDAO.findByParentidAndRole(chiefEditor.getId(), 5);
+	}
+
+	@Override
+	public List<Staff> getComposers(Staff chiefEditor) {
+		return assistDAO.findByParentidAndRole(chiefEditor.getId(), 4);
+	}
+
+	@Override
+	public Staff updateTargetByOther(Staff target, Staff other) {
+		target.setName(other.getName());
+		target.setGender(other.getGender());
+		target.setPhone(other.getPhone());
+		target.setEmail(other.getEmail());
+		update(target);
+		return  get(target.getId());
+	}
+
+
+	@Override
+	public boolean confirmPassword(Staff staff, String oldpassword) {
+		return staff.getPassword().equals(oldpassword);
+	}
+
+
+
+	@Override
+	public Staff changePasswordAndUpdate(Staff staff, String password) {
+		staff.setPassword(password);
+		update(staff);
+		return get(staff.getId());
+	}
+
+	@Override
+	public void deleteById(int id) {
+		Staff staff=get(id);
+		staff.setLocked(1);
+		update(staff);
+	}
+
+
+
+
 
 
 

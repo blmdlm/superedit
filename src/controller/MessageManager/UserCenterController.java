@@ -58,16 +58,8 @@ public class UserCenterController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String userCenterUpdate(Staff staff, HttpSession session) {
 		Staff currentStaff=(Staff) session.getAttribute("i_user");
-		currentStaff.setName(staff.getName());
-		currentStaff.setGender(staff.getGender());
-		currentStaff.setPhone(staff.getPhone());
-		currentStaff.setEmail(staff.getEmail());
-		//更新一次
-		staffService.update(currentStaff);
-		//重新取一次
-		staff=staffService.get(currentStaff.getId());
-		//刷新session
-		session.setAttribute("i_user", staff);
+		currentStaff=staffService.updateTargetByOther(currentStaff,staff);
+		session.setAttribute("i_user", currentStaff);
 		return "redirect:/messagemanager/usercenter/check";
 	}
 	
@@ -97,7 +89,7 @@ public class UserCenterController {
 	@RequestMapping(value = "/checkoldpassword", method = RequestMethod.GET)
 	public String[] userCenterCheckoldpassword(HttpSession session,String oldpassword) {
 		Staff currentStaff=(Staff) session.getAttribute("i_user");
-		if (currentStaff.getPassword().equals(oldpassword)) {
+		if (staffService.confirmPassword(currentStaff, oldpassword)) {
 			return new String[]{"1"};
 		}else {
 			return new String[]{"0"};
@@ -115,19 +107,14 @@ public class UserCenterController {
 	@RequestMapping(value = "/editPassowrdyet", method = RequestMethod.GET)
 	public String[] userCentereditPassowrdyet(HttpSession session,String password,String oldpassword) {
 		Staff currentStaff=(Staff) session.getAttribute("i_user");
-		
-		if (!currentStaff.getPassword().equals(oldpassword)) {
+		if(staffService.confirmPassword(currentStaff,oldpassword)){
+			session.setAttribute("i_user", staffService.changePasswordAndUpdate(currentStaff, password));
+			return new String[]{"1"};
+		}else {
 			return new String[]{"0"};
 		}
-		currentStaff.setPassword(password);
-		//更新一次
-		staffService.update(currentStaff);
-		//重新取一次
-		Staff staff=staffService.get(currentStaff.getId());
-		//刷新session
-		session.setAttribute("i_user", staff);
-		return new String[]{"1"};
-	
+		
+
 
 		
 	}

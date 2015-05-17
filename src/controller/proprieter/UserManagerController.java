@@ -34,23 +34,21 @@ public class UserManagerController {
 	StaffService staffService;
 	@Autowired
 	MagazineService magazineService;
+	
 	/**
 	 * 访问查看账户页面
-	 * @return
 	 */
 	@RequestMapping("/check")
 	public String userManagerCheck(HttpSession session,Model model){
-		Integer parentid=(((Staff)session.getAttribute("h_user")).getId());
-		//获取总编List
-		List<Staff> staffs01=staffService.findByParentidAndRole(parentid, 6);
-		//获取财务人员List
-		List<Staff> staffs02=staffService.findByParentidAndRole(parentid, 9);
-		//获取留言管理人员List
-		List<Staff> staffs03=staffService.findByParentidAndRole(parentid, 8);
+		Staff currentStaff=(Staff)session.getAttribute("h_user");
 		
-		model.addAttribute("staffs01", staffs01);
-		model.addAttribute("staffs02", staffs02);
-		model.addAttribute("staffs03", staffs03);
+		List<Staff> chiefEditors=staffService.getChiefEditors(currentStaff);
+		List<Staff> financials=staffService.getFinancials(currentStaff);
+		List<Staff> messageManagers=staffService.getMessageManagers(currentStaff);
+		
+		model.addAttribute("staffs01", chiefEditors);
+		model.addAttribute("staffs02", financials);
+		model.addAttribute("staffs03", messageManagers);
 		
 		return "/proprieter/usermanager/check";
 	}
@@ -72,10 +70,6 @@ public class UserManagerController {
 	}
 	/**
 	 * 处理创建账户请求
-	 * @param email
-	 * @param role
-	 * @param password
-	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -85,7 +79,7 @@ public class UserManagerController {
 		staff.setEmail(email);
 		staff.setPassword(password);
 		staff.setRole(role);
-		staff.setEnable(0);
+		staff.setLocked(0);
 		if (role==6) {
 			staff.setMagazineId(magazineid);
 		}
@@ -104,19 +98,16 @@ public class UserManagerController {
 	 */
 	@RequestMapping(value = "/delete")
 	public String delete(HttpSession session,Model model){
-		Integer parentid=(((Staff)session.getAttribute("h_user")).getId());
-		//获取总编List
-		List<Staff> staffs01=staffService.findByParentidAndRole(parentid, 6);
-		//获取财务人员List
-		List<Staff> staffs02=staffService.findByParentidAndRole(parentid, 9);
-		//获取留言管理人员List
-		List<Staff> staffs03=staffService.findByParentidAndRole(parentid, 8);
+		Staff currentStaff=(Staff)session.getAttribute("h_user");
 		
-		model.addAttribute("staffs01", staffs01);
-		model.addAttribute("staffs02", staffs02);
-		model.addAttribute("staffs03", staffs03);
+		List<Staff> chiefEditors=staffService.getChiefEditors(currentStaff);
+		List<Staff> financials=staffService.getFinancials(currentStaff);
+		List<Staff> messageManagers=staffService.getMessageManagers(currentStaff);
+		
+		model.addAttribute("staffs01", chiefEditors);
+		model.addAttribute("staffs02", financials);
+		model.addAttribute("staffs03", messageManagers);
 
-		
 		return "/proprieter/usermanager/delete";
 	}
 	/**
@@ -125,11 +116,8 @@ public class UserManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/delete/{id}")
-	public String delete(@PathVariable  int id,HttpSession session){
-		Staff staff=staffService.get(id);
-		staff.setEnable(1);
-		staffService.update(staff);
-
+	public String delete(@PathVariable  int id){
+		staffService.deleteById(id);
 		return "redirect:/proprieter/usermanager/delete";
 	}
 	
@@ -144,31 +132,10 @@ public class UserManagerController {
 	@ResponseBody
 	@RequestMapping(value = "/allmagazines")
 	public String[][] allMagazines(HttpSession session){
-		
 		Staff currentStaff=(Staff)session.getAttribute("h_user");	
 		List<Magazine> magazines=magazineService.getByPublisher(currentStaff.getPublisher());
-		// 构建结果集
-		if (magazines==null) {
-			return null;
-		}		
-		int count = magazines.size();
-				
-				
-				String results[][] = new String[count][2];
-				Magazine magazine;
-			
-				for (int i = 0; i < count; i++) {
-					magazine = magazines.get(i);
+		return magazineService.listToArray(magazines);
 
-					results[i][0] = magazine.getId().toString(); // id
-					results[i][1] = magazine.getName();// 名字
-					
-		     }
-	
-	return results;
-	
-	
-	
 	}
 	
 }

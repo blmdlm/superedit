@@ -15,4 +15,6 @@ public interface MagazineService {
 	public Magazine get(int id);
 	
 	public List<Magazine> getByPublisher(Publisher publisher);
+
+	public String[][] listToArray(List<Magazine> magazines);
 }

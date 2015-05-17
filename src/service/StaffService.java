@@ -3,6 +3,8 @@ package service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import model.Messageboard;
 import model.Publisher;
 import model.Staff;
@@ -62,13 +64,28 @@ public interface StaffService {
 	 * @return
 	 */
 	List<Staff> findByParentid(Integer parentid);
-	/**
-	 * 通过parentid和role找到职员
-	 * @param parentid
-	 * @param role
-	 * @return
-	 */
-	List<Staff> findByParentidAndRole(Integer parentid,Integer role);
+
+
+	List<Staff> getChiefEditors(Staff proprieter);
+
+	List<Staff> getFinancials(Staff proprieter);
+
+	List<Staff> getMessageManagers(Staff proprieter);
+
+	List<Staff> getEditors(Staff chiefEditor);
+
+	List<Staff> getAuditors(Staff chiefEditor);
+
+	List<Staff> getProofreaders(Staff chiefEditor);
+
+	List<Staff> getComposers(Staff chiefEditor);
+
+	Staff updateTargetByOther(Staff target, Staff other);
+
+	boolean confirmPassword(Staff staff, String oldpassword);
+	Staff changePasswordAndUpdate(Staff staff, String password);
+
+	void deleteById(int id);
 	
 	
 	

@@ -8,6 +8,7 @@ import dao.AssistDAO;
 import dao.AuthorDAO;
 import model.Author;
 import service.AuthorService;
+import service.ScriptService;
 /**
  * 
  *@Project superedit 
@@ -19,9 +20,13 @@ import service.AuthorService;
 public class AuthorServiceImpl implements AuthorService{
 	@Autowired
 	AssistDAO assistDAO;
-	
 	@Autowired
 	AuthorDAO authorDAO;
+	@Autowired
+	ScriptService scriptService;
+	
+	
+	
 	@Override
 	public Author get(Integer id) {
 		return authorDAO.findById(id);
@@ -33,6 +38,41 @@ public class AuthorServiceImpl implements AuthorService{
 	@Override
 	public List<Author> queryByName(String name) {
 		return assistDAO.queryByName(name);
+	}
+	@Override
+	public String[] getDetail(Author author) {
+		// 构造结果集
+				String result[] = new String[10];
+				Long send;
+				Long pass;
+				result[0] = author.getId().toString();// id
+				result[1] = author.getName();// 姓名
+				if (author.getGender() == 0) { // 性别
+
+					result[2] = "男";
+				} else {
+					result[2] = "女";
+
+				}
+
+				result[3] = author.getPhone(); // 手机
+				result[4] = author.getEmail();// 邮箱
+				result[5] = author.getAddress();// 地址
+				result[6] = author.getRegistertime().toString();// 注册时间
+				send = scriptService.getSendSumByAuthor(author);
+
+				if (send.intValue() == 0) {
+					result[7] = "0"; // 投递总数
+					result[8] = "0"; // 录用总数
+					result[9] = "0"; // 录用比
+				} else {
+					pass = scriptService.getPassSumByAuthor(author);
+					result[7] = send.toString(); // 投递总数
+					result[8] = pass.toString(); // 录用总数
+					result[9] = String.valueOf(pass.intValue() / send.intValue());
+				}
+				
+				return result;
 	}
 
 }

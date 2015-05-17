@@ -10,4 +10,6 @@ public interface ProofreadService {
 	 */
 	Proofread getNewest(int id) throws RuntimeException;
 
+	String[] getProofreadState(Proofread proofread);
+
 }

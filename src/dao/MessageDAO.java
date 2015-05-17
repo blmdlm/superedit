@@ -26,10 +26,11 @@ public class MessageDAO extends HibernateDaoSupport {
 	private static final Logger log = LoggerFactory.getLogger(MessageDAO.class);
 	// property constants
 	public static final String SENDID = "sendid";
-	public static final String SENDSTATE = "sendstate";
+	public static final String SENDROLE = "sendrole";
 	public static final String RECVID = "recvid";
-	public static final String RECVSTATE = "recvstate";
+	public static final String RECVROLE = "recvrole";
 	public static final String CONTENT = "content";
+	public static final String STATE = "state";
 
 	protected void initDao() {
 		// do nothing
@@ -100,20 +101,24 @@ public class MessageDAO extends HibernateDaoSupport {
 		return findByProperty(SENDID, sendid);
 	}
 
-	public List<Message> findBySendstate(Object sendstate) {
-		return findByProperty(SENDSTATE, sendstate);
+	public List<Message> findBySendrole(Object sendrole) {
+		return findByProperty(SENDROLE, sendrole);
 	}
 
 	public List<Message> findByRecvid(Object recvid) {
 		return findByProperty(RECVID, recvid);
 	}
 
-	public List<Message> findByRecvstate(Object recvstate) {
-		return findByProperty(RECVSTATE, recvstate);
+	public List<Message> findByRecvrole(Object recvrole) {
+		return findByProperty(RECVROLE, recvrole);
 	}
 
 	public List<Message> findByContent(Object content) {
 		return findByProperty(CONTENT, content);
+	}
+
+	public List<Message> findByState(Object state) {
+		return findByProperty(STATE, state);
 	}
 
 	public List findAll() {

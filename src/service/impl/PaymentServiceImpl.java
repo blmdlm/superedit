@@ -50,7 +50,7 @@ public class PaymentServiceImpl implements PaymentService{
 
 	@Override
 	public Payment getByScriptid(int id) {
-		return paymentDAO.findByScriptId(id).get(0);
+		return (Payment) paymentDAO.findByScriptId(id).get(0);
 	}
 
 }
